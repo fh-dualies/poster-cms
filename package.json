@@ -6,9 +6,10 @@
   },
   "scripts": {
     "format": "prettier --write \"**/*.{html,css,php,md,json,yml}\"",
-    "format:check": "prettier --check \"**/*.{html,css,php,md,json,yml}\""
+    "validate": "html-validator src '--ignore=Trailing slash on void elements'"
   },
   "devDependencies": {
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "w3c-html-validator": "^1.8.3"
   }
 }
