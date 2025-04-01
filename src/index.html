@@ -2,53 +2,63 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Poster CMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poster CMS - Overview</title>
     <link rel="icon" href="./static/images/logo/favicon.ico" sizes="any" />
   </head>
   <body>
     <header>
-      <h1>Welcome to the CMS</h1>
+      <h1>Welcome to the Poster CMS</h1>
       <nav>
         <ul>
           <li><a href="./index.html">Overview</a></li>
           <li><a href="./pages/account.html">Account</a></li>
+          <li><a href="./pages/login.html">Login / Register</a></li>
+          <li><a href="./pages/poster-designer.html">Poster designer</a></li>
+          <li><a href="./pages/media.html">Media</a></li>
         </ul>
       </nav>
     </header>
+
     <main>
       <section>
         <h2>All Posters</h2>
         <div>
           <article>
-            <a href="./pages/detail-view.html">
-              <h3>Poster 1</h3>
-              <img
-                src="./static/images/poster1.jpg"
-                alt="Poster 1"
-                width="350"
-                height="500"
-              />
-            </a>
+            <figure>
+              <a href="./pages/detail-view.html">
+                <img
+                  src="./static/images/poster1.jpg"
+                  alt="Poster 1 Thumbnail"
+                  width="350"
+                  height="500"
+                />
+                <figcaption>Poster 1</figcaption>
+              </a>
+            </figure>
             <time datetime="2025-03-31">March 31, 2025</time>
           </article>
+
           <article>
-            <a href="./pages/detail-view.html">
-              <h3>Poster 2</h3>
-              <img
-                src="./static/images/poster2.jpg"
-                alt="Poster 1"
-                width="350"
-                height="500"
-              />
-            </a>
-            <time datetime="2023-02-01">March 31, 2025</time>
+            <figure>
+              <a href="./pages/detail-view.html">
+                <img
+                  src="./static/images/poster2.jpg"
+                  alt="Poster 2 Thumbnail"
+                  width="350"
+                  height="500"
+                />
+                <figcaption>Poster 2</figcaption>
+              </a>
+            </figure>
+            <time datetime="2023-02-01">February 1, 2023</time>
           </article>
         </div>
       </section>
     </main>
+
     <footer>
-      <p>&copy; 2025 CMS. All rights reserved.</p>
+      <p>&copy; 2025 Poster CMS. All rights reserved.</p>
     </footer>
   </body>
 </html>

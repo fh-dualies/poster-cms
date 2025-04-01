@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poster CMS - Media</title>
+    <link rel="icon" href="../static/images/logo/favicon.ico" sizes="any" />
+  </head>
+  <body>
+    <header>
+      <h1>Media Management</h1>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Overview</a></li>
+          <li><a href="account.html">Account</a></li>
+          <li><a href="login.html">Login / Register</a></li>
+          <li><a href="poster-designer.html">Poster designer</a></li>
+          <li><a href="media.html">Media</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Upload New Media</h2>
+        <form>
+          <fieldset>
+            <legend>Media Upload</legend>
+            <label for="media-file">Select file:</label>
+            <input type="file" id="media-file" name="media-file" />
+            <br />
+            <p>You can also drag and drop your media files here.</p>
+          </fieldset>
+          <button type="submit">Upload Media</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>Current Media</h2>
+        <ul>
+          <li>
+            <figure>
+              <img
+                src="../static/images/poster1.jpg"
+                alt="Media file example"
+                width="150"
+                height="200"
+              />
+              <figcaption>poster1.jpg</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="../static/images/poster2.jpg"
+                alt="Media file example"
+                width="150"
+                height="200"
+              />
+              <figcaption>poster2.jpg</figcaption>
+            </figure>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Poster CMS. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
