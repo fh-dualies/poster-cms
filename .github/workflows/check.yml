@@ -1,0 +1,36 @@
+name: check
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set node version
+        run: echo "node_version=$(cat ../.nvmrc)" >> $GITHUB_ENV
+
+      - name: Use node ${{ env.node_version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ env.node_version }}'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check format
+        run: npm run format:check
+
+      - name: Check html semantic
+        run: npm run semantic:check
