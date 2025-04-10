@@ -12,3 +12,5 @@
 - Tom Steinbach
 
 #### Task sheet 1: [ss25-www1-p01](/assets/ss25-www1-p01.pdf)
+
+#### Task sheet 2: [ss25-www1-p02](/assets/ss25-www1-p02.pdf)
