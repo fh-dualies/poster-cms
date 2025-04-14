@@ -9,63 +9,113 @@
   </head>
   <body>
     <header>
-      <h1>Media Management</h1>
-      <nav>
-        <ul>
-          <li><a href="../index.html">Overview</a></li>
-          <li><a href="account.html">Account</a></li>
-          <li><a href="login.html">Login / Register</a></li>
-          <li><a href="poster-designer.html">Poster designer</a></li>
-          <li><a href="media.html">Media</a></li>
-        </ul>
-      </nav>
+      <div class="container">
+        <div class="logo">
+          <a href="../index.html">Poster CMS</a>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html">Overview</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="poster-designer.html">Poster designer</a></li>
+            <li><a href="media.html">Media</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <section>
-        <h2>Upload New Media</h2>
-        <form>
-          <fieldset>
-            <legend>Media Upload</legend>
-            <label for="media-file">Select file:</label>
-            <input type="file" id="media-file" name="media-file" />
-            <p>You can also drag and drop your media files here.</p>
-          </fieldset>
-          <button type="submit">Upload Media</button>
-        </form>
+    <main class="container">
+      <header>
+        <h1>Media Library</h1>
+      </header>
+
+      <section class="upload-area">
+        <div>
+          <h2>Drag & Drop Files</h2>
+          <p>or</p>
+          <label class="button">
+            <input type="file" accept="image/*" multiple />
+            <span>Browse Files</span>
+          </label>
+          <p>Supported formats: jpg, png, gif, svg</p>
+        </div>
       </section>
 
       <section>
-        <h2>Current Media</h2>
-        <ul>
-          <li>
-            <figure>
-              <img
-                src="../static/images/poster1.jpg"
-                alt="Media file example"
-                width="150"
-                height="200"
-              />
-              <figcaption>poster1.jpg</figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img
-                src="../static/images/poster2.jpg"
-                alt="Media file example"
-                width="150"
-                height="200"
-              />
-              <figcaption>poster2.jpg</figcaption>
-            </figure>
-          </li>
-        </ul>
+        <h2>All Media Items</h2>
+
+        <div class="media-grid">
+          <article>
+            <div class="preview">
+              <img src="../static/images/placeholder.jpg" alt="Image 1" />
+            </div>
+
+            <div class="info">
+              <h5>Media name</h5>
+              <button>Delete</button>
+            </div>
+          </article>
+
+          <article>
+            <div class="preview">
+              <img src="../static/images/placeholder.jpg" alt="Image 1" />
+            </div>
+
+            <div class="info">
+              <h5>Media name</h5>
+              <button>Delete</button>
+            </div>
+          </article>
+
+          <article>
+            <div class="preview">
+              <img src="../static/images/placeholder.jpg" alt="Image 1" />
+            </div>
+
+            <div class="info">
+              <h5>Media name</h5>
+              <button>Delete</button>
+            </div>
+          </article>
+
+          <article>
+            <div class="preview">
+              <img src="../static/images/placeholder.jpg" alt="Image 1" />
+            </div>
+
+            <div class="info">
+              <h5>Media name</h5>
+              <button>Delete</button>
+            </div>
+          </article>
+        </div>
       </section>
     </main>
 
     <footer>
-      <p>&copy; 2025 Poster CMS. All rights reserved.</p>
+      <div class="container">
+        <div>
+          <p>&copy; 2025 FH Münster - Labor für Softwarearchitektur</p>
+          <p>Creative Technologies Lab - Web Development I</p>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a href="">About</a>
+            </li>
+            <li>
+              <a href="">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="">Terms of Use</a>
+            </li>
+            <li>
+              <a href="">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </footer>
   </body>
 </html>

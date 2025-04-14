@@ -9,91 +9,111 @@
   </head>
   <body>
     <header>
-      <h1>Poster Detail View</h1>
-      <nav>
-        <ul>
-          <li><a href="../index.html">Overview</a></li>
-          <li><a href="account.html">Account</a></li>
-          <li><a href="login.html">Login / Register</a></li>
-          <li><a href="poster-designer.html">Poster designer</a></li>
-          <li><a href="media.html">Media</a></li>
-        </ul>
-      </nav>
+      <div class="container">
+        <div class="logo">
+          <a href="../index.html">Poster CMS</a>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html">Overview</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="poster-designer.html">Poster designer</a></li>
+            <li><a href="media.html">Media</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <article>
-        <h2>Poster Detail: Poster 1</h2>
-        <header class="poster-header">
-          <p>Author: Leon Goretzka</p>
-          <p>
-            Creation Date:
-            <time datetime="2025-03-31">March 31, 2025</time>
-          </p>
-        </header>
+    <main class="container">
+      <header>
+        <h1>Poster title 1</h1>
+        <div>
+          <a class="button" href="">Edit</a>
+          <button class="secondary">Print</button>
+        </div>
+      </header>
 
-        <section class="poster-content">
-          <h2>Poster Title: Poster 1</h2>
-          <p>
-            <i>
+      <div class="poster-detail">
+        <div class="meta-info">
+          <p>Created by: test test</p>
+          <time datetime="2025-03-31">March 31, 2025</time>
+        </div>
+
+        <section>
+          <h3>Section 1</h3>
+          <div class="content">
+            <p class="content">
               Leon Goretzka is an extraordinarily gifted individual. Not only is
               he a fantastic football player, but he also invented this
               state-of-the-art poster. What an honor to enjoy this work of art!
-            </i>
-          </p>
-
-          <h3>Introduction</h3>
-          <p>
-            The Avengers are a legendary team of superheroes assembled by
-            S.H.I.E.L.D. to protect the Earth from powerful and unpredictable
-            threats. Originally formed by iconic heroes like Iron Man, Captain
-            America, Thor, Hulk, Black Widow, and Hawkeye, the team has grown
-            over time to include characters such as Spider-Man, Black Panther,
-            Doctor Strange, Scarlet Witch, and many more. Despite their
-            individual differences, they unite when the world needs them most.
-          </p>
-
-          <h3>Legacy of Heroes</h3>
-          <p>
-            The Avengers are more than just a team; they are a legacy of heroism
-            that spans generations. Their battles against foes like Loki,
-            Ultron, and Thanos have proven that unity is their greatest
-            strength.
-          </p>
-
-          <h3>Guardians of Tomorrow</h3>
-          <p>
-            United by fate and driven by duty, the Avengers are Earth's greatest
-            defenders. Their influence spans the globe and even the cosmos.
-          </p>
-
-          <figure>
+            </p>
             <img
-              src="../static/images/poster1.jpg"
+              src="../static/images/placeholder.jpg"
               alt="Detailed view of Poster 1"
-              width="700"
-              height="1000"
             />
-            <figcaption>Poster 1 in detail</figcaption>
-          </figure>
+          </div>
         </section>
 
-        <footer class="poster-footer">
-          <p>
-            Last Update:
-            <time datetime="2025-04-01">April 1, 2025</time>
-          </p>
-        </footer>
+        <section>
+          <h3>Section 2</h3>
+          <div class="content">
+            <p class="content">
+              Leon Goretzka is an extraordinarily gifted individual. Not only is
+              he a fantastic football player, but he also invented this
+              state-of-the-art poster. What an honor to enjoy this work of art!
+            </p>
+            <img
+              src="../static/images/placeholder.jpg"
+              alt="Detailed view of Poster 1"
+            />
+          </div>
+        </section>
 
-        <div class="poster-controls">
-          <button type="button">Print / Export</button>
-          <a href="poster-designer.html">Edit Poster</a>
-        </div>
-      </article>
+        <section>
+          <h3>Section 3</h3>
+          <div class="content">
+            <p class="content">
+              Leon Goretzka is an extraordinarily gifted individual. Not only is
+              he a fantastic football player, but he also invented this
+              state-of-the-art poster. What an honor to enjoy this work of art!
+            </p>
+            <img
+              src="../static/images/placeholder.jpg"
+              alt="Detailed view of Poster 1"
+            />
+          </div>
+        </section>
+
+        <footer>
+          <p>© 2025 FH Münster - Poster CMS</p>
+        </footer>
+      </div>
     </main>
 
     <footer>
-      <p>&copy; 2025 Poster CMS. All rights reserved.</p>
+      <div class="container">
+        <div>
+          <p>&copy; 2025 FH Münster - Labor für Softwarearchitektur</p>
+          <p>Creative Technologies Lab - Web Development I</p>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a href="">About</a>
+            </li>
+            <li>
+              <a href="">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="">Terms of Use</a>
+            </li>
+            <li>
+              <a href="">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </footer>
   </body>
 </html>

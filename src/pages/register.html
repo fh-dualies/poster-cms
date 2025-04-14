@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Poster CMS - Login</title>
+    <title>Poster CMS - Register</title>
     <link rel="icon" href="../static/images/logo/favicon.ico" sizes="any" />
     <link rel="stylesheet" href="../styles/main.css" />
   </head>
@@ -28,21 +28,30 @@
     <main class="container">
       <section class="auth-container">
         <form>
-          <h1>Login</h1>
+          <h1>Register</h1>
 
           <div>
-            <label for="login-email">Email:</label>
-            <input type="email" id="login-email" name="login-email" />
+            <label for="register-name">Full Name:</label>
+            <input type="text" id="register-name" name="register-name" />
           </div>
 
           <div>
-            <label for="login-password">Password:</label>
-            <input type="password" id="login-password" name="login-password" />
+            <label for="register-email">Email:</label>
+            <input type="email" id="register-email" name="register-email" />
+          </div>
+
+          <div>
+            <label for="register-password">Password:</label>
+            <input
+              type="password"
+              id="register-password"
+              name="register-password"
+            />
           </div>
 
           <button type="submit">Log In</button>
 
-          <p>Don't have an account? <a href="./register.html">Register</a></p>
+          <p>Already have an account? <a href="./login.html">Login</a></p>
         </form>
       </section>
     </main>

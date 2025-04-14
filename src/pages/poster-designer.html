@@ -9,22 +9,29 @@
   </head>
   <body>
     <header>
-      <h1>Poster Designer</h1>
-      <nav>
-        <ul>
-          <li><a href="../index.html">Overview</a></li>
-          <li><a href="account.html">Account</a></li>
-          <li><a href="login.html">Login / Register</a></li>
-          <li><a href="poster-designer.html">Poster designer</a></li>
-          <li><a href="media.html">Media</a></li>
-        </ul>
-      </nav>
+      <div class="container">
+        <div class="logo">
+          <a href="../index.html">Poster CMS</a>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html">Overview</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="poster-designer.html">Poster designer</a></li>
+            <li><a href="media.html">Media</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
-    <main>
+    <main class="container">
+      <header>
+        <h1>Poster Designer</h1>
+      </header>
+
       <form>
-        <fieldset>
-          <legend>Poster Header Meta-Data</legend>
+        <div>
           <label for="poster-author">Author Name:</label>
           <input
             type="text"
@@ -32,39 +39,70 @@
             name="poster-author"
             placeholder="Enter author name"
           />
+        </div>
+
+        <div>
           <label for="poster-date">Creation Date:</label>
           <input type="date" id="poster-date" name="poster-date" />
-        </fieldset>
+        </div>
 
-        <fieldset>
-          <legend>Main Poster Content</legend>
+        <div>
           <label for="headline">Main Headline:</label>
           <input type="text" id="headline" name="headline" />
+        </div>
 
-          <label for="s1headline">Section 1 Headline:</label>
-          <input type="text" id="s1headline" name="s1headline" />
-          <label for="s1text">Section 1 Text:</label>
-          <textarea id="s1text" name="s1text"></textarea>
-          <label for="section-1-img">Image:</label>
-          <input type="file" id="section-1-img" name="section-1-img" />
+        <div class="section-editor">
+          <div>
+            <label for="s1headline">Section 1 Headline:</label>
+            <input type="text" id="s1headline" name="s1headline" />
+          </div>
 
-          <label for="s2headline">Section 2 Headline:</label>
-          <input type="text" id="s2headline" name="s2headline" />
-          <label for="s2text">Section 2 Text:</label>
-          <textarea id="s2text" name="s2text"></textarea>
-          <label for="section-2-img">Image (Optional):</label>
-          <input type="file" id="section-2-img" name="section-2-img" />
+          <div>
+            <label for="s1text">Section 1 Text:</label>
+            <textarea id="s1text" name="s1text"></textarea>
+          </div>
 
-          <label for="s3headline">Section 3 Headline:</label>
-          <input type="text" id="s3headline" name="s3headline" />
-          <label for="s3text">Section 3 Text:</label>
-          <textarea id="s3text" name="s3text"></textarea>
-          <label for="section-3-img">Image (Optional):</label>
-          <input type="file" id="section-3-img" name="section-3-img" />
-        </fieldset>
+          <div>
+            <label for="section-1-img">Image:</label>
+            <input type="file" id="section-1-img" name="section-1-img" />
+          </div>
+        </div>
 
-        <fieldset>
-          <legend>Poster Footer Meta-Data</legend>
+        <div class="section-editor">
+          <div>
+            <label for="s2headline">Section 2 Headline:</label>
+            <input type="text" id="s2headline" name="s2headline" />
+          </div>
+
+          <div>
+            <label for="s2text">Section 2 Text:</label>
+            <textarea id="s2text" name="s2text"></textarea>
+          </div>
+
+          <div>
+            <label for="section-2-img">Image (Optional):</label>
+            <input type="file" id="section-2-img" name="section-2-img" />
+          </div>
+        </div>
+
+        <div class="section-editor">
+          <div>
+            <label for="s3headline">Section 3 Headline:</label>
+            <input type="text" id="s3headline" name="s3headline" />
+          </div>
+
+          <div>
+            <label for="s3text">Section 3 Text:</label>
+            <textarea id="s3text" name="s3text"></textarea>
+          </div>
+
+          <div>
+            <label for="section-3-img">Image (Optional):</label>
+            <input type="file" id="section-3-img" name="section-3-img" />
+          </div>
+        </div>
+
+        <div>
           <label for="poster-footer">
             Additional Poster Info (e.g. version):
           </label>
@@ -74,14 +112,35 @@
             name="poster-footer"
             placeholder="Enter additional meta-data"
           />
-        </fieldset>
+        </div>
 
         <button type="submit">Save Poster</button>
       </form>
     </main>
 
     <footer>
-      <p>&copy; 2025 Poster CMS</p>
+      <div class="container">
+        <div>
+          <p>&copy; 2025 FH Münster - Labor für Softwarearchitektur</p>
+          <p>Creative Technologies Lab - Web Development I</p>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a href="">About</a>
+            </li>
+            <li>
+              <a href="">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="">Terms of Use</a>
+            </li>
+            <li>
+              <a href="">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </footer>
   </body>
 </html>
