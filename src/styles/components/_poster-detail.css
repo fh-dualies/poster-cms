@@ -26,7 +26,7 @@
   gap: var(--spacing-lg);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .poster-detail .content {
     grid-template-columns: 3fr 2fr;
   }

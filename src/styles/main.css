@@ -1,19 +1,15 @@
 @import url('base/_variables.css');
 @import url('base/_reset.css');
 @import url('base/_typo.css');
-
 @import url('layout/_header.css');
 @import url('layout/_footer.css');
 @import url('layout/_main.css');
-
 @import url('components/_button.css');
 @import url('components/_form.css');
 @import url('components/_poster-grid.css');
 @import url('components/_poster-detail.css');
 @import url('components/_upload-area.css');
 @import url('components/_media-grid.css');
-
 @import url('pages/_auth.css');
-
 @import url('utils/_responsive.css');
 @import url('utils/_print.css');
