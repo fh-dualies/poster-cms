@@ -16,7 +16,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-md);
 }
 
 .upload-area input {
@@ -31,5 +30,4 @@
 .upload-area p {
   font-size: 0.75rem;
   color: var(--text-light);
-  margin-top: var(--spacing-sm);
 }
