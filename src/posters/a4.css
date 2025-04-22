@@ -1,0 +1,35 @@
+main {
+  background-color: aqua;
+  width: 595px;
+  height: 842px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.Header {
+  background-color: black;
+  width: 100%;
+  height: 65px;
+}
+.Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: darkgrey;
+  height: 700px;
+  width: 100%;
+  gap: 50px;
+}
+.Poster {
+  background-color: green;
+  height: 33%;
+  width: 100%;
+}
+.Footer {
+  background-color: black;
+  width: 100%;
+  height: 25px;
+}
