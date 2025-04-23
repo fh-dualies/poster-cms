@@ -3,32 +3,34 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>a3</title>
-    <link rel="stylesheet" href="./a3.css" />
+    <title>A3 Layout Example</title>
+    <link rel="stylesheet" href="./poster.css" />
   </head>
   <body>
-    <main class="container">
-      <div class="header"></div>
+    <main class="page-container layout-a3">
+      <header class="page-header"></header>
 
-      <div class="section-container">
-        <div class="section">
-          <div class="section-headline"></div>
-          <div class="section-text"></div>
-          <div class="section-image"></div>
-        </div>
-        <div class="section">
-          <div class="section-image"></div>
-          <div class="section-headline"></div>
-          <div class="section-text"></div>
-        </div>
-        <div class="section">
-          <div class="section-headline"></div>
-          <div class="section-text"></div>
-          <div class="section-image"></div>
-        </div>
-      </div>
+      <section class="content-area">
+        <article class="content-item">
+          <div class="item-headline"></div>
+          <div class="item-text"></div>
+          <div class="item-image"></div>
+        </article>
 
-      <div class="footer"></div>
+        <article class="content-item">
+          <div class="item-image"></div>
+          <div class="item-headline"></div>
+          <div class="item-text"></div>
+        </article>
+
+        <article class="content-item">
+          <div class="item-headline"></div>
+          <div class="item-text"></div>
+          <div class="item-image"></div>
+        </article>
+      </section>
+
+      <footer class="page-footer"></footer>
     </main>
   </body>
 </html>

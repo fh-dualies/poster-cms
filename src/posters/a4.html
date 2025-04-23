@@ -3,44 +3,46 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Poster CMS - A4</title>
-    <link rel="icon" href="../static/images/logo/favicon.ico" sizes="any" />
-    <link rel="stylesheet" href="./a4.css" />
+    <title>A4 Layout Example</title>
+    <link rel="stylesheet" href="./poster.css" />
   </head>
-
   <body>
-    <main>
-      <div class="Header"></div>
-      <div class="Content">
-        <div class="Poster">
-          <div class="left">
-            <div class="Headline"></div>
-            <div class="Text"></div>
+    <main class="page-container layout-a4">
+      <header class="page-header"></header>
+
+      <section class="content-area">
+        <article class="content-item">
+          <div class="item-column item-column-left">
+            <div class="item-headline"></div>
+            <div class="item-text"></div>
           </div>
-          <div class="right">
-            <div class="Image"></div>
+          <div class="item-column item-column-right">
+            <div class="item-image"></div>
           </div>
-        </div>
-        <div class="Poster">
-          <div class="left">
-            <div class="Image"></div>
+        </article>
+
+        <article class="content-item">
+          <div class="item-column item-column-left">
+            <div class="item-image"></div>
           </div>
-          <div class="right">
-            <div class="Headline"></div>
-            <div class="Text"></div>
+          <div class="item-column item-column-right">
+            <div class="item-headline"></div>
+            <div class="item-text"></div>
           </div>
-        </div>
-        <div class="Poster">
-          <div class="left">
-            <div class="Headline"></div>
-            <div class="Text"></div>
+        </article>
+
+        <article class="content-item">
+          <div class="item-column item-column-left">
+            <div class="item-headline"></div>
+            <div class="item-text"></div>
           </div>
-          <div class="right">
-            <div class="Image"></div>
+          <div class="item-column item-column-right">
+            <div class="item-image"></div>
           </div>
-        </div>
-      </div>
-      <div class="Footer"></div>
+        </article>
+      </section>
+
+      <footer class="page-footer"></footer>
     </main>
   </body>
 </html>
