@@ -21,7 +21,6 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  color: var(--text-color-body);
   line-height: 1.5;
   font-family:
     Inter,
