@@ -1,3 +1,8 @@
+<?php
+if (!isset($title) || !isset($dirPrefix)) {
+  throw new Exception('Missing required properties: title, dirPrefix');
+} ?>
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />

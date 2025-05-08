@@ -50,12 +50,12 @@ $formSections = [
       <input type="text" id="headline" name="headline" />
     </div>
 
-    <?php foreach ($formSections as $section) {
-      include_with_prop(__DIR__ . '/../components/poster-section-form.php', [
-        'prefix' => $section['prefix'],
-        'name' => $section['name'],
-      ]);
-    } ?>
+      <?php foreach ($formSections as $section) {
+        include_with_prop(__DIR__ . '/../components/poster-section-form.php', [
+          'prefix' => $section['prefix'],
+          'name' => $section['name'],
+        ]);
+      } ?>
 
     <div>
       <label for="poster-footer">
