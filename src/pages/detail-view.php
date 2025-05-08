@@ -1,5 +1,39 @@
 <?php
-require_once __DIR__ . '/../shared/util.php'; ?>
+require_once __DIR__ . '/../shared/util.php';
+
+$sections = [
+  [
+    'title' => 'Section 1',
+    'text' => "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+          erat, sed diam voluptua. At vero eos et accusam et justo duo
+          dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+          sanctus est Lorem ipsum dolor sit amet.",
+    'image' => '../static/images/placeholder.jpg',
+    'alt' => 'Detailed view of Poster 1',
+  ],
+  [
+    'title' => 'Section 2',
+    'text' => "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+          erat, sed diam voluptua. At vero eos et accusam et justo duo
+          dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+          sanctus est Lorem ipsum dolor sit amet.",
+    'image' => '../static/images/placeholder.jpg',
+    'alt' => 'Detailed view of Poster 2',
+  ],
+  [
+    'title' => 'Section 3',
+    'text' => "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+          erat, sed diam voluptua. At vero eos et accusam et justo duo
+          dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+          sanctus est Lorem ipsum dolor sit amet.",
+    'image' => '../static/images/placeholder.jpg',
+    'alt' => 'Detailed view of Poster 3',
+  ],
+];
+?>
 
 <html lang="en">
 <?php include_with_prop(__DIR__ . '/../components/head.php', [
@@ -7,7 +41,7 @@ require_once __DIR__ . '/../shared/util.php'; ?>
   'dirPrefix' => '../',
 ]); ?>
 <body>
-<?php require __DIR__ . '/../components/navigation.php'; ?>
+<?php require __DIR__ . '/../components/nav/navigation.php'; ?>
 <main class="container">
   <header>
     <h1>Poster title 1</h1>
@@ -23,56 +57,15 @@ require_once __DIR__ . '/../shared/util.php'; ?>
       <time datetime="2025-03-31">March 31, 2025</time>
     </div>
 
-    <section>
-      <h3>Section 1</h3>
-      <div class="content">
-        <p class="content">
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-          erat, sed diam voluptua. At vero eos et accusam et justo duo
-          dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-          sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <img
-          src="../static/images/placeholder.jpg"
-          alt="Detailed view of Poster 1"
-        />
-      </div>
-    </section>
 
-    <section>
-      <h3>Section 2</h3>
-      <div class="content">
-        <p class="content">
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-          erat, sed diam voluptua. At vero eos et accusam et justo duo
-          dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-          sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <img
-          src="../static/images/placeholder.jpg"
-          alt="Detailed view of Poster 1"
-        />
-      </div>
-    </section>
-
-    <section>
-      <h3>Section 3</h3>
-      <div class="content">
-        <p class="content">
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-          erat, sed diam voluptua. At vero eos et accusam et justo duo
-          dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-          sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <img
-          src="../static/images/placeholder.jpg"
-          alt="Detailed view of Poster 1"
-        />
-      </div>
-    </section>
+    <?php foreach ($sections as $section) {
+      include_with_prop(__DIR__ . '/../components/poster-section.php', [
+        'title' => $section['title'],
+        'text' => $section['text'],
+        'image' => $section['image'],
+        'alt' => $section['alt'],
+      ]);
+    } ?>
 
     <footer>
       <p>© 2025 FH Münster - Poster CMS</p>
@@ -80,6 +73,6 @@ require_once __DIR__ . '/../shared/util.php'; ?>
   </div>
 </main>
 
-<?php require __DIR__ . '/../components/footer.php'; ?>
+<?php require __DIR__ . '/../components/nav/footer.php'; ?>
 </body>
 </html>

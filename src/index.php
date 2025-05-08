@@ -7,7 +7,7 @@ require_once __DIR__ . '/shared/util.php'; ?>
   'dirPrefix' => './',
 ]); ?>
 <body>
-<?php require __DIR__ . '/components/navigation.php'; ?>
+<?php require __DIR__ . '/components/nav/navigation.php'; ?>
 
 <main class="container">
   <header>
@@ -69,6 +69,6 @@ require_once __DIR__ . '/shared/util.php'; ?>
   </section>
 </main>
 
-<?php require __DIR__ . '/components/footer.php'; ?>
+<?php require __DIR__ . '/components/nav/footer.php'; ?>
 </body>
 </html>
