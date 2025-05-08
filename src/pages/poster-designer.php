@@ -1,5 +1,21 @@
 <?php
-require_once __DIR__ . '/../shared/util.php'; ?>
+require_once __DIR__ . '/../shared/util.php';
+
+$formSections = [
+  [
+    'prefix' => 's1',
+    'name' => 'Section 1',
+  ],
+  [
+    'prefix' => 's2',
+    'name' => 'Section 2',
+  ],
+  [
+    'prefix' => 's3',
+    'name' => 'Section 3',
+  ],
+];
+?>
 
 <html lang="en">
 <?php include_with_prop(__DIR__ . '/../components/head.php', [
@@ -34,60 +50,16 @@ require_once __DIR__ . '/../shared/util.php'; ?>
       <input type="text" id="headline" name="headline" />
     </div>
 
-    <div class="section-editor">
-      <div>
-        <label for="s1headline">Section 1 Headline:</label>
-        <input type="text" id="s1headline" name="s1headline" />
-      </div>
-
-      <div>
-        <label for="s1text">Section 1 Text:</label>
-        <textarea id="s1text" name="s1text"></textarea>
-      </div>
-
-      <div>
-        <label for="section-1-img">Image:</label>
-        <input type="file" id="section-1-img" name="section-1-img" />
-      </div>
-    </div>
-
-    <div class="section-editor">
-      <div>
-        <label for="s2headline">Section 2 Headline:</label>
-        <input type="text" id="s2headline" name="s2headline" />
-      </div>
-
-      <div>
-        <label for="s2text">Section 2 Text:</label>
-        <textarea id="s2text" name="s2text"></textarea>
-      </div>
-
-      <div>
-        <label for="section-2-img">Image (Optional):</label>
-        <input type="file" id="section-2-img" name="section-2-img" />
-      </div>
-    </div>
-
-    <div class="section-editor">
-      <div>
-        <label for="s3headline">Section 3 Headline:</label>
-        <input type="text" id="s3headline" name="s3headline" />
-      </div>
-
-      <div>
-        <label for="s3text">Section 3 Text:</label>
-        <textarea id="s3text" name="s3text"></textarea>
-      </div>
-
-      <div>
-        <label for="section-3-img">Image (Optional):</label>
-        <input type="file" id="section-3-img" name="section-3-img" />
-      </div>
-    </div>
+    <?php foreach ($formSections as $section) {
+      include_with_prop(__DIR__ . '/../components/poster-section-form.php', [
+        'prefix' => $section['prefix'],
+        'name' => $section['name'],
+      ]);
+    } ?>
 
     <div>
       <label for="poster-footer">
-        Additional Poster Info (e.g. version):
+        Additional Poster Info (e.g., version):
       </label>
       <input
         type="text"
