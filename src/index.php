@@ -1,21 +1,25 @@
-<!doctype html>
+<?php
+  require_once __DIR__."/shared/util.php";
+?>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Poster CMS - Overview</title>
-    <link rel="icon" href="./static/images/logo/favicon.ico" sizes="any" />
-    <link rel="stylesheet" href="./styles/main.css" />
-  </head>
+  <?php
+    include_with_prop(
+        __DIR__."/components/head.php", array(
+            "title" => "Poster CMS - Overview",
+        )
+    );
+  ?>
+
   <body>
     <header>
       <div class="container">
         <div class="logo">
-          <a href="./index.html">Poster CMS</a>
+          <a href="./index.php">Poster CMS</a>
         </div>
         <nav>
           <ul>
-            <li><a href="./index.html">Overview</a></li>
+            <li><a href="./index.php">Overview</a></li>
             <li><a href="./pages/account.html">Account</a></li>
             <li><a href="./pages/login.html">Login</a></li>
             <li><a href="./pages/poster-designer.html">Poster designer</a></li>
