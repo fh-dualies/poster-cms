@@ -7,22 +7,7 @@ require_once __DIR__ . '/shared/util.php'; ?>
     'dirPrefix' => './',
 ]); ?>
 <body>
-<header>
-  <div class="container">
-    <div class="logo">
-      <a href="./index.php">Poster CMS</a>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="./index.php">Overview</a></li>
-        <li><a href="./pages/account.php">Account</a></li>
-        <li><a href="./pages/login.php">Login</a></li>
-        <li><a href="./pages/poster-designer.php">Poster designer</a></li>
-        <li><a href="./pages/media.php">Media</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+<?php require __DIR__ . '/components/navigation.php'; ?>
 
 <main class="container">
   <header>
