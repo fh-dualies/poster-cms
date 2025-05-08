@@ -1,11 +1,11 @@
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 body,
@@ -35,42 +35,42 @@ tfoot,
 tr,
 th,
 td {
-  margin: 0;
-  padding: 0;
-  border: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 ul,
 ol {
-  list-style: none;
+    list-style: none;
 }
 
 blockquote,
 q {
-  quotes: none;
+    quotes: none;
 }
 
 blockquote::before,
 blockquote::after,
 q::before,
 q::after {
-  content: '';
+    content: '';
 }
 
 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 input,
 button,
 textarea,
 select {
-  font: inherit;
+    font: inherit;
 }

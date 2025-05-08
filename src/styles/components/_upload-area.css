@@ -1,33 +1,33 @@
 .upload-area {
-  background-color: var(--background-light);
-  border: 1px dashed var(--border-color);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-xxl);
-  margin-bottom: var(--spacing-xl);
-  text-align: center;
-  transition: var(--transition);
+    background-color: var(--background-light);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xxl);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+    transition: var(--transition);
 }
 
 .upload-area.dragging {
-  border-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .upload-area > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .upload-area input {
-  display: none;
+    display: none;
 }
 
 .upload-area h2 {
-  font-size: 1.25rem;
-  margin-top: var(--spacing-sm);
+    font-size: 1.25rem;
+    margin-top: var(--spacing-sm);
 }
 
 .upload-area p {
-  font-size: 0.75rem;
-  color: var(--text-light);
+    font-size: 0.75rem;
+    color: var(--text-light);
 }

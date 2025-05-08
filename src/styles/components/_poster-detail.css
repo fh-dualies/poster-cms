@@ -1,54 +1,54 @@
 .poster-detail {
-  background-color: var(--background-color);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  padding: var(--spacing-xl);
-  margin-bottom: var(--spacing-xxl);
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xxl);
 }
 
 .poster-detail > .meta-info {
-  position: static;
-  height: auto;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-md);
-  border-bottom: 1px solid var(--border-color);
+    position: static;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .poster-detail section {
-  margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
 }
 
 .poster-detail .content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-lg);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
 }
 
 @media (width >= 768px) {
-  .poster-detail .content {
-    grid-template-columns: 3fr 2fr;
-  }
+    .poster-detail .content {
+        grid-template-columns: 3fr 2fr;
+    }
 }
 
 .poster-detail img {
-  width: 100%;
-  height: auto;
-  border-radius: var(--border-radius);
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
 }
 
 .poster-detail > footer {
-  background: none;
-  border-top: 1px solid var(--border-color);
-  padding: var(--spacing-md) 0 0;
-  margin-top: var(--spacing-xl);
-  text-align: center;
+    background: none;
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-md) 0 0;
+    margin-top: var(--spacing-xl);
+    text-align: center;
 }
 
 .section-editor {
-  background-color: var(--background-light);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-xl);
+    background-color: var(--background-light);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
 }

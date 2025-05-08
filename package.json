@@ -11,6 +11,7 @@
     "lint:markup": "html-validator src '--ignore=Trailing slash on void elements'"
   },
   "devDependencies": {
+    "@prettier/plugin-php": "^0.22.4",
     "prettier": "^3.5.3",
     "stylelint": "^16.18.0",
     "stylelint-config-standard": "^38.0.0",

@@ -1,17 +1,17 @@
 @media print {
-  header,
-  footer,
-  button {
-    display: none;
-  }
+    header,
+    footer,
+    button {
+        display: none;
+    }
 
-  .poster-detail {
-    box-shadow: none;
-    padding: 0;
-    border: none;
-  }
+    .poster-detail {
+        box-shadow: none;
+        padding: 0;
+        border: none;
+    }
 
-  body {
-    background-color: white;
-  }
+    body {
+        background-color: white;
+    }
 }
