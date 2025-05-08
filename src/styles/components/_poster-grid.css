@@ -1,52 +1,52 @@
 .poster-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-xxl);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xxl);
 }
 
 .poster-grid article {
-    background-color: var(--background-color);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-    transition: var(--transition);
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
 }
 
 .poster-grid article:hover {
-    box-shadow: var(--box-shadow);
+  box-shadow: var(--box-shadow);
 }
 
 .poster-grid a {
-    text-decoration: none;
-    color: var(--text-color);
+  text-decoration: none;
+  color: var(--text-color);
 }
 
 .poster-grid a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .poster-grid .thumbnail {
-    height: 180px;
-    overflow: hidden;
+  height: 180px;
+  overflow: hidden;
 }
 
 .poster-grid img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .poster-grid .info {
-    padding: var(--spacing-md);
+  padding: var(--spacing-md);
 }
 
 .poster-grid h2 {
-    font-size: 1rem;
-    margin-bottom: var(--spacing-xs);
-    font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 500;
 }
 
 .poster-grid time {
-    font-size: 0.75rem;
+  font-size: 0.75rem;
 }

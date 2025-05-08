@@ -1,50 +1,50 @@
 form {
-    background-color: var(--background-color);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    padding: var(--spacing-xl);
-    margin-bottom: var(--spacing-xxl);
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xxl);
 }
 
 label {
-    display: block;
-    margin-bottom: var(--spacing-sm);
-    font-weight: 500;
-    font-size: 0.875rem;
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+  font-size: 0.875rem;
 }
 
 input,
 textarea,
 select {
-    width: 100%;
-    padding: var(--spacing-md);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    font-family: inherit;
-    font-size: 0.875rem;
-    transition: var(--transition);
-    margin-bottom: var(--spacing-lg);
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: var(--transition);
+  margin-bottom: var(--spacing-lg);
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-    outline: none;
-    border-color: var(--primary-color);
+  outline: none;
+  border-color: var(--primary-color);
 }
 
 input[type='file'] {
-    text-align: center;
-    height: 8rem;
-    border: var(--border-color);
-    border-radius: var(--border-radius);
-    border-style: dashed;
-    padding: var(--spacing-sm);
+  text-align: center;
+  height: 8rem;
+  border: var(--border-color);
+  border-radius: var(--border-radius);
+  border-style: dashed;
+  padding: var(--spacing-sm);
 }
 
 small {
-    display: block;
-    margin-top: var(--spacing-xs);
-    color: var(--text-light);
-    font-size: 0.75rem;
+  display: block;
+  margin-top: var(--spacing-xs);
+  color: var(--text-light);
+  font-size: 0.75rem;
 }

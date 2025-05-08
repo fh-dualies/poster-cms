@@ -2,6 +2,6 @@
 
 function include_with_prop($fileName, $prop): void
 {
-    extract($prop);
-    include $fileName;
+  extract($prop);
+  include $fileName;
 }
