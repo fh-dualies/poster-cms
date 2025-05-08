@@ -7,10 +7,10 @@
     include_with_prop(
         __DIR__."/components/head.php", array(
             "title" => "Poster CMS - Overview",
+            "dirPrefix" => "./",
         )
     );
   ?>
-
   <body>
     <header>
       <div class="container">
@@ -20,10 +20,10 @@
         <nav>
           <ul>
             <li><a href="./index.php">Overview</a></li>
-            <li><a href="./pages/account.html">Account</a></li>
-            <li><a href="./pages/login.html">Login</a></li>
-            <li><a href="./pages/poster-designer.html">Poster designer</a></li>
-            <li><a href="./pages/media.html">Media</a></li>
+            <li><a href="./pages/account.php">Account</a></li>
+            <li><a href="./pages/login.php">Login</a></li>
+            <li><a href="./pages/poster-designer.php">Poster designer</a></li>
+            <li><a href="./pages/media.php">Media</a></li>
           </ul>
         </nav>
       </div>
@@ -32,7 +32,7 @@
     <main class="container">
       <header>
         <h1>Poster CMS Overview</h1>
-        <a href="./pages/poster-designer.html" class="button">
+        <a href="./pages/poster-designer.php" class="button">
           Create New Poster
         </a>
       </header>
@@ -42,7 +42,7 @@
 
         <div class="poster-grid">
           <article>
-            <a href="./pages/detail-view.html">
+            <a href="./pages/detail-view.php">
               <div class="thumbnail">
                 <img
                   src="./static/images/placeholder.jpg"
@@ -57,7 +57,7 @@
           </article>
 
           <article>
-            <a href="./pages/detail-view.html">
+            <a href="./pages/detail-view.php">
               <div class="thumbnail">
                 <img
                   src="./static/images/placeholder.jpg"
@@ -72,7 +72,7 @@
           </article>
 
           <article>
-            <a href="./pages/detail-view.html">
+            <a href="./pages/detail-view.php">
               <div class="thumbnail">
                 <img
                   src="./static/images/placeholder.jpg"

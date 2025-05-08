@@ -1,12 +1,16 @@
-<!doctype html>
+<?php
+  require_once __DIR__."/../shared/util.php";
+?>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Poster CMS - Detail View</title>
-    <link rel="icon" href="../static/images/logo/favicon.ico" sizes="any" />
-    <link rel="stylesheet" href="../styles/main.css" />
-  </head>
+  <?php
+    include_with_prop(
+        __DIR__."/../components/head.php", array(
+            "title" => "Poster CMS - Detail View",
+            "dirPrefix" => "../",
+        )
+    );
+  ?>
   <body>
     <header>
       <div class="container">
@@ -16,10 +20,10 @@
         <nav>
           <ul>
             <li><a href="../index.php">Overview</a></li>
-            <li><a href="account.html">Account</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="poster-designer.html">Poster designer</a></li>
-            <li><a href="media.html">Media</a></li>
+            <li><a href="account.php">Account</a></li>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="poster-designer.php">Poster designer</a></li>
+            <li><a href="media.php">Media</a></li>
           </ul>
         </nav>
       </div>
@@ -29,7 +33,7 @@
       <header>
         <h1>Poster title 1</h1>
         <div>
-          <a class="button" href="poster-designer.html">Edit</a>
+          <a class="button" href="poster-designer.php">Edit</a>
           <button class="secondary">Print</button>
         </div>
       </header>

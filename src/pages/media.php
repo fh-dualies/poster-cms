@@ -1,4 +1,7 @@
-<!doctype html>
+<?php
+  require_once __DIR__."/../shared/util.php";
+?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -16,10 +19,10 @@
         <nav>
           <ul>
             <li><a href="../index.php">Overview</a></li>
-            <li><a href="account.html">Account</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="poster-designer.html">Poster designer</a></li>
-            <li><a href="media.html">Media</a></li>
+            <li><a href="account.php">Account</a></li>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="poster-designer.php">Poster designer</a></li>
+            <li><a href="media.php">Media</a></li>
           </ul>
         </nav>
       </div>
