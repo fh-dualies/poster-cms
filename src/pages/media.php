@@ -1,5 +1,24 @@
 <?php
-require_once __DIR__ . '/../shared/util.php'; ?>
+require_once __DIR__ . '/../shared/util.php';
+
+$items = [
+  [
+    'image' => '../static/images/placeholder.jpg',
+    'alt' => 'Image 1',
+    'name' => 'Media name 1',
+  ],
+  [
+    'image' => '../static/images/placeholder.jpg',
+    'alt' => 'Image 2',
+    'name' => 'Media name 2',
+  ],
+  [
+    'image' => '../static/images/placeholder.jpg',
+    'alt' => 'Image 3',
+    'name' => 'Media name 3',
+  ],
+];
+?>
 
 <html lang="en">
 <head>
@@ -33,49 +52,13 @@ require_once __DIR__ . '/../shared/util.php'; ?>
     <h2>All Media Items</h2>
 
     <div class="media-grid">
-      <article>
-        <div class="preview">
-          <img src="../static/images/placeholder.jpg" alt="Image 1" />
-        </div>
-
-        <div class="info">
-          <h5>Media name</h5>
-          <button>Delete</button>
-        </div>
-      </article>
-
-      <article>
-        <div class="preview">
-          <img src="../static/images/placeholder.jpg" alt="Image 1" />
-        </div>
-
-        <div class="info">
-          <h5>Media name</h5>
-          <button>Delete</button>
-        </div>
-      </article>
-
-      <article>
-        <div class="preview">
-          <img src="../static/images/placeholder.jpg" alt="Image 1" />
-        </div>
-
-        <div class="info">
-          <h5>Media name</h5>
-          <button>Delete</button>
-        </div>
-      </article>
-
-      <article>
-        <div class="preview">
-          <img src="../static/images/placeholder.jpg" alt="Image 1" />
-        </div>
-
-        <div class="info">
-          <h5>Media name</h5>
-          <button>Delete</button>
-        </div>
-      </article>
+      <?php foreach ($items as $item) {
+        include_with_prop(__DIR__ . '/../components/media-item.php', [
+          'name' => $item['name'],
+          'image' => $item['image'],
+          'alt' => $item['alt'],
+        ]);
+      } ?>
     </div>
   </section>
 </main>

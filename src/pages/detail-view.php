@@ -58,14 +58,14 @@ $sections = [
     </div>
 
 
-    <?php foreach ($sections as $section) {
-      include_with_prop(__DIR__ . '/../components/poster-section.php', [
-        'title' => $section['title'],
-        'text' => $section['text'],
-        'image' => $section['image'],
-        'alt' => $section['alt'],
-      ]);
-    } ?>
+      <?php foreach ($sections as $section) {
+        include_with_prop(__DIR__ . '/../components/poster-section.php', [
+          'title' => $section['title'],
+          'text' => $section['text'],
+          'image' => $section['image'],
+          'alt' => $section['alt'],
+        ]);
+      } ?>
 
     <footer>
       <p>© 2025 FH Münster - Poster CMS</p>
