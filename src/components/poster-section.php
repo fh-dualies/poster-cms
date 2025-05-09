@@ -1,3 +1,8 @@
+<?php
+if (!isset($title) || !isset($text) || !isset($image) || !isset($alt)) {
+  throw new Exception('Missing required properties: title, text, image, alt');
+} ?>
+
 <section>
   <h3><?php echo $title; ?></h3>
   <div class="content">

@@ -1,3 +1,8 @@
+<?php
+if (!isset($image) || !isset($alt) || !isset($name)) {
+  throw new Exception('Missing required properties: image, alt, name');
+} ?>
+
 <article>
   <div class="preview">
     <img
