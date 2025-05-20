@@ -2,11 +2,12 @@
 if (!isset($title) || !isset($alt) || !isset($image) || !isset($link) || !isset($date) || !isset($datetime)) {
   throw new Exception('Missing required properties: title, alt, image/thumbnail');
 } ?>
+
 <article>
     <a href=<?php echo $link; ?>>
         <div class="thumbnail">
             <img
-                src="<?php echo $image; ?>">
+                src="<?php $image; ?>">
                 alt="<?php echo $alt; ?>"
             />
         </div>
