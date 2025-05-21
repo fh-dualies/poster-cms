@@ -85,9 +85,9 @@ $sections = [
         const format = choice.trim().toUpperCase();
 
         if (format === "A3") {
-            window.open("http://localhost:63342/Praktikum/src/posters/a3.html", "_blank");
+            window.open("http://localhost:63342/Praktikum/posters/a3.html", "_blank");
         } else if (format === "A4") {
-            window.open("http://localhost:63342/Praktikum/src/posters/a4.html", "_blank");
+            window.open("http://localhost:63342/Praktikum/posters/a4.html", "_blank");
         } else {
             alert("Unknown format. Please enter either A3 or A4.");
         }
