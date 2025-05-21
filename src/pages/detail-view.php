@@ -47,7 +47,7 @@ $sections = [
     <h1>Poster title 1</h1>
     <div>
       <a class="button" href="poster-designer.php">Edit</a>
-      <button class="secondary">Print</button>
+      <a class="button secondary" onclick="openPoster()">Print</a>
     </div>
   </header>
 
@@ -69,10 +69,29 @@ $sections = [
 
     <footer>
       <p>© 2025 FH Münster - Poster CMS</p>
-    </footer>
+    </footer>x
   </div>
 </main>
 
 <?php require __DIR__ . '/../components/nav/footer.php'; ?>
 </body>
+
+<script>
+    function openPoster() {
+        const choice = prompt("Open A3 or A4 format? (A3/A4)");
+
+        if (!choice) return;
+
+        const format = choice.trim().toUpperCase();
+
+        if (format === "A3") {
+            window.open("http://localhost:63342/Praktikum/src/posters/a3.html", "_blank");
+        } else if (format === "A4") {
+            window.open("http://localhost:63342/Praktikum/src/posters/a4.html", "_blank");
+        } else {
+            alert("Unknown format. Please enter either A3 or A4.");
+        }
+    }
+</script>
+
 </html>
