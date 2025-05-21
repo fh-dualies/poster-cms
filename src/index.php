@@ -39,7 +39,7 @@ $sections = [
 
 <main class="container">
     <header>
-        <h1>Poster CMS Overview</h1>
+        <h1>Overview</h1>
         <a href="./pages/poster-designer.php" class="button">
             Create New Poster
         </a>

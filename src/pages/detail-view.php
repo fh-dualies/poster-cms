@@ -57,15 +57,14 @@ $sections = [
       <time datetime="2025-03-31">March 31, 2025</time>
     </div>
 
-
-      <?php foreach ($sections as $section) {
-        include_with_prop(__DIR__ . '/../components/poster-section.php', [
-          'title' => $section['title'],
-          'text' => $section['text'],
-          'image' => $section['image'],
-          'alt' => $section['alt'],
-        ]);
-      } ?>
+    <?php foreach ($sections as $section) {
+      include_with_prop(__DIR__ . '/../components/poster-section.php', [
+        'title' => $section['title'],
+        'text' => $section['text'],
+        'image' => $section['image'],
+        'alt' => $section['alt'],
+      ]);
+    } ?>
 
     <footer>
       <p>© 2025 FH Münster - Poster CMS</p>
@@ -80,14 +79,16 @@ $sections = [
     function openPoster() {
         const choice = prompt("Open A3 or A4 format? (A3/A4)");
 
-        if (!choice) return;
+        if (!choice) {
+          return;
+        }
 
         const format = choice.trim().toUpperCase();
 
         if (format === "A3") {
-            window.open("http://localhost:63342/Praktikum/posters/a3.html", "_blank");
+            window.open("../../posters/a3.html", "_blank");
         } else if (format === "A4") {
-            window.open("http://localhost:63342/Praktikum/posters/a4.html", "_blank");
+            window.open("../../posters/a4.html", "_blank");
         } else {
             alert("Unknown format. Please enter either A3 or A4.");
         }
