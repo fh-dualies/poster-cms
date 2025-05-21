@@ -50,7 +50,7 @@ $sections = [
 
         <div class="poster-grid">
             <?php foreach ($sections as $section) {
-              include_with_prop(__DIR__ . '/components/posterItem.php', $section);
+              include_with_prop(__DIR__ . '/components/poster-item.php', $section);
             } ?>
         </div>
     </section>

@@ -69,7 +69,7 @@ $sections = [
 
     <footer>
       <p>© 2025 FH Münster - Poster CMS</p>
-    </footer>x
+    </footer>
   </div>
 </main>
 
