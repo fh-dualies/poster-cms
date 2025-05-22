@@ -1,6 +1,6 @@
 <?php
 
-enum PostRouteEnum
+enum RouteEnum
 {
   case POST_REDIRECT;
 
@@ -13,7 +13,7 @@ enum PostRouteEnum
 
   public static function get_get_routes(): array
   {
-      return [self::GET_POSTERS->get_name()];
+    return [self::GET_POSTERS->get_name()];
   }
 
   public function get_name(): string

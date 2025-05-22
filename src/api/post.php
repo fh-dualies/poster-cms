@@ -1,37 +1,38 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
+if(session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    redirect_to_not_found();
+    exit();
 }
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/route-enum.php';
+require_once __DIR__ . '/../shared/util.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  header('location: ' . FilePathEnum::NOT_FOUND->get_path());
-} else {
-  match_call();
-}
+handle_post_request();
 
-function match_call(): void
+function handle_post_request(): void
 {
-  $functions = PostRouteEnum::get_post_routes();
+  $functions = RouteEnum::get_post_routes();
 
   foreach ($functions as $function) {
     if (isset($_POST[$function])) {
-      try {
-        $function($_POST[$function]);
-      } catch (PDOException | Exception $e) {
-        print_r($e);
-      }
-
+      execute_function($function, $_POST[$function]);
       return;
     }
   }
 
-  header('location: ' . FilePathEnum::NOT_FOUND->get_path());
+  redirect_to_not_found();
 }
 
-function redirect(string $path): void
+function execute_function(string $function, $param): void
 {
-  header("location: $path");
+  try {
+    $function($param);
+  } catch (PDOException | Exception $e) {
+    log_error($e);
+  }
 }
