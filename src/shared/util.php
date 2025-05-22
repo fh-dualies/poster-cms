@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/response-status-enum.php';
+
 function include_with_prop($fileName, $prop): void
 {
   extract($prop);
@@ -11,6 +13,15 @@ function redirect_to_not_found(): void
 {
     header('location: ' . FilePathEnum::NOT_FOUND->get_path());
     exit();
+}
+
+function create_response(ResponseStatusEnum $status, string $message, array $data): array
+{
+    return [
+        'status' => $status->get_name(),
+        'message' => $message,
+        'data' => $data,
+    ];
 }
 
 function log_error(Throwable $e): void
