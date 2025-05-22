@@ -4,17 +4,17 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
-require_once __DIR__ . '/../shared/post-route-enum.php';
+require_once __DIR__ . '/../shared/route-enum.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  header('location: ' . FilePathEnum::NOT_FOUND->getPath());
+  header('location: ' . FilePathEnum::NOT_FOUND->get_path());
 } else {
   match_call();
 }
 
 function match_call(): void
 {
-  $functions = PostRouteEnum::getRoutes();
+  $functions = PostRouteEnum::get_post_routes();
 
   foreach ($functions as $function) {
     if (isset($_POST[$function])) {
@@ -28,7 +28,7 @@ function match_call(): void
     }
   }
 
-  header('location: ' . FilePathEnum::NOT_FOUND->getPath());
+  header('location: ' . FilePathEnum::NOT_FOUND->get_path());
 }
 
 function redirect(string $path): void

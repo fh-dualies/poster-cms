@@ -11,7 +11,7 @@ enum FilePathEnum
   case REGISTER;
   case NOT_FOUND;
 
-  public function getPath(): string
+  public function get_path(): string
   {
     return match ($this) {
       self::HOME => '/ss25-www1/src/index.php',
