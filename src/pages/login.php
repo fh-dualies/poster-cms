@@ -10,17 +10,17 @@ require_once __DIR__ . '/../shared/util.php'; ?>
 <?php require __DIR__ . '/../components/nav/navigation.php'; ?>
 <main class="container">
   <section class="auth-container">
-    <form>
+    <form method="POST" action="/ss25-www1/api/post.php">
       <h1>Login</h1>
 
       <div>
         <label for="login-email">Email:</label>
-        <input type="email" id="login-email" name="login-email" />
+        <input type="email" id="login-email" name="login-email" placeholder="example@mydomain.com" />
       </div>
 
       <div>
         <label for="login-password">Password:</label>
-        <input type="password" id="login-password" name="login-password" />
+        <input type="password" id="login-password" name="login-password" placeholder="***********" />
       </div>
 
       <button type="submit">Log In</button>
