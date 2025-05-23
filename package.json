@@ -5,14 +5,15 @@
     "url": "git+https://github.com/fh-dualies/ss25-www1.git"
   },
   "scripts": {
-    "format": "prettier --write \"**/*.{html,css,php,js,md,json,yml}\"",
-    "format:check": "prettier --check \"**/*.{html,css,php,js,md,json,yml}\"",
+    "format": "prettier --write \"**/*.{html,css,php,js,md,json,yml,sql}\"",
+    "format:check": "prettier --check \"**/*.{html,css,php,js,md,json,yml,sql}\"",
     "lint:style": "stylelint '**/*.css'",
     "lint:markup": "html-validator src '--ignore=Trailing slash on void elements'"
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.22.4",
     "prettier": "^3.5.3",
+    "prettier-plugin-sql": "^0.19.1",
     "stylelint": "^16.18.0",
     "stylelint-config-standard": "^38.0.0",
     "w3c-html-validator": "^1.8.3"

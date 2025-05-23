@@ -14,7 +14,7 @@ use lib\Config;
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/route-enum.php';
 require_once __DIR__ . '/../shared/util.php';
-require_once __DIR__."/../controller/auth-controller.php";
+require_once __DIR__ . '/../controller/auth-controller.php';
 
 $config = new Config();
 $authController = new AuthController($config);
@@ -46,6 +46,6 @@ function execute_function(string $function, $param): void
 
 function login(): void
 {
-    global $authController;
-    $res = $authController->login($_POST);
+  global $authController;
+  $res = $authController->login($_POST);
 }
