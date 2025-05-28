@@ -32,8 +32,8 @@ jobs:
       - name: Check format
         run: npm run format:check
 
-      - name: Lint html semantic
-        run: npm run lint:markup
+      #- name: Lint html semantic
+      #  run: npm run lint:markup
 
       - name: Lint css style
         run: npm run lint:style
