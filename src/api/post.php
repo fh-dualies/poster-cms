@@ -66,7 +66,13 @@ function register(): void
   global $authController;
 
   $response = $authController->register($_POST);
-  redirect_to_page(FilePathEnum::LOGIN, $response);
+
+  if (!$response['is_error']) {
+    redirect_to_page(FilePathEnum::LOGIN, $response);
+    return;
+  }
+
+  redirect_to_page(FilePathEnum::REGISTER, $response);
 }
 
 function logout(): void

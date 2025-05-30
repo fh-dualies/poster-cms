@@ -1,0 +1,29 @@
+.alert {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.alert.success {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+.alert.error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.alert svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+  fill: currentcolor;
+}
+
+.alert div span {
+  font-weight: 500;
+}

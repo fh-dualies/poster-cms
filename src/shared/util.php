@@ -39,7 +39,11 @@ function redirect_to_page(FilePathEnum $page, ?array $response = null): void
     header('location: ' . $page->get_path());
   }
 
-  header('location: ' . $page->get_path() . "?status=$response[status]&message=$response[message]");
+  header(
+    'location: ' .
+      $page->get_path() .
+      "?status=$response[status]&message=$response[message]&is_error=$response[is_error]"
+  );
 }
 
 function create_response(ResponseStatusEnum $status, string $message, array $data = []): array

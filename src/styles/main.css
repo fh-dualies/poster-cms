@@ -5,6 +5,7 @@
 @import url('layout/_footer.css');
 @import url('layout/_main.css');
 @import url('components/_button.css');
+@import url('components/_alert.css');
 @import url('components/_form.css');
 @import url('components/_poster-grid.css');
 @import url('components/_poster-detail.css');
