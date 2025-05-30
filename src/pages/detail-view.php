@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../shared/util.php';
 
+check_auth_status();
+
 $sections = [
   [
     'title' => 'Section 1',

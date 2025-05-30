@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../shared/util.php';
 
+check_auth_status();
+
 $formSections = [
   [
     'prefix' => 's1',

@@ -12,13 +12,14 @@ if (session_status() === PHP_SESSION_NONE) {
       <a href="/ss25-www1/src/index.php">Poster CMS</a>
     </div>
     <nav>
-      <ul>
-        <li><a href="/ss25-www1/src/index.php">Overview</a></li>
-        <li><a href="/ss25-www1/src/pages/account.php">Account</a></li>
-        <li><a href="/ss25-www1/src/pages/login.php">Login</a></li>
-        <li><a href="/ss25-www1/src/pages/poster-designer.php">Poster designer</a></li>
-        <li><a href="/ss25-www1/src/pages/media.php">Media</a></li>
-      </ul>
+        <?php if (isset($_SESSION['user'])): ?>
+          <ul>
+            <li><a href="/ss25-www1/src/index.php">Overview</a></li>
+            <li><a href="/ss25-www1/src/pages/account.php">Account</a></li>
+            <li><a href="/ss25-www1/src/pages/poster-designer.php">Poster designer</a></li>
+            <li><a href="/ss25-www1/src/pages/media.php">Media</a></li>
+          </ul>
+        <?php endif; ?>
     </nav>
     <form class="unset <?php if (isset($_SESSION['user'])) {
       echo 'hidden';

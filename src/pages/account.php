@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . '/../shared/util.php'; ?>
+require_once __DIR__ . '/../shared/util.php';
+
+check_auth_status();
+?>
 
 <html lang="en">
 <?php include_with_prop(__DIR__ . '/../components/head.php', [
