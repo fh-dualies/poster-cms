@@ -3,20 +3,19 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  redirect_to_not_found();
-  exit();
-}
-
 use controller\AuthController;
-use lib\Config;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/route-enum.php';
 require_once __DIR__ . '/../shared/util.php';
 require_once __DIR__ . '/../controller/auth-controller.php';
 
-$config = new Config();
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  redirect_to_page(FilePathEnum::NOT_FOUND);
+  exit();
+}
+
+$config = new config();
 $authController = new AuthController($config);
 
 handle_post_request();
@@ -32,7 +31,7 @@ function handle_post_request(): void
     }
   }
 
-  redirect_to_not_found();
+  redirect_to_page(FilePathEnum::NOT_FOUND);
 }
 
 function execute_function(string $function, $param): void
@@ -47,5 +46,27 @@ function execute_function(string $function, $param): void
 function login(): void
 {
   global $authController;
-  $res = $authController->login($_POST);
+  $response = $authController->login($_POST);
+
+  if (!$response['is_error']) {
+    redirect_to_page(FilePathEnum::HOME, $response);
+    return;
+  }
+
+  redirect_to_page(FilePathEnum::LOGIN, $response);
+}
+
+function register(): void
+{
+  global $authController;
+
+  $response = $authController->register($_POST);
+  redirect_to_page(FilePathEnum::LOGIN, $response);
+}
+
+function logout(): void
+{
+  global $authController;
+
+  $authController->logout();
 }

@@ -10,29 +10,30 @@ require_once __DIR__ . '/../shared/util.php'; ?>
 <?php require __DIR__ . '/../components/nav/navigation.php'; ?>
 <main class="container">
   <section class="auth-container">
-    <form>
+    <form method="POST" action="/ss25-www1/api/post.php">
       <h1>Register</h1>
 
       <div>
-        <label for="register-name">Full Name:</label>
-        <input type="text" id="register-name" name="register-name" />
+        <label for="username">Name:</label>
+        <input type="text" id="username" name="username" placeholder="john doe" />
       </div>
 
       <div>
-        <label for="register-email">Email:</label>
-        <input type="email" id="register-email" name="register-email" />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="example@mydomain.com" />
       </div>
 
       <div>
-        <label for="register-password">Password:</label>
+        <label for="password">Password:</label>
         <input
           type="password"
-          id="register-password"
-          name="register-password"
+          id="password"
+          name="password"
+          placeholder="***********"
         />
       </div>
 
-      <button type="submit">Log In</button>
+      <button name="register" type="submit">Log In</button>
 
       <p>Already have an account? <a href="./login.php">Login</a></p>
     </form>

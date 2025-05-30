@@ -22,4 +22,13 @@ enum ResponseStatusEnum
       self::BAD_REQUEST => 'bad_request',
     };
   }
+
+  public function is_error(): bool
+  {
+    if ($this === self::SUCCESS) {
+      return false;
+    }
+
+    return true;
+  }
 }

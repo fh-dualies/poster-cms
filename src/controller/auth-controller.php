@@ -2,8 +2,9 @@
 
 namespace controller;
 
-use lib\Config;
-use function redirect_to_page;
+use Config;
+use function create_response;
+use function var_dump;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';
@@ -22,6 +23,10 @@ class AuthController
 
   public function login(array $data): array
   {
+    if (isset($_SESSION['user'])) {
+      return create_response(\ResponseStatusEnum::FORBIDDEN, 'You are already logged in.');
+    }
+
     $email = htmlspecialchars(trim($data['email']));
     $password = trim($data['password']);
 
@@ -49,16 +54,20 @@ class AuthController
 
   public function register(array $data): array
   {
-    $name = htmlspecialchars(trim($data['names']));
+    if (isset($_SESSION['user'])) {
+      return create_response(\ResponseStatusEnum::FORBIDDEN, 'You are already logged in.');
+    }
+
+    $username = htmlspecialchars(trim($data['username']));
     $email = htmlspecialchars(trim($data['email']));
     $password = trim($data['password']);
 
-    if (empty($name) || empty($email) || empty($password)) {
-      return create_response(\ResponseStatusEnum::BAD_REQUEST, 'Name, email and password are required.');
+    if (empty($username) || empty($email) || empty($password)) {
+      return create_response(\ResponseStatusEnum::BAD_REQUEST, 'Username, email and password are required.');
     }
 
-    if (!preg_match(\RegexEnum::NAME->get_pattern(), $name)) {
-      return create_response(\ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid name');
+    if (!preg_match(\RegexEnum::NAME->get_pattern(), $username)) {
+      return create_response(\ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid username');
     }
 
     if (!preg_match(\RegexEnum::EMAIL->get_pattern(), $email)) {
@@ -80,8 +89,8 @@ class AuthController
     $hash = password_hash($password, PASSWORD_DEFAULT);
     $req = $this->config
       ->get_pdo()
-      ->prepare('INSERT INTO users (name, email, password) VALUES (:name, :email, :password)');
-    $result = $req->execute(['name' => $name, 'email' => $email, 'password' => $hash]);
+      ->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
+    $result = $req->execute(['username' => $username, 'email' => $email, 'password' => $hash]);
 
     if (!$result) {
       return create_response(\ResponseStatusEnum::SERVER_ERROR, 'An error occurred while registering the user.');
@@ -90,6 +99,19 @@ class AuthController
     redirect_to_page(\FilePathEnum::LOGIN);
 
     return create_response(\ResponseStatusEnum::SUCCESS, 'Registration successful!');
+  }
+
+  public function logout(): void
+  {
+    if (!isset($_SESSION['user'])) {
+      redirect_to_page(\FilePathEnum::HOME);
+      return;
+    }
+
+    session_destroy();
+    session_unset();
+
+    redirect_to_page(\FilePathEnum::LOGIN);
   }
 
   private function init_session(array $user): void

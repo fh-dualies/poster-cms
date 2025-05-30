@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/shared/util.php';
 
+session_start();
+var_dump($_SESSION);
+
 $sections = [
   [
     'title' => 'Poster 1',

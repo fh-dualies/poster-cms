@@ -8,20 +8,19 @@ function include_with_prop($fileName, $prop): void
   include $fileName;
 }
 
-function redirect_to_not_found(): void
+function redirect_to_page(FilePathEnum $page, ?array $response = null): void
 {
-  header('location: ' . FilePathEnum::NOT_FOUND->get_path());
-  exit();
-}
+  if ($response !== null) {
+    header('location: ' . $page->get_path());
+  }
 
-function redirect_to_page(FilePathEnum $page): void
-{
-  header('location: ' . $page->get_path());
+  header('location: ' . $page->get_path() . "?status=$response[status]&message=$response[message]");
 }
 
 function create_response(ResponseStatusEnum $status, string $message, array $data = []): array
 {
   return [
+    'is_error' => $status->is_error(),
     'status' => $status->get_name(),
     'message' => $message,
     'data' => $data,

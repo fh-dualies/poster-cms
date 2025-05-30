@@ -19,7 +19,8 @@ function init_data(string $functionRef, mixed $param = null): mixed
     }
   }
 
-  redirect_to_not_found();
+  redirect_to_page(FilePathEnum::NOT_FOUND);
+
   return null;
 }
 

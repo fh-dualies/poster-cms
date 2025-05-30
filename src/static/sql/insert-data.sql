@@ -3,14 +3,14 @@ INSERT INTO
 VALUES
   (
     'felixblume',
-    'password123',
+    '$2y$12$2nMDdvCg12971E23cm.A5e99u2Ew2pwAXkXt4TjTLywPCgsyOUTnK',
     'theboss@mail.com',
     'theBossX',
     'theBossTruth'
   ),
   (
     'papalatte',
-    'password123',
+    '$2y$12$2nMDdvCg12971E23cm.A5e99u2Ew2pwAXkXt4TjTLywPCgsyOUTnK',
     'lattensohn@mail.com',
     'papalatteX',
     'ptruth'
