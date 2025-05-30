@@ -1,27 +1,27 @@
 INSERT INTO
-  USER (username, password, email, x, truth_social)
+  users (username, password, email, x, truth_social)
 VALUES
   (
-    'felixBlume',
-    'qwertzu123',
-    'theBoss@gmail.com',
+    'felixblume',
+    'password123',
+    'theboss@mail.com',
     'theBossX',
     'theBossTruth'
   ),
   (
-    'PapaPlatte',
-    'verySecure123',
-    'secretMail@gmail.com',
-    'pClub',
-    'pClubTruth'
+    'papalatte',
+    'password123',
+    'lattensohn@mail.com',
+    'papalatteX',
+    'ptruth'
   );
 
 INSERT INTO
-  POSTER (
+  posters (
     user_id,
     author,
     creation_date,
-    main_headline,
+    headline,
     meta_data
   )
 VALUES
@@ -36,23 +36,18 @@ VALUES
     2,
     'Papa Platte',
     '2023-10-02',
-    'Clip ban!',
+    'Sie zieht den Hoodie aus',
     'Lorem ipsum dolor sit amet, consetetur sadipscing elitr'
   );
 
 INSERT INTO
-  MEDIA (type, path)
+  medias (type, path)
 VALUES
   ('image', 'src/static/images/image1.jpg'),
   ('image', 'src/static/images/image2.jpg');
 
 INSERT INTO
-  SECTION (
-    poster_id,
-    section_headline,
-    section_text,
-    media_id
-  )
+  sections (poster_id, headline, text, media_id)
 VALUES
   (
     1,
