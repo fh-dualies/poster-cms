@@ -19,6 +19,18 @@ body {
   flex-direction: column;
 }
 
+.hidden {
+  display: none;
+}
+
+.unset {
+  background-color: unset;
+  border-radius: unset;
+  border: unset;
+  padding: unset;
+  margin-bottom: unset;
+}
+
 .container {
   width: 100%;
   max-width: var(--container-width);

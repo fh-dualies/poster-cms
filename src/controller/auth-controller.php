@@ -3,8 +3,6 @@
 namespace controller;
 
 use Config;
-use function create_response;
-use function var_dump;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';

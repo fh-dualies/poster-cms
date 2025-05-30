@@ -26,3 +26,18 @@ input[type='submit']:hover,
 button.secondary {
   background-color: var(--text-light);
 }
+
+button.ghost,
+input[type='submit'].ghost,
+.button.ghost {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+button.ghost:hover,
+input[type='submit'].ghost:hover,
+.button.ghost:hover {
+  background-color: var(--primary-color);
+  color: white;
+}

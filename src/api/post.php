@@ -43,6 +43,11 @@ function execute_function(string $function, $param): void
   }
 }
 
+function redirect(string $path): void
+{
+  header("location: $path");
+}
+
 function login(): void
 {
   global $authController;
