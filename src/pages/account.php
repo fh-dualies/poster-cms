@@ -19,22 +19,22 @@ check_auth_status();
   <form>
     <div>
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" />
+      <input type="text" id="name" name="name" value="<?php echo $_SESSION['user']['username']; ?>" />
     </div>
 
     <div>
       <label for="email">Email:</label>
-      <input type="email" id="email" name="email" />
+      <input type="email" id="email" name="email" value="<?php echo $_SESSION['user']['email']; ?>" />
     </div>
 
     <div>
       <label for="x">X:</label>
-      <input type="url" id="x" name="x" />
+      <input type="url" id="x" name="x" value="<?php echo $_SESSION['user']['x']; ?>" />
     </div>
 
     <div>
       <label for="truthsocial">Truth Social:</label>
-      <input type="url" id="truthsocial" name="truthsocial" />
+      <input type="url" id="truthsocial" name="truthsocial" value="<?php echo $_SESSION['user']['truth_social']; ?>" />
     </div>
 
     <button type="submit">Update Account</button>

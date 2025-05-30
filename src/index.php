@@ -2,7 +2,6 @@
 require_once __DIR__ . '/shared/util.php';
 
 check_auth_status();
-var_dump($_SESSION);
 
 $sections = [
   [
