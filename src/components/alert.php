@@ -1,10 +1,11 @@
 <?php
 
-if (isset($_GET['status'], $_GET['message'], $_GET['is_error'])) {
+if (!empty($_GET['status']) && !empty($_GET['message']) && !empty($_GET['is_error'])) {
 
   $isError = filter_var($_GET['is_error'], FILTER_VALIDATE_BOOLEAN);
   $message = htmlspecialchars($_GET['message'], ENT_QUOTES, 'UTF-8');
   ?>
+
     <div class="alert <?php echo $isError ? 'error' : 'success'; ?>" role="alert">
         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"

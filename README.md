@@ -13,6 +13,8 @@
 
 ### TODO
 
+#### Poster
+
 - [ ] poster overview
 - [ ] create poster
 - [ ] poster details
@@ -20,8 +22,12 @@
 - [ ] delete poster
 - [ ] print poster
 
+#### Account
+
 - [ ] update account
 - [ ] delete account
+
+#### Media
 
 - [ ] upload media
 - [ ] delete media

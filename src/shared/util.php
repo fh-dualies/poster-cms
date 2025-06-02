@@ -35,8 +35,9 @@ function include_with_prop($fileName, $prop): void
 
 function redirect_to_page(FilePathEnum $page, ?array $response = null): void
 {
-  if ($response !== null) {
+  if (is_null($response)) {
     header('location: ' . $page->get_path());
+    return;
   }
 
   header(
@@ -49,7 +50,7 @@ function redirect_to_page(FilePathEnum $page, ?array $response = null): void
 function create_response(ResponseStatusEnum $status, string $message, array $data = []): array
 {
   return [
-    'is_error' => $status->is_error(),
+    'is_error' => (int) $status->is_error(),
     'status' => $status->get_name(),
     'message' => $message,
     'data' => $data,
