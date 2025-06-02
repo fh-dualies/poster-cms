@@ -11,6 +11,17 @@
 - Lars Kemper
 - Tom Steinbach
 
-#### Task sheet 1: [ss25-www1-p01](/assets/ss25-www1-p01.pdf)
+### TODO
 
-#### Task sheet 2: [ss25-www1-p02](/assets/ss25-www1-p02.pdf)
+- [ ] poster overview
+- [ ] create poster
+- [ ] poster details
+- [ ] edit poster
+- [ ] delete poster
+- [ ] print poster
+
+- [ ] update account
+- [ ] delete account
+
+- [ ] upload media
+- [ ] delete media
