@@ -76,12 +76,12 @@ class AuthController
       return create_response(\ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid password');
     }
 
-    $req = $this->config->get_pdo()->prepare('SELECT * FROM users WHERE email = :email');
-    $req->execute(['email' => $email]);
+    $req = $this->config->get_pdo()->prepare('SELECT * FROM users WHERE email = :email OR username = :username');
+    $req->execute(['email' => $email, 'username' => $username]);
     $user = $req->fetch();
 
     if ($user !== false) {
-      return create_response(\ResponseStatusEnum::FORBIDDEN, 'Email already exists!');
+      return create_response(\ResponseStatusEnum::FORBIDDEN, 'Email or username already exists!');
     }
 
     $hash = password_hash($password, PASSWORD_DEFAULT);
