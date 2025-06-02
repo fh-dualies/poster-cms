@@ -18,12 +18,6 @@ function check_auth_status(): void
 
   if (!isset($user['id']) || !isset($user['username']) || !isset($user['email'])) {
     redirect_to_page(FilePathEnum::LOGIN);
-    return;
-  }
-
-  if (!isset($user['x']) || !isset($user['truth_social'])) {
-    $user['x'] = '';
-    $user['truth_social'] = '';
   }
 }
 

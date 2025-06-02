@@ -4,11 +4,13 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 use controller\AuthController;
+use controller\AccountController;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/route-enum.php';
 require_once __DIR__ . '/../shared/util.php';
 require_once __DIR__ . '/../controller/auth-controller.php';
+require_once __DIR__ . '/../controller/account-controller.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   redirect_to_page(FilePathEnum::NOT_FOUND);
@@ -16,7 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $config = new config();
-$authController = new AuthController($config);
+
+$auth_controller = new AuthController($config);
+$account_controller = new AccountController($config);
 
 handle_post_request();
 
@@ -50,8 +54,8 @@ function redirect(string $path): void
 
 function login(): void
 {
-  global $authController;
-  $response = $authController->login($_POST);
+  global $auth_controller;
+  $response = $auth_controller->login($_POST);
 
   if (!$response['is_error']) {
     redirect_to_page(FilePathEnum::HOME, $response);
@@ -63,9 +67,9 @@ function login(): void
 
 function register(): void
 {
-  global $authController;
+  global $auth_controller;
 
-  $response = $authController->register($_POST);
+  $response = $auth_controller->register($_POST);
 
   if (!$response['is_error']) {
     redirect_to_page(FilePathEnum::LOGIN, $response);
@@ -75,9 +79,23 @@ function register(): void
   redirect_to_page(FilePathEnum::REGISTER, $response);
 }
 
+function update_account(): void
+{
+  global $account_controller;
+
+  $response = $account_controller->update_account($_POST);
+
+  if (!$response['is_error']) {
+    redirect_to_page(FilePathEnum::ACCOUNT, $response);
+    return;
+  }
+
+  redirect_to_page(FilePathEnum::ACCOUNT, $response);
+}
+
 function logout(): void
 {
-  global $authController;
+  global $auth_controller;
 
-  $authController->logout();
+  $auth_controller->logout();
 }

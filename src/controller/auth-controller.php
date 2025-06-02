@@ -3,6 +3,7 @@
 namespace controller;
 
 use Config;
+use function check_auth_status;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';
@@ -101,10 +102,7 @@ class AuthController
 
   public function logout(): void
   {
-    if (!isset($_SESSION['user'])) {
-      redirect_to_page(\FilePathEnum::HOME);
-      return;
-    }
+    check_auth_status();
 
     session_destroy();
     session_unset();

@@ -16,28 +16,31 @@ check_auth_status();
     <h1>Account settings</h1>
   </header>
 
-  <form>
+  <form method="POST" action="/ss25-www1/api/post.php">
+    <?php require __DIR__ . '/../components/alert.php'; ?>
     <div>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" value="<?php echo $_SESSION['user']['username']; ?>" />
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" value="<?php echo $_SESSION['user']['username']; ?>" />
     </div>
 
     <div>
       <label for="email">Email:</label>
-      <input type="email" id="email" name="email" value="<?php echo $_SESSION['user']['email']; ?>" />
+      <input disabled type="email" id="email" name="email" value="<?php echo $_SESSION['user']['email']; ?>" />
     </div>
 
     <div>
-      <label for="x">X:</label>
-      <input type="url" id="x" name="x" value="<?php echo $_SESSION['user']['x']; ?>" />
+      <label for="x_username">X:</label>
+      <input type="text" id="x_username" name="x_username" value="<?php echo $_SESSION['user']['x']; ?>" />
     </div>
 
     <div>
-      <label for="truthsocial">Truth Social:</label>
-      <input type="url" id="truthsocial" name="truthsocial" value="<?php echo $_SESSION['user']['truth_social']; ?>" />
+      <label for="truthsocial_username">Truth Social:</label>
+      <input type="text" id="truthsocial_username" name="truthsocial_username" value="<?php echo $_SESSION['user'][
+        'truth_social'
+      ]; ?>" />
     </div>
 
-    <button type="submit">Update Account</button>
+    <button type="submit" name="update_account">Update Account</button>
   </form>
 </main>
 

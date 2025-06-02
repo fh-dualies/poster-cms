@@ -6,6 +6,7 @@ enum RouteEnum
   case POST_LOGIN;
   case POST_REGISTER;
   case POST_LOGOUT;
+  case POST_UPDATE_ACCOUNT;
 
   case GET_POSTERS;
 
@@ -16,6 +17,7 @@ enum RouteEnum
       self::POST_LOGIN->get_name(),
       self::POST_REGISTER->get_name(),
       self::POST_LOGOUT->get_name(),
+      self::POST_UPDATE_ACCOUNT->get_name(),
     ];
   }
 
@@ -31,6 +33,7 @@ enum RouteEnum
       self::POST_LOGIN => 'login',
       self::POST_REGISTER => 'register',
       self::POST_LOGOUT => 'logout',
+      self::POST_UPDATE_ACCOUNT => 'update_account',
       self::GET_POSTERS => 'get_posters',
     };
   }
