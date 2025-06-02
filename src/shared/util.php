@@ -11,13 +11,14 @@ function check_auth_status(): void
 
   if (!isset($_SESSION['user'])) {
     redirect_to_page(FilePathEnum::LOGIN);
-    return;
+    exit();
   }
 
   $user = $_SESSION['user'];
 
   if (!isset($user['id']) || !isset($user['username']) || !isset($user['email'])) {
     redirect_to_page(FilePathEnum::LOGIN);
+    exit();
   }
 }
 
