@@ -12,5 +12,6 @@
 @import url('components/_upload-area.css');
 @import url('components/_media-grid.css');
 @import url('pages/_auth.css');
+@import url('pages/_not-found.css');
 @import url('utils/_responsive.css');
 @import url('utils/_print.css');

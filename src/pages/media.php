@@ -56,9 +56,9 @@ $items = [
     <div class="media-grid">
         <?php foreach ($items as $item) {
           include_with_prop(__DIR__ . '/../components/media-item.php', [
-            'name' => $item['name'],
+            'name' => htmlspecialchars($item['name']),
             'image' => $item['image'],
-            'alt' => $item['alt'],
+            'alt' => htmlspecialchars($item['alt']),
           ]);
         } ?>
     </div>

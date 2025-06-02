@@ -1,5 +1,5 @@
 <?php
-if (!isset($title) || !isset($alt) || !isset($image) || !isset($link) || !isset($date) || !isset($datetime)) {
+if (!isset($headline) || !isset($meta_data) || !isset($image) || !isset($link) || !isset($creation_date)) {
   throw new Exception('Missing required properties: title, alt, image/thumbnail');
 } ?>
 
@@ -8,12 +8,12 @@ if (!isset($title) || !isset($alt) || !isset($image) || !isset($link) || !isset(
         <div class="thumbnail">
             <img
                 src="<?php $image; ?>">
-                alt="<?php echo $alt; ?>"
+                alt="<?php echo $meta_data; ?>"
             />
         </div>
     </a>
     <div class="info">
-        <h2><?php echo $title; ?></h2>
-        <time datetime="<?php echo $date; ?>"><?php echo $datetime; ?></time>
+        <h2><?php echo $headline; ?></h2>
+        <time datetime="<?php echo $creation_date; ?>"><?php echo $creation_date; ?></time>
     </div>
 </article>

@@ -18,26 +18,33 @@ check_auth_status();
 
   <form method="POST" action="/ss25-www1/api/post.php">
     <?php require __DIR__ . '/../components/alert.php'; ?>
+
     <div>
       <label for="username">Username:</label>
-      <input type="text" id="username" name="username" value="<?php echo $_SESSION['user']['username']; ?>" />
+      <input type="text" id="username" name="username" value="<?php echo htmlspecialchars(
+        $_SESSION['user']['username']
+      ); ?>" />
     </div>
 
     <div>
       <label for="email">Email:</label>
-      <input disabled type="email" id="email" name="email" value="<?php echo $_SESSION['user']['email']; ?>" />
+      <input disabled type="email" id="email" name="email" value="<?php echo htmlspecialchars(
+        $_SESSION['user']['email']
+      ); ?>" />
     </div>
 
     <div>
       <label for="x_username">X:</label>
-      <input type="text" id="x_username" name="x_username" value="<?php echo $_SESSION['user']['x']; ?>" />
+      <input type="text" id="x_username" name="x_username" value="<?php echo htmlspecialchars(
+        $_SESSION['user']['x'] ?? ''
+      ); ?>" />
     </div>
 
     <div>
       <label for="truthsocial_username">Truth Social:</label>
-      <input type="text" id="truthsocial_username" name="truthsocial_username" value="<?php echo $_SESSION['user'][
-        'truth_social'
-      ]; ?>" />
+      <input type="text" id="truthsocial_username" name="truthsocial_username" value="<?php echo htmlspecialchars(
+        $_SESSION['user']['truth_social'] ?? ''
+      ); ?>" />
     </div>
 
     <button type="submit" name="update_account">Update Account</button>

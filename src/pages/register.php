@@ -11,7 +11,7 @@ require_once __DIR__ . '/../shared/util.php'; ?>
 <main class="container">
   <section class="auth-container">
     <form method="POST" action="/ss25-www1/api/post.php">
-        <?php require __DIR__ . '/../components/alert.php'; ?>
+      <?php require __DIR__ . '/../components/alert.php'; ?>
       <h1>Register</h1>
 
       <div>
@@ -34,7 +34,7 @@ require_once __DIR__ . '/../shared/util.php'; ?>
         />
       </div>
 
-      <button name="register" type="submit">Log In</button>
+      <button name="register" type="submit">Register</button>
 
       <p>Already have an account? <a href="./login.php">Login</a></p>
     </form>

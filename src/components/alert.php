@@ -1,6 +1,6 @@
 <?php
 
-if (!empty($_GET['status']) && !empty($_GET['message']) && !empty($_GET['is_error'])) {
+if (!empty($_GET['status']) && !empty($_GET['message']) && isset($_GET['is_error'])) {
 
   $is_error = filter_var($_GET['is_error'], FILTER_VALIDATE_BOOLEAN);
   $message = htmlspecialchars($_GET['message'], ENT_QUOTES, 'UTF-8');

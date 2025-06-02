@@ -54,8 +54,8 @@ $formSections = [
 
       <?php foreach ($formSections as $section) {
         include_with_prop(__DIR__ . '/../components/poster-section-form.php', [
-          'prefix' => $section['prefix'],
-          'name' => $section['name'],
+          'prefix' => htmlspecialchars($section['prefix']),
+          'name' => htmlspecialchars($section['name']),
         ]);
       } ?>
 

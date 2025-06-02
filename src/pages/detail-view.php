@@ -61,10 +61,10 @@ $sections = [
 
     <?php foreach ($sections as $section) {
       include_with_prop(__DIR__ . '/../components/poster-section.php', [
-        'title' => $section['title'],
-        'text' => $section['text'],
+        'title' => htmlspecialchars($section['title']),
+        'text' => htmlspecialchars($section['text']),
         'image' => $section['image'],
-        'alt' => $section['alt'],
+        'alt' => htmlspecialchars($section['alt']),
       ]);
     } ?>
 

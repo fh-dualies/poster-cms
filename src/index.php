@@ -1,34 +1,11 @@
 <?php
+require_once __DIR__ . '/api/get.php';
 require_once __DIR__ . '/shared/util.php';
+require_once __DIR__ . '/shared/route-enum.php';
 
 check_auth_status();
 
-$sections = [
-  [
-    'title' => 'Poster 1',
-    'date' => '2025-03-31',
-    'datetime' => 'March 31, 2025',
-    'image' => './static/images/placeholder.jpg',
-    'link' => './pages/detail-view.php',
-    'alt' => 'Poster 1 Thumbnail',
-  ],
-  [
-    'title' => 'Poster 2',
-    'date' => '2025-03-31',
-    'datetime' => 'March 31, 2025',
-    'image' => './static/images/placeholder.jpg',
-    'link' => './pages/detail-view.php',
-    'alt' => 'Poster 2 Thumbnail',
-  ],
-  [
-    'title' => 'Poster 3',
-    'date' => '2025-03-31',
-    'datetime' => 'March 31, 2025',
-    'image' => './static/images/placeholder.jpg',
-    'link' => './pages/detail-view.php',
-    'alt' => 'Poster 3 Thumbnail',
-  ],
-];
+register_data(\RouteEnum::GET_ALL_POSTERS);
 ?>
 
 <html lang="en">
@@ -51,8 +28,14 @@ $sections = [
         <h2>All posters</h2>
 
         <div class="poster-grid">
-            <?php foreach ($sections as $section) {
-              include_with_prop(__DIR__ . '/components/poster-item.php', $section);
+            <?php foreach ($_SESSION[\RouteEnum::GET_ALL_POSTERS->get_cache_key()] as $section) {
+              include_with_prop(__DIR__ . '/components/poster-item.php', [
+                'headline' => htmlspecialchars($section['headline']),
+                'creation_date' => htmlspecialchars($section['creation_date']),
+                'image' => './static/images/placeholder.jpg',
+                'link' => './pages/detail-view.php',
+                'meta_data' => htmlspecialchars($section['meta_data']),
+              ]);
             } ?>
         </div>
     </section>

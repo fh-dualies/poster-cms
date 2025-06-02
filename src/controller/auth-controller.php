@@ -3,7 +3,6 @@
 namespace controller;
 
 use Config;
-use function check_auth_status;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';

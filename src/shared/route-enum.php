@@ -8,25 +8,30 @@ enum RouteEnum
   case POST_LOGOUT;
   case POST_UPDATE_ACCOUNT;
 
-  case GET_POSTERS;
+  case GET_ALL_POSTERS;
 
   public static function get_post_routes(): array
   {
-    return [
-      self::POST_REDIRECT->get_name(),
-      self::POST_LOGIN->get_name(),
-      self::POST_REGISTER->get_name(),
-      self::POST_LOGOUT->get_name(),
-      self::POST_UPDATE_ACCOUNT->get_name(),
-    ];
+    return self::map_routes([
+      self::POST_REDIRECT,
+      self::POST_LOGIN,
+      self::POST_REGISTER,
+      self::POST_LOGOUT,
+      self::POST_UPDATE_ACCOUNT,
+    ]);
   }
 
   public static function get_get_routes(): array
   {
-    return [self::GET_POSTERS->get_name()];
+    return self::map_routes([self::GET_ALL_POSTERS]);
   }
 
-  public function get_name(): string
+  private static function map_routes(array $routes): array
+  {
+    return array_map(fn(RouteEnum $route) => $route->get_function_name(), $routes);
+  }
+
+  public function get_function_name(): string
   {
     return match ($this) {
       self::POST_REDIRECT => 'redirect',
@@ -34,7 +39,14 @@ enum RouteEnum
       self::POST_REGISTER => 'register',
       self::POST_LOGOUT => 'logout',
       self::POST_UPDATE_ACCOUNT => 'update_account',
-      self::GET_POSTERS => 'get_posters',
+      self::GET_ALL_POSTERS => 'get_all_posters',
     };
+  }
+
+  public function get_cache_key(): string
+  {
+    $entity = $this->get_function_name();
+
+    return $entity ? 'route_' . $entity : '';
   }
 }
