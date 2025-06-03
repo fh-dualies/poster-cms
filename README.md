@@ -17,19 +17,20 @@
 
 #### Poster
 
-- [ ] poster overview
+- [x] poster overview
 - [ ] create poster
-- [ ] poster details
+- [x] poster details
 - [ ] edit poster
 - [ ] delete poster
-- [ ] print poster
+- [ ] print poster (dynamic "pdf")
 
 #### Account
 
-- [ ] update account
+- [x] update account
 - [ ] delete account
 
 #### Media
 
-- [ ] upload media
-- [ ] delete media
+- [ ] media overview (in progress)
+- [ ] upload media (in progress)
+- [ ] delete media (in progress)

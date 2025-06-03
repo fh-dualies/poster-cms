@@ -34,7 +34,7 @@ VALUES
   ),
   (
     2,
-    'Papa Platte',
+    'Papaplatte',
     '2023-10-02',
     'Sie zieht den Hoodie aus',
     'Lorem ipsum dolor sit amet, consetetur sadipscing elitr'
