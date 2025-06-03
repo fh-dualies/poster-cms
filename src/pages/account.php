@@ -12,13 +12,15 @@ check_auth_status();
 <body>
 <?php require __DIR__ . '/../components/nav/navigation.php'; ?>
 <main class="container">
+  <div class="alert-container">
+      <?php require __DIR__ . '/../components/alert.php'; ?>
+  </div>
+
   <header>
     <h1>Account settings</h1>
   </header>
 
   <form method="POST" action="/ss25-www1/api/post.php">
-      <?php require __DIR__ . '/../components/alert.php'; ?>
-
     <div>
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" value="<?php echo htmlspecialchars(

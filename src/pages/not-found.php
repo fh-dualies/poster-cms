@@ -1,12 +1,5 @@
 <?php
-require_once __DIR__ . '/../shared/util.php';
-
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
-}
-
-var_dump($_SESSION);
-?>
+require_once __DIR__ . '/../shared/util.php'; ?>
 
 <html lang="en">
 <?php include_with_prop(__DIR__ . '/../components/head.php', [

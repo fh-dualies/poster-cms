@@ -38,13 +38,13 @@ function register_data(RouteEnum $route, mixed $param = null): void
   }
 }
 
-function get_all_posters(): array
+function get_all_posters(): ?array
 {
   global $poster_controller;
   return $poster_controller->get_all();
 }
 
-function get_poster_detail(int $id): array
+function get_poster_detail(int $id): ?array
 {
   global $poster_controller;
   return $poster_controller->get_by_id($id);

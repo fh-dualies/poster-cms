@@ -25,6 +25,10 @@ if (
 <?php require __DIR__ . '/components/nav/navigation.php'; ?>
 
 <main class="container">
+    <div class="alert-container">
+      <?php require __DIR__ . '/components/alert.php'; ?>
+    </div>
+
   <header>
     <h1>Overview</h1>
     <a href="./pages/poster-designer.php" class="button">

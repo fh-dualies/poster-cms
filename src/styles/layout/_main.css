@@ -38,6 +38,10 @@ body {
   padding: 0 var(--spacing-lg);
 }
 
+.alert-container {
+  margin-top: var(--spacing-xl);
+}
+
 main {
   padding: var(--spacing-xl) 0;
 }

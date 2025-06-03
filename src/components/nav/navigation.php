@@ -16,7 +16,6 @@ if (session_status() === PHP_SESSION_NONE) {
           <ul>
             <li><a href="/ss25-www1/src/index.php">Overview</a></li>
             <li><a href="/ss25-www1/src/pages/account.php">Account</a></li>
-            <li><a href="/ss25-www1/src/pages/poster-designer.php">Poster designer</a></li>
             <li><a href="/ss25-www1/src/pages/media.php">Media</a></li>
           </ul>
         <?php endif; ?>
