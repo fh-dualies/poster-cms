@@ -1,12 +1,5 @@
 <?php
-require_once __DIR__ . '/../shared/util.php';
-
-if (session_status() !== PHP_SESSION_ACTIVE) {
-  session_start();
-}
-
-var_dump($_SESSION);
-?>
+require_once __DIR__ . '/../shared/util.php'; ?>
 
 <html lang="en">
 <?php include_with_prop(__DIR__ . '/../components/head.php', [
@@ -15,6 +8,7 @@ var_dump($_SESSION);
 ]); ?>
 <body>
 <?php require __DIR__ . '/../components/nav/navigation.php'; ?>
+
 <main class="not-found-container">
   <section>
     <h1>404 - Page Not Found</h1>

@@ -6,6 +6,7 @@ use Config;
 use PDO;
 use ResponseStatusEnum;
 use RouteEnum;
+use function create_response;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';
@@ -46,14 +47,19 @@ class MediaController
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid media id provided.');
     }
 
-    $req = $this->config->get_pdo()->prepare('DELETE FROM medias WHERE id = :id');
-    $req->bindParam(':id', $id, PDO::PARAM_INT);
+    try {
+      $req = $this->config->get_pdo()->prepare('DELETE FROM medias WHERE id = :id');
+      $req->bindParam(':id', $id, PDO::PARAM_INT);
+      $req->execute();
+    } catch (\PDOException $e) {
+      if ($e->getCode() == 23503) {
+        return create_response(
+          ResponseStatusEnum::SERVER_ERROR,
+          'Failed to delete media. This media is currently in use and cannot be deleted.'
+        );
+      }
 
-    if (!$req->execute()) {
-      return create_response(
-        ResponseStatusEnum::SERVER_ERROR,
-        'Failed to delete media. Please delete usage in posters first.'
-      );
+      return create_response(ResponseStatusEnum::SERVER_ERROR, 'An unexpected error occurred while deleting media.');
     }
 
     // invalidate cache
