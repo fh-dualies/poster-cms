@@ -4,16 +4,16 @@ if (!isset($headline) || !isset($meta_data) || !isset($image) || !isset($link) |
 } ?>
 
 <article>
-    <a href=<?php echo $link; ?>>
-        <div class="thumbnail">
-            <img
-                src="<?php $image; ?>">
-                alt="<?php echo $meta_data; ?>"
-            />
-        </div>
-    </a>
-    <div class="info">
-        <h2><?php echo $headline; ?></h2>
-        <time datetime="<?php echo $creation_date; ?>"><?php echo $creation_date; ?></time>
+  <a href=<?php echo $link; ?>>
+    <div class="thumbnail">
+      <img
+        src="<?php echo $image; ?>"
+        alt="<?php echo $meta_data; ?>">
+      />
     </div>
+  </a>
+  <div class="info">
+    <h2><?php echo $headline; ?></h2>
+    <time><?php echo $creation_date; ?></time>
+  </div>
 </article>

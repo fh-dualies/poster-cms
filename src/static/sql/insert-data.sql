@@ -41,10 +41,10 @@ VALUES
   );
 
 INSERT INTO
-  medias (type, path)
+  medias (type, path, alt)
 VALUES
-  ('image', 'src/static/images/image1.jpg'),
-  ('image', 'src/static/images/image2.jpg');
+  ('image', '/images/placeholder.jpg', 'Image 1'),
+  ('image', '/images/placeholder.jpg', 'Image 2');
 
 INSERT INTO
   sections (poster_id, headline, text, media_id)

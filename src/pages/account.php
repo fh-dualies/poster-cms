@@ -17,7 +17,7 @@ check_auth_status();
   </header>
 
   <form method="POST" action="/ss25-www1/api/post.php">
-    <?php require __DIR__ . '/../components/alert.php'; ?>
+      <?php require __DIR__ . '/../components/alert.php'; ?>
 
     <div>
       <label for="username">Username:</label>

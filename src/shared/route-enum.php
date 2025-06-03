@@ -9,6 +9,7 @@ enum RouteEnum
   case POST_UPDATE_ACCOUNT;
 
   case GET_ALL_POSTERS;
+  case GET_POSTER_DETAIL;
 
   public static function get_post_routes(): array
   {
@@ -19,11 +20,6 @@ enum RouteEnum
       self::POST_LOGOUT,
       self::POST_UPDATE_ACCOUNT,
     ]);
-  }
-
-  public static function get_get_routes(): array
-  {
-    return self::map_routes([self::GET_ALL_POSTERS]);
   }
 
   private static function map_routes(array $routes): array
@@ -40,13 +36,19 @@ enum RouteEnum
       self::POST_LOGOUT => 'logout',
       self::POST_UPDATE_ACCOUNT => 'update_account',
       self::GET_ALL_POSTERS => 'get_all_posters',
+      self::GET_POSTER_DETAIL => 'get_poster_detail',
     };
+  }
+
+  public static function get_get_routes(): array
+  {
+    return self::map_routes([self::GET_ALL_POSTERS, self::GET_POSTER_DETAIL]);
   }
 
   public function get_cache_key(): string
   {
     $entity = $this->get_function_name();
 
-    return $entity ? 'route_' . $entity : '';
+    return $entity ? 'cache__' . $entity : '';
   }
 }

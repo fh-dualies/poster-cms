@@ -3,6 +3,8 @@
 namespace controller;
 
 use Config;
+use RegexEnum;
+use ResponseStatusEnum;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';
@@ -28,15 +30,15 @@ class AccountController
     $truthsocial_username = htmlspecialchars(trim($data['truthsocial_username']));
 
     if (empty($username)) {
-      return create_response(\ResponseStatusEnum::BAD_REQUEST, 'Username is required.');
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Username is required.');
     }
 
-    if (!empty($x_username) && !preg_match(\RegexEnum::NAME->get_pattern(), $x_username)) {
-      return create_response(\ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid X username.');
+    if (!empty($x_username) && !preg_match(RegexEnum::NAME->get_pattern(), $x_username)) {
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid X username.');
     }
 
-    if (!empty($truthsocial_username) && !preg_match(\RegexEnum::NAME->get_pattern(), $truthsocial_username)) {
-      return create_response(\ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid Truth Social username.');
+    if (!empty($truthsocial_username) && !preg_match(RegexEnum::NAME->get_pattern(), $truthsocial_username)) {
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid Truth Social username.');
     }
 
     if ($username !== $_SESSION['user']['username']) {
@@ -45,7 +47,7 @@ class AccountController
       $user = $req->fetch();
 
       if ($user) {
-        return create_response(\ResponseStatusEnum::BAD_REQUEST, 'Username already exists.');
+        return create_response(ResponseStatusEnum::BAD_REQUEST, 'Username already exists.');
       }
     }
 
@@ -62,13 +64,13 @@ class AccountController
     ]);
 
     if (!$result) {
-      return create_response(\ResponseStatusEnum::SERVER_ERROR, 'Failed to update account.');
+      return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to update account.');
     }
 
     $_SESSION['user']['username'] = $username;
     $_SESSION['user']['x'] = $x_username;
     $_SESSION['user']['truth_social'] = $truthsocial_username;
 
-    return create_response(\ResponseStatusEnum::SUCCESS, 'Account updated successfully.');
+    return create_response(ResponseStatusEnum::SUCCESS, 'Account updated successfully.');
   }
 }

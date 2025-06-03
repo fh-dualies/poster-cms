@@ -23,7 +23,8 @@ function register_data(RouteEnum $route, mixed $param = null): void
 
   $cacheKey = $route->get_cache_key();
 
-  if (isset($_SESSION[$cacheKey])) {
+  // use cache if the parameter is null and the cache exists
+  if ($param === null && isset($_SESSION[$cacheKey])) {
     return;
   }
 
@@ -41,4 +42,10 @@ function get_all_posters(): array
 {
   global $poster_controller;
   return $poster_controller->get_all();
+}
+
+function get_poster_detail(int $id): array
+{
+  global $poster_controller;
+  return $poster_controller->get_by_id($id);
 }

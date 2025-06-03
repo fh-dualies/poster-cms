@@ -1,10 +1,10 @@
 <?php
-if (!isset($title) || !isset($text) || !isset($image) || !isset($alt)) {
+if (!isset($headline) || !isset($text) || !isset($image) || !isset($alt)) {
   throw new Exception('Missing required properties: title, text, image, alt');
 } ?>
 
 <section>
-  <h3><?php echo $title; ?></h3>
+  <h3><?php echo $headline; ?></h3>
   <div class="content">
     <p class="content">
         <?php echo $text; ?>

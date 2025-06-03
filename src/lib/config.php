@@ -17,10 +17,10 @@ class Config
     $this->db_name = getenv('DB_NAME') ?: 'www';
   }
 
-  public function get_pdo(): \PDO
+  public function get_pdo(): PDO
   {
     $dsn = "pgsql:host=$this->db_host;port=$this->db_port;dbname=$this->db_name";
 
-    return new \PDO($dsn, $this->db_user, $this->db_pass);
+    return new PDO($dsn, $this->db_user, $this->db_pass);
   }
 }
