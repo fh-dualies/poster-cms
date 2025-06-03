@@ -31,6 +31,6 @@
 
 #### Media
 
-- [ ] media overview (in progress)
+- [x] media overview
 - [ ] upload media (in progress)
-- [ ] delete media (in progress)
+- [x] delete media

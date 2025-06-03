@@ -5,12 +5,14 @@ if (session_status() === PHP_SESSION_NONE) {
 
 use controller\AccountController;
 use controller\AuthController;
+use controller\MediaController;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/route-enum.php';
 require_once __DIR__ . '/../shared/util.php';
 require_once __DIR__ . '/../controller/auth-controller.php';
 require_once __DIR__ . '/../controller/account-controller.php';
+require_once __DIR__ . '/../controller/media-controller.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   redirect_to_page(FilePathEnum::NOT_FOUND);
@@ -21,6 +23,7 @@ $config = new config();
 
 $auth_controller = new AuthController($config);
 $account_controller = new AccountController($config);
+$media_controller = new MediaController($config);
 
 handle_post_request();
 
@@ -84,13 +87,15 @@ function update_account(): void
   global $account_controller;
 
   $response = $account_controller->update_account($_POST);
-
-  if (!$response['is_error']) {
-    redirect_to_page(FilePathEnum::ACCOUNT, $response);
-    return;
-  }
-
   redirect_to_page(FilePathEnum::ACCOUNT, $response);
+}
+
+function delete_media(): void
+{
+  global $media_controller;
+
+  $response = $media_controller->delete_by_id($_POST);
+  redirect_to_page(FilePathEnum::MEDIA, $response, true);
 }
 
 function logout(): void

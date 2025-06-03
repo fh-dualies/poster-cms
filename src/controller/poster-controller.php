@@ -19,17 +19,17 @@ class PosterController
     $this->config = $config;
   }
 
-  public function get_all(): ?array
+  public function get_all(): array
   {
     check_auth_status();
 
     $req = $this->config->get_pdo()->prepare('SELECT * FROM posters');
     $req->execute();
 
-    return $req->fetchAll() ?: null;
+    return $req->fetchAll() ?: [];
   }
 
-  public function get_by_id(int $id): ?array
+  public function get_by_id(int $id): array
   {
     check_auth_status();
 
@@ -60,7 +60,7 @@ class PosterController
     $rows = $req->fetchAll();
 
     if (!$rows) {
-      return null;
+      return [];
     }
 
     $poster = [

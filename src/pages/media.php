@@ -46,6 +46,10 @@ $items = [
 <?php require __DIR__ . '/../components/nav/navigation.php'; ?>
 
 <main class="container">
+  <div class="alert-container">
+      <?php require __DIR__ . '/../components/alert.php'; ?>
+  </div>
+
   <header>
     <h1>Media Library</h1>
   </header>
@@ -68,6 +72,7 @@ $items = [
     <div class="media-grid">
         <?php foreach ($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()] as $item) {
           include_with_prop(__DIR__ . '/../components/media-item.php', [
+            'id' => $item['id'],
             'name' => htmlspecialchars($item['name']),
             'image' => '/ss25-www1/src/static' . $item['path'],
             'alt' => htmlspecialchars($item['alt']),

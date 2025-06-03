@@ -1,5 +1,5 @@
 <?php
-if (!isset($image) || !isset($alt) || !isset($name)) {
+if (!isset($id) || !isset($image) || !isset($alt) || !isset($name)) {
   throw new Exception('Missing required properties: image, alt, name');
 } ?>
 
@@ -13,6 +13,9 @@ if (!isset($image) || !isset($alt) || !isset($name)) {
 
   <div class="info">
     <h5><?php echo $name; ?></h5>
-    <button>Delete</button>
+    <form class="unset" method="POST" action="/ss25-www1/api/post.php">
+      <input type="hidden" name="id" value="<?php echo $id; ?>" />
+      <button type="submit" name="delete_media">Delete</button>
+    </form>
   </div>
 </article>

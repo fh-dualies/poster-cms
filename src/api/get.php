@@ -3,8 +3,8 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-use controller\PosterController;
 use controller\MediaController;
+use controller\PosterController;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/route-enum.php';
@@ -27,7 +27,7 @@ function register_data(RouteEnum $route, mixed $param = null): void
   $cacheKey = $route->get_cache_key();
 
   // use cache if the parameter is null and the cache exists
-  if ($param === null && isset($_SESSION[$cacheKey])) {
+  if ($param === null && !empty($_SESSION[$cacheKey])) {
     return;
   }
 

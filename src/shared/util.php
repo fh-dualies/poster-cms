@@ -28,18 +28,19 @@ function include_with_prop($fileName, $prop): void
   include $fileName;
 }
 
-function redirect_to_page(FilePathEnum $page, ?array $response = null): void
+function redirect_to_page(FilePathEnum $page, ?array $response = null, bool $reload = false): void
 {
-  if (is_null($response)) {
-    header('location: ' . $page->get_path());
-    return;
+  $url = $page->get_path();
+
+  if (!is_null($response)) {
+    $url .= "?status=$response[status]&message=$response[message]&is_error=$response[is_error]";
   }
 
-  header(
-    'location: ' .
-      $page->get_path() .
-      "?status=$response[status]&message=$response[message]&is_error=$response[is_error]"
-  );
+  if ($reload) {
+    header("Refresh:0; url=$url");
+  } else {
+    header("location: $url");
+  }
 }
 
 function create_response(ResponseStatusEnum $status, string $message, array $data = []): array
