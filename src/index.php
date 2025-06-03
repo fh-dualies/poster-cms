@@ -31,7 +31,7 @@ if (
 
   <header>
     <h1>Overview</h1>
-    <a href="./pages/poster-designer.php" class="button">
+    <a href="./pages/create.php" class="button">
       Create New Poster
     </a>
   </header>
@@ -45,7 +45,7 @@ if (
             'headline' => htmlspecialchars($section['headline']),
             'creation_date' => htmlspecialchars($section['creation_date']),
             'image' => './static/images/placeholder.jpg',
-            'link' => './pages/detail-view.php?id=' . htmlspecialchars($section['id']),
+            'link' => './pages/poster.php?id=' . htmlspecialchars($section['id']),
             'meta_data' => htmlspecialchars($section['meta_data']),
           ]);
         } ?>

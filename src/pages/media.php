@@ -1,7 +1,19 @@
 <?php
+require_once __DIR__ . '/../api/get.php';
 require_once __DIR__ . '/../shared/util.php';
+require_once __DIR__ . '/../shared/route-enum.php';
 
 check_auth_status();
+
+register_data(RouteEnum::GET_ALL_MEDIA);
+
+if (
+  !isset($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()]) ||
+  !is_array($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()])
+) {
+  redirect_to_page(FilePathEnum::NOT_FOUND);
+  exit();
+}
 
 $items = [
   [
@@ -54,10 +66,10 @@ $items = [
     <h2>All Media Items</h2>
 
     <div class="media-grid">
-        <?php foreach ($items as $item) {
+        <?php foreach ($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()] as $item) {
           include_with_prop(__DIR__ . '/../components/media-item.php', [
             'name' => htmlspecialchars($item['name']),
-            'image' => $item['image'],
+            'image' => '/ss25-www1/src/static' . $item['path'],
             'alt' => htmlspecialchars($item['alt']),
           ]);
         } ?>

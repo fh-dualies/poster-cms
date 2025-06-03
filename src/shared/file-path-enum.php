@@ -4,9 +4,9 @@ enum FilePathEnum
 {
   case HOME;
   case ACCOUNT;
-  case DETAIL_VIEW;
+  case POSTER;
   case MEDIA;
-  case POSTER_DESIGNER;
+  case CREATE;
   case LOGIN;
   case REGISTER;
   case NOT_FOUND;
@@ -16,9 +16,9 @@ enum FilePathEnum
     return match ($this) {
       self::HOME => '/ss25-www1/src/index.php',
       self::ACCOUNT => '/ss25-www1/src/pages/account.php',
-      self::DETAIL_VIEW => '/ss25-www1/src/pages/detail-view.php',
+      self::POSTER => '/ss25-www1/src/pages/poster.php',
       self::MEDIA => '/ss25-www1/src/pages/media.php',
-      self::POSTER_DESIGNER => '/ss25-www1/src/pages/poster-designer.php',
+      self::CREATE => '/ss25-www1/src/pages/create.php',
       self::LOGIN => '/ss25-www1/src/pages/login.php',
       self::REGISTER => '/ss25-www1/src/pages/register.php',
       self::NOT_FOUND => '/ss25-www1/src/pages/not-found.php',

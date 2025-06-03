@@ -4,15 +4,18 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 use controller\PosterController;
+use controller\MediaController;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/route-enum.php';
 require_once __DIR__ . '/../shared/util.php';
 require_once __DIR__ . '/../controller/poster-controller.php';
+require_once __DIR__ . '/../controller/media-controller.php';
 
 $config = new Config();
 
 $poster_controller = new PosterController($config);
+$media_controller = new MediaController($config);
 
 function register_data(RouteEnum $route, mixed $param = null): void
 {
@@ -48,4 +51,10 @@ function get_poster_detail(int $id): ?array
 {
   global $poster_controller;
   return $poster_controller->get_by_id($id);
+}
+
+function get_all_media(): ?array
+{
+  global $media_controller;
+  return $media_controller->get_all();
 }

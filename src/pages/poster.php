@@ -34,7 +34,7 @@ $poster = $_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()];
   <header>
     <h1><?php echo htmlspecialchars($poster['headline']); ?></h1>
     <div>
-      <a class="button" href="poster-designer.php">Edit</a>
+      <a class="button" href="create.php">Edit</a>
       <a class="button secondary" onclick="openPoster()">Print</a>
     </div>
   </header>
