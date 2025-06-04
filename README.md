@@ -27,7 +27,7 @@
 #### Account
 
 - [x] update account
-- [ ] delete account
+- [x] delete account
 
 #### Media
 
