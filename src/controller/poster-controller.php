@@ -55,7 +55,7 @@ class PosterController
     ';
 
     $req = $this->config->get_pdo()->prepare($query);
-    $req->execute(['id' => $id]);
+    $req->execute(['id' => htmlspecialchars(trim($id))]);
 
     $rows = $req->fetchAll();
 

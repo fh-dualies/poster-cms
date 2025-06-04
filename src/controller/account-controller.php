@@ -84,7 +84,7 @@ class AccountController
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'No user authenticated.');
     }
 
-    $id = $_SESSION['user']['id'];
+    $id = htmlspecialchars(trim($_SESSION['user']['id']));
 
     if (!is_numeric($id) || $id <= 0) {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid account id provided.');

@@ -47,3 +47,11 @@ button.danger:hover {
   background-color: var(--danger-color);
   color: white;
 }
+
+button:disabled,
+input[type='submit']:disabled,
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

@@ -63,7 +63,7 @@ check_auth_status();
 <script>
   document
     .getElementById('delete-account-btn')
-    .addEventListener('click', function (e) {
+    .addEventListener('click', function(e) {
       if (!confirm('Are you sure you want to delete your account?')) {
         e.preventDefault();
       }

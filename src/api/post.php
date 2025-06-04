@@ -90,6 +90,14 @@ function update_account(): void
   redirect_to_page(FilePathEnum::ACCOUNT, $response);
 }
 
+function create_media(): void
+{
+  global $media_controller;
+
+  $response = $media_controller->create_media($_FILES);
+  redirect_to_page(FilePathEnum::MEDIA, $response);
+}
+
 function delete_media(): void
 {
   global $media_controller;

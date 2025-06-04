@@ -17,6 +17,21 @@ class Config
     $this->db_name = getenv('DB_NAME') ?: 'www';
   }
 
+  public static function get_allowed_file_types(): array
+  {
+    return ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+  }
+
+  public static function get_max_file_size(): int
+  {
+    return 5 * 1024 * 1024; // 5 MB
+  }
+
+  public static function get_upload_directory(): string
+  {
+    return __DIR__ . '/../static/_uploads/';
+  }
+
   public function get_pdo(): PDO
   {
     $dsn = "pgsql:host=$this->db_host;port=$this->db_port;dbname=$this->db_name";

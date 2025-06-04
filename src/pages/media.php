@@ -14,24 +14,6 @@ if (
   redirect_to_page(FilePathEnum::NOT_FOUND);
   exit();
 }
-
-$items = [
-  [
-    'image' => '../static/images/placeholder.jpg',
-    'alt' => 'Image 1',
-    'name' => 'Media name 1',
-  ],
-  [
-    'image' => '../static/images/placeholder.jpg',
-    'alt' => 'Image 2',
-    'name' => 'Media name 2',
-  ],
-  [
-    'image' => '../static/images/placeholder.jpg',
-    'alt' => 'Image 3',
-    'name' => 'Media name 3',
-  ],
-];
 ?>
 
 <html lang="en">
@@ -55,15 +37,26 @@ $items = [
   </header>
 
   <section class="upload-area">
-    <div>
-      <h2>Drag & Drop Files</h2>
-      <p>or</p>
-      <label class="button">
-        <input type="file" accept="image/*" multiple />
-        <span>Browse Files</span>
-      </label>
-      <p>Supported formats: jpg, png, gif, svg</p>
-    </div>
+    <form class="unset" method="POST" enctype="multipart/form-data" action="<?php echo FilePathEnum::get_sys_path(
+      'api/post.php'
+    ); ?>">
+      <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo Config::get_max_file_size(); ?>" />
+
+      <div>
+        <h2>Drag & Drop Files</h2>
+        <p>or</p>
+
+        <label class="button ghost">
+          <input id="fileInput" name="file" type="file" accept="image/*" />
+          <span>Browse Files</span>
+        </label>
+
+        <button id="uploadButton" type="submit" name="create_media" disabled>Upload</button>
+
+        <p id="fileName" class="file-name"></p>
+        <p>Supported formats: jpg, png, gif, svg</p>
+      </div>
+    </form>
   </section>
 
   <section>
@@ -85,3 +78,19 @@ $items = [
 <?php require __DIR__ . '/../components/nav/footer.php'; ?>
 </body>
 </html>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const fileName = document.getElementById('fileName');
+  const uploadBtn = document.getElementById('uploadButton');
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length) {
+      fileName.textContent = fileInput.files[0].name;
+      uploadBtn.disabled = false;
+    } else {
+      fileName.textContent = '';
+      uploadBtn.disabled = true;
+    }
+  });
+</script>
