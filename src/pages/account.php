@@ -50,6 +50,7 @@ check_auth_status();
     </div>
 
     <button type="submit" name="update_account">Update Account</button>
+    <button type="submit" name="delete_account" class="danger">Delete Account</button>
   </form>
 </main>
 

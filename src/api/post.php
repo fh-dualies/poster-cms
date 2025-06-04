@@ -98,6 +98,24 @@ function delete_media(): void
   redirect_to_page(FilePathEnum::MEDIA, $response, true);
 }
 
+function delete_account(): void
+{
+  global $account_controller;
+
+  $response = $account_controller->delete_auth_user();
+
+  $_SESSION = [];
+  if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+     );
+  }
+  session_destroy();
+  redirect_to_page(FilePathEnum::ACCOUNT, $response);
+}
+
 function logout(): void
 {
   global $auth_controller;
