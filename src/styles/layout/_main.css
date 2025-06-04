@@ -42,6 +42,11 @@ body {
   margin-top: var(--spacing-xl);
 }
 
+.separate-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 main {
   padding: var(--spacing-xl) 0;
 }

@@ -49,11 +49,23 @@ check_auth_status();
       ); ?>" />
     </div>
 
-    <button type="submit" name="update_account">Update Account</button>
-    <button type="submit" name="delete_account" class="danger">Delete Account</button>
+    <div class="separate-container">
+      <button type="submit" name="update_account">Update Account</button>
+      <button id="delete-account-btn" type="submit" name="delete_account" class="danger">Delete Account</button>
+    </div>
   </form>
 </main>
 
 <?php require __DIR__ . '/../components/nav/footer.php'; ?>
 </body>
 </html>
+
+<script>
+  document
+    .getElementById('delete-account-btn')
+    .addEventListener('click', function (e) {
+      if (!confirm('Are you sure you want to delete your account?')) {
+        e.preventDefault();
+      }
+    });
+</script>
