@@ -45,13 +45,13 @@ INSERT INTO
 VALUES
   (
     'image',
-    '/images/placeholder.jpg',
+    'images/placeholder.jpg',
     'Image 1',
     'Placeholder Image 1'
   ),
   (
     'image',
-    '/images/placeholder.jpg',
+    'images/placeholder.jpg',
     'Image 2',
     'Placeholder Image 2'
   );

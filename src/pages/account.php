@@ -20,7 +20,7 @@ check_auth_status();
     <h1>Account settings</h1>
   </header>
 
-  <form method="POST" action="/ss25-www1/api/post.php">
+  <form method="POST" action="<?php echo FilePathEnum::get_sys_path('api/post.php'); ?>">
     <div>
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" value="<?php echo htmlspecialchars(

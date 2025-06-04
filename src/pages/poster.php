@@ -49,7 +49,7 @@ $poster = $_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()];
         include_with_prop(__DIR__ . '/../components/poster-section.php', [
           'headline' => htmlspecialchars($section['headline']),
           'text' => htmlspecialchars($section['text']),
-          'image' => '/ss25-www1/src/static' . $section['media']['path'] ?? null,
+          'image' => FilePathEnum::get_sys_path('static') . $section['media']['path'] ?? null,
           'alt' => htmlspecialchars($section['media']['alt'] ?? ''),
         ]);
       } ?>

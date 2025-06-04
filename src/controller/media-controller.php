@@ -4,6 +4,7 @@ namespace controller;
 
 use Config;
 use PDO;
+use PDOException;
 use ResponseStatusEnum;
 use RouteEnum;
 use function create_response;
@@ -51,7 +52,7 @@ class MediaController
       $req = $this->config->get_pdo()->prepare('DELETE FROM medias WHERE id = :id');
       $req->bindParam(':id', $id, PDO::PARAM_INT);
       $req->execute();
-    } catch (\PDOException $e) {
+    } catch (PDOException $e) {
       if ($e->getCode() == 23503) {
         return create_response(
           ResponseStatusEnum::SERVER_ERROR,

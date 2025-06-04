@@ -2,6 +2,8 @@
 
 enum FilePathEnum
 {
+  private const BASE_PATH = '/ss25-www1/';
+
   case HOME;
   case ACCOUNT;
   case POSTER;
@@ -14,14 +16,19 @@ enum FilePathEnum
   public function get_path(): string
   {
     return match ($this) {
-      self::HOME => '/ss25-www1/src/index.php',
-      self::ACCOUNT => '/ss25-www1/src/pages/account.php',
-      self::POSTER => '/ss25-www1/src/pages/poster.php',
-      self::MEDIA => '/ss25-www1/src/pages/media.php',
-      self::CREATE => '/ss25-www1/src/pages/create.php',
-      self::LOGIN => '/ss25-www1/src/pages/login.php',
-      self::REGISTER => '/ss25-www1/src/pages/register.php',
-      self::NOT_FOUND => '/ss25-www1/src/pages/not-found.php',
+      self::HOME => self::get_sys_path('src/index.php'),
+      self::ACCOUNT => self::get_sys_path('src/pages/account.php'),
+      self::POSTER => self::get_sys_path('src/pages/poster.php'),
+      self::MEDIA => self::get_sys_path('src/pages/media.php'),
+      self::CREATE => self::get_sys_path('src/pages/create.php'),
+      self::LOGIN => self::get_sys_path('src/pages/login.php'),
+      self::REGISTER => self::get_sys_path('src/pages/register.php'),
+      self::NOT_FOUND => self::get_sys_path('src/pages/not-found.php'),
     };
+  }
+
+  public static function get_sys_path(string $path = ''): string
+  {
+    return self::BASE_PATH . $path;
   }
 }

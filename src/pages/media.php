@@ -74,7 +74,7 @@ $items = [
           include_with_prop(__DIR__ . '/../components/media-item.php', [
             'id' => $item['id'],
             'name' => htmlspecialchars($item['name']),
-            'image' => '/ss25-www1/src/static' . $item['path'],
+            'image' => FilePathEnum::get_sys_path('static/') . $item['path'],
             'alt' => htmlspecialchars($item['alt']),
           ]);
         } ?>

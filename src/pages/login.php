@@ -10,7 +10,7 @@ require_once __DIR__ . '/../shared/util.php'; ?>
 <?php require __DIR__ . '/../components/nav/navigation.php'; ?>
 <main class="container">
   <section class="auth-container">
-    <form method="POST" action="/ss25-www1/api/post.php">
+    <form method="POST" action="<?php echo FilePathEnum::get_sys_path('api/post.php'); ?>">
         <?php require __DIR__ . '/../components/alert.php'; ?>
       <h1>Login</h1>
 
