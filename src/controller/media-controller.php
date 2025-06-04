@@ -106,7 +106,7 @@ class MediaController
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to create upload directory.');
     }
 
-    $absolutePath = $upload_dir . '/' . uniqid('', true) . '-' . basename($file_name);
+    $absolutePath = $upload_dir . uniqid('', true) . '-' . basename($file_name);
 
     if (!move_uploaded_file($file_tmp, $absolutePath)) {
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to move uploaded file.');
