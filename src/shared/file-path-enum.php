@@ -7,6 +7,8 @@ enum FilePathEnum
   case HOME;
   case ACCOUNT;
   case POSTER;
+  case POSTER_A3;
+  case POSTER_A4;
   case MEDIA;
   case CREATE;
   case LOGIN;
@@ -19,6 +21,8 @@ enum FilePathEnum
       self::HOME => self::get_sys_path('src/index.php'),
       self::ACCOUNT => self::get_sys_path('src/pages/account.php'),
       self::POSTER => self::get_sys_path('src/pages/poster.php'),
+      self::POSTER_A3 => self::get_sys_path('src/pages/poster/a3.php'),
+      self::POSTER_A4 => self::get_sys_path('src/pages/poster/a4.php'),
       self::MEDIA => self::get_sys_path('src/pages/media.php'),
       self::CREATE => self::get_sys_path('src/pages/create.php'),
       self::LOGIN => self::get_sys_path('src/pages/login.php'),

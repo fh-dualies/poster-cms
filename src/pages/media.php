@@ -9,7 +9,8 @@ register_data(RouteEnum::GET_ALL_MEDIA);
 
 if (
   !isset($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()]) ||
-  !is_array($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()])
+  !is_array($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()]) ||
+  empty($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()])
 ) {
   redirect_to_page(FilePathEnum::NOT_FOUND);
   exit();
@@ -54,7 +55,7 @@ if (
         <button id="uploadButton" type="submit" name="create_media" disabled>Upload</button>
 
         <p id="fileName" class="file-name"></p>
-        <p>Supported formats: jpg, png, gif, svg</p>
+        <p>Supported formats: jpg, png, gif, webp</p>
       </div>
     </form>
   </section>

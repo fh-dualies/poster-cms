@@ -22,7 +22,7 @@
 - [x] poster details
 - [ ] edit poster (tom)
 - [ ] delete poster (tom)
-- [ ] print poster (dynamic "pdf") (lars)
+- [x] print poster (dynamic "pdf") (lars)
 
 #### Account
 

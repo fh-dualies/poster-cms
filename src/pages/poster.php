@@ -14,7 +14,8 @@ register_data(RouteEnum::GET_POSTER_DETAIL, intval($_GET['id']));
 
 if (
   !isset($_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()]) ||
-  !is_array($_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()])
+  !is_array($_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()]) ||
+  empty($_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()])
 ) {
   redirect_to_page(FilePathEnum::NOT_FOUND);
   exit();
@@ -64,23 +65,24 @@ $poster = $_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()];
 </body>
 
 <script>
+  const posterId = <?php echo json_encode(intval($_GET['id'])); ?>;
+
   function openPoster() {
     const choice = prompt('Open A3 or A4 format? (A3/A4)');
+    if (!choice) return;
 
-    if (!choice) {
+    const format = choice.trim().toUpperCase();
+    let urlBase;
+    if (format === 'A3') {
+      urlBase = './posters/a3.php';
+    } else if (format === 'A4') {
+      urlBase = './posters/a4.php';
+    } else {
+      alert('Unknown format. Please enter either A3 or A4.');
       return;
     }
 
-    const format = choice.trim().toUpperCase();
-
-    if (format === 'A3') {
-      window.open('../../posters/a3.html', '_blank');
-    } else if (format === 'A4') {
-      window.open('../../posters/a4.html', '_blank');
-    } else {
-      alert('Unknown format. Please enter either A3 or A4.');
-    }
+    window.open(`${urlBase}?id=${posterId}`, '_blank');
   }
 </script>
-
 </html>
