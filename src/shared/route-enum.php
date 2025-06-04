@@ -9,7 +9,9 @@ enum RouteEnum
   case POST_UPDATE_ACCOUNT;
   case POST_DELETE_MEDIA;
   case POST_DELETE_ACCOUNT;
+  case POST_DELETE_POSTER;
   case POST_CREATE_MEDIA;
+  case POST_CREATE_POSTER;
 
   case GET_ALL_POSTERS;
   case GET_ALL_MEDIA;
@@ -25,7 +27,9 @@ enum RouteEnum
       self::POST_UPDATE_ACCOUNT,
       self::POST_DELETE_MEDIA,
       self::POST_DELETE_ACCOUNT,
+      self::POST_DELETE_POSTER,
       self::POST_CREATE_MEDIA,
+      self::POST_CREATE_POSTER
     ]);
   }
 
@@ -44,7 +48,9 @@ enum RouteEnum
       self::POST_UPDATE_ACCOUNT => 'update_account',
       self::POST_DELETE_MEDIA => 'delete_media',
       self::POST_DELETE_ACCOUNT => 'delete_account',
+      self::POST_DELETE_POSTER => 'delete_poster',
       self::POST_CREATE_MEDIA => 'create_media',
+      self::POST_CREATE_POSTER => 'create_poster',
       self::GET_ALL_POSTERS => 'get_all_posters',
       self::GET_ALL_MEDIA => 'get_all_media',
       self::GET_POSTER_DETAIL => 'get_poster_detail',

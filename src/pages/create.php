@@ -31,7 +31,7 @@ $formSections = [
     <h1>Poster Designer</h1>
   </header>
 
-  <form>
+  <form method="POST" action="<?php echo FilePathEnum::get_sys_path('api/post.php'); ?>">
     <div>
       <label for="poster-author">Author Name:</label>
       <input
@@ -70,8 +70,8 @@ $formSections = [
         placeholder="Enter additional meta-data"
       />
     </div>
-
-    <button type="submit">Save Poster</button>
+    <button type="submit" name="create_poster">Save Poster</button>
+    <button type="submit" name="delete_poster" class="danger">Delete Poster</button>
   </form>
 </main>
 
