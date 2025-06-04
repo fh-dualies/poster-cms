@@ -3,10 +3,10 @@
 namespace controller;
 
 use Config;
+use PDO;
+use PDOException;
 use RegexEnum;
 use ResponseStatusEnum;
-use PDO;
-use RouteEnum;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';
@@ -76,33 +76,26 @@ class AccountController
     return create_response(ResponseStatusEnum::SUCCESS, 'Account updated successfully.');
   }
 
-  public function delete_auth_user(): array
+  public function delete_account(): array
   {
     check_auth_status();
 
     if (!isset($_SESSION['user']['id'])) {
-        return create_response(ResponseStatusEnum::BAD_REQUEST, 'No user authenticated.');
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'No user authenticated.');
     }
 
     $id = $_SESSION['user']['id'];
 
     if (!is_numeric($id) || $id <= 0) {
-        return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid account id provided.');
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid account id provided.');
     }
 
     try {
-        $req = $this->config->get_pdo()->prepare('DELETE FROM users WHERE id = :id');
-        $req->bindParam(':id', $id, PDO::PARAM_INT);
-        $req->execute();
-    } catch (\PDOException $e) {
-        if ($e->getCode() == 23503) {
-            return create_response(
-                ResponseStatusEnum::SERVER_ERROR,
-                'Failed to delete account. This account is currently in use and cannot be deleted.'
-            );
-        }
-
-        return create_response(ResponseStatusEnum::SERVER_ERROR, 'An unexpected error occurred while deleting account.');
+      $req = $this->config->get_pdo()->prepare('DELETE FROM users WHERE id = :id');
+      $req->bindParam(':id', $id, PDO::PARAM_INT);
+      $req->execute();
+    } catch (PDOException $e) {
+      return create_response(ResponseStatusEnum::SERVER_ERROR, 'An unexpected error occurred while deleting account.');
     }
 
     return create_response(ResponseStatusEnum::SUCCESS, 'Account deleted successfully.');

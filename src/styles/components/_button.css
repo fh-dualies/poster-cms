@@ -43,7 +43,7 @@ input[type='submit'].ghost:hover,
 }
 
 button.danger,
-button.danger:hover{
+button.danger:hover {
   background-color: var(--danger-color);
   color: white;
 }

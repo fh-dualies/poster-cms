@@ -23,7 +23,7 @@ enum RouteEnum
       self::POST_LOGOUT,
       self::POST_UPDATE_ACCOUNT,
       self::POST_DELETE_MEDIA,
-      self::POST_DELETE_ACCOUNT
+      self::POST_DELETE_ACCOUNT,
     ]);
   }
 
