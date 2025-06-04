@@ -13,16 +13,16 @@
 
 ### TODO
 
-- [ ] empty states
+- [ ] empty states (lars)
 
 #### Poster
 
 - [x] poster overview
 - [ ] create poster
 - [x] poster details
-- [ ] edit poster
-- [ ] delete poster
-- [ ] print poster (dynamic "pdf")
+- [ ] edit poster (tom)
+- [ ] delete poster (tom)
+- [ ] print poster (dynamic "pdf") (lars)
 
 #### Account
 
@@ -32,5 +32,5 @@
 #### Media
 
 - [x] media overview
-- [ ] upload media (in progress)
+- [x] upload media
 - [x] delete media
