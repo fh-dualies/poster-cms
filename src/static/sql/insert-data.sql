@@ -59,6 +59,18 @@ VALUES
   );
 
 INSERT INTO
+  medias (id, type, path, name, alt, size)
+VALUES
+  (
+    -1,
+    'image',
+    'images/placeholder.jpg',
+    'Default Image',
+    'Placeholder Image Default',
+    1024
+  );
+
+INSERT INTO
   sections (poster_id, headline, text, media_id)
 VALUES
   (

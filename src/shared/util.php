@@ -39,7 +39,7 @@ function redirect_to_page(FilePathEnum $page, ?array $response = null, bool $rel
   if ($reload) {
     header("Refresh:0; url=$url");
   } else {
-    header("location: $url");
+    header('location: ' . str_replace(["\r", "\n"], '', $url));
   }
 }
 

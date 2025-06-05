@@ -154,17 +154,49 @@ class PosterController
             ';
       $secStmt = $pdo->prepare($insertSection);
 
+      $insertMedia = '
+      INSERT INTO medias (name, alt, path, size, type)
+      VALUES (:name, :alt, :path, :size, :type)
+    ';
+      $mediaStmt = $pdo->prepare($insertMedia);
+
       for ($i = 1; $i <= 3; $i++) {
         $sec_headline = trim(htmlspecialchars($data["s{$i}headline"] ?? ''));
         $sec_text = trim(htmlspecialchars($data["s{$i}text"] ?? ''));
-        $sec_img_id = isset($data["s{$i}img"]) && is_numeric($data["s{$i}img"]) ? (int) $data["s{$i}img"] : null;
+        $sec_img_path = trim($data["s{$i}img"] ?? '');
 
         if ($sec_headline !== '') {
+          $media_id = -1;
+
+          if ($sec_img_path !== '') {
+            $path = htmlspecialchars($sec_img_path);
+            $name = basename($path);
+            $alt = "Image for section {$i}";
+            $size = 0;
+            $extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+            $type = match ($extension) {
+              'jpg', 'jpeg' => 'image/jpeg',
+              'png' => 'image/png',
+              'gif' => 'image/gif',
+              'webp' => 'image/webp',
+              default => 'application/octet-stream',
+            };
+
+            $mediaStmt->execute([
+              ':name' => $name,
+              ':alt' => $alt,
+              ':path' => $path,
+              ':size' => $size,
+              ':type' => $type,
+            ]);
+            $media_id = (int) $pdo->lastInsertId();
+          }
+
           $secStmt->execute([
             ':poster_id' => $poster_id,
             ':headline' => $sec_headline,
             ':text' => $sec_text,
-            ':media_id' => $sec_img_id,
+            ':media_id' => $media_id,
           ]);
         }
       }
@@ -172,7 +204,7 @@ class PosterController
       $pdo->commit();
     } catch (PDOException $e) {
       $pdo->rollBack();
-      return create_response(ResponseStatusEnum::SERVER_ERROR, 'An error occurred while creating the poster.');
+      return create_response(ResponseStatusEnum::SERVER_ERROR, 'DB error: ' . $e->getMessage());
     }
 
     // Invalidate cache
