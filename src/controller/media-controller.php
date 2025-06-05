@@ -7,8 +7,6 @@ use PDO;
 use PDOException;
 use ResponseStatusEnum;
 use RouteEnum;
-use function check_auth_status;
-use function create_response;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';
@@ -29,10 +27,13 @@ class MediaController
   {
     check_auth_status();
 
-    $req = $this->config->get_pdo()->prepare('SELECT * FROM medias');
-    $req->execute();
-
-    return $req->fetchAll() ?: [];
+    try {
+      $stmt = $this->config->get_pdo()->prepare('SELECT * FROM medias');
+      $stmt->execute();
+      return $stmt->fetchAll() ?: [];
+    } catch (PDOException $e) {
+      return [];
+    }
   }
 
   public function delete_by_id(array $data): array
@@ -43,16 +44,20 @@ class MediaController
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Media id is required.');
     }
 
-    $id = htmlspecialchars(trim($data['id']));
+    $media_id = htmlspecialchars(trim($data['id']));
 
-    if (!is_numeric($id) || $id <= 0) {
+    if (!is_numeric($media_id) || (int) $media_id <= 0) {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid media id provided.');
     }
 
     try {
-      $req = $this->config->get_pdo()->prepare('DELETE FROM medias WHERE id = :id');
-      $req->bindParam(':id', $id, PDO::PARAM_INT);
-      $req->execute();
+      $stmt = $this->config->get_pdo()->prepare('DELETE FROM medias WHERE id = :id');
+      $stmt->bindParam(':id', $media_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      if ($stmt->rowCount() === 0) {
+        return create_response(ResponseStatusEnum::SERVER_ERROR, 'No media was deleted.');
+      }
     } catch (PDOException $e) {
       if ($e->getCode() == 23503) {
         return create_response(
@@ -64,7 +69,7 @@ class MediaController
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'An unexpected error occurred while deleting media.');
     }
 
-    // invalidate cache
+    // Invalidate cache
     $_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()] = [];
 
     return create_response(ResponseStatusEnum::SUCCESS, 'Media deleted successfully.');
@@ -76,7 +81,7 @@ class MediaController
 
     $file = $data['file'] ?? null;
 
-    if (!$file || !isset($file['name']) || !isset($file['tmp_name']) || !isset($file['type'])) {
+    if (!$file || !isset($file['name'], $file['tmp_name'], $file['type'], $file['error'])) {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'File is required.');
     }
 
@@ -86,10 +91,10 @@ class MediaController
 
     $file_name = htmlspecialchars(trim($file['name']));
     $file_tmp = $file['tmp_name'];
-    $file_size = $file['size'] ?? 0;
+    $file_size = isset($file['size']) ? (int) $file['size'] : 0;
     $file_type = $file['type'];
 
-    if (!in_array($file_type, Config::get_allowed_file_types())) {
+    if (!in_array($file_type, Config::get_allowed_file_types(), true)) {
       return create_response(
         ResponseStatusEnum::BAD_REQUEST,
         'Invalid file type. Only JPEG, PNG, GIF, and WEBP are allowed.'
@@ -106,30 +111,35 @@ class MediaController
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to create upload directory.');
     }
 
-    $absolutePath = $upload_dir . uniqid('', true) . '-' . basename($file_name);
+    $absolute_path = $upload_dir . uniqid('', true) . '-' . basename($file_name);
 
-    if (!move_uploaded_file($file_tmp, $absolutePath)) {
+    if (!move_uploaded_file($file_tmp, $absolute_path)) {
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to move uploaded file.');
     }
 
-    $relativePath = substr($absolutePath, strpos($absolutePath, '_uploads'));
+    $relative_path = substr($absolute_path, strpos($absolute_path, '_uploads'));
 
     try {
-      $req = $this->config
-        ->get_pdo()
-        ->prepare('INSERT INTO medias (name, alt, path, size, type) VALUES (:name, :alt, :path, :size, :type)');
-      $req->execute([
-        'name' => $file_name,
-        'alt' => $file_name . ' (uploaded)',
-        'path' => $relativePath,
-        'size' => $file_size,
-        'type' => $file_type,
+      $stmt = $this->config->get_pdo()->prepare(
+        'INSERT INTO medias (name, alt, path, size, type)
+                 VALUES (:name, :alt, :path, :size, :type)'
+      );
+      $stmt->execute([
+        ':name' => $file_name,
+        ':alt' => $file_name . ' (uploaded)',
+        ':path' => $relative_path,
+        ':size' => $file_size,
+        ':type' => $file_type,
       ]);
+
+      if ($stmt->rowCount() === 0) {
+        return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to save media.');
+      }
     } catch (PDOException $e) {
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'An error occurred while saving the media.');
     }
 
-    // invalidate cache
+    // Invalidate cache
     $_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()] = [];
 
     return create_response(ResponseStatusEnum::SUCCESS, 'Media saved.');

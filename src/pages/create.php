@@ -27,6 +27,10 @@ $formSections = [
 <body>
 <?php require __DIR__ . '/../components/nav/navigation.php'; ?>
 <main class="container">
+  <div class="alert-container">
+      <?php require __DIR__ . '/../components/alert.php'; ?>
+  </div>
+
   <header>
     <h1>Poster Designer</h1>
   </header>
@@ -71,7 +75,6 @@ $formSections = [
       />
     </div>
     <button type="submit" name="create_poster">Save Poster</button>
-    <button type="submit" name="delete_poster" class="danger">Delete Poster</button>
   </form>
 </main>
 

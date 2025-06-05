@@ -4,6 +4,7 @@ namespace controller;
 
 use Config;
 use FilePathEnum;
+use PDOException;
 use RegexEnum;
 use ResponseStatusEnum;
 
@@ -28,34 +29,33 @@ class AuthController
       return create_response(ResponseStatusEnum::FORBIDDEN, 'You are already logged in.');
     }
 
-    $email = htmlspecialchars(trim($data['email']));
-    $password = trim($data['password']);
+    $email = htmlspecialchars(trim($data['email'] ?? ''));
+    $password = trim($data['password'] ?? '');
 
-    if (empty($email) || empty($password)) {
+    if ($email === '' || $password === '') {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Email and password are required.');
     }
 
     if (!preg_match(RegexEnum::EMAIL->get_pattern(), $email)) {
-      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid email');
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid email.');
     }
 
-    $req = $this->config->get_pdo()->prepare('SELECT * FROM users WHERE email = :email');
-    $req->execute(['email' => $email]);
-    $user = $req->fetch();
+    try {
+      $stmt = $this->config->get_pdo()->prepare('SELECT * FROM users WHERE email = :email');
+      $stmt->execute([':email' => $email]);
+      $user = $stmt->fetch();
+    } catch (PDOException $e) {
+      return create_response(ResponseStatusEnum::SERVER_ERROR, 'An unexpected error occurred while retrieving user.');
+    }
 
     if ($user === false || !password_verify($password, $user['password'])) {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Email or password invalid!');
     }
 
-    $this->init_session($user);
+    $_SESSION['user'] = $user;
     redirect_to_page(FilePathEnum::HOME);
 
     return create_response(ResponseStatusEnum::SUCCESS, 'Login successful!');
-  }
-
-  private function init_session(array $user): void
-  {
-    $_SESSION['user'] = $user;
   }
 
   public function register(array $data): array
@@ -64,42 +64,67 @@ class AuthController
       return create_response(ResponseStatusEnum::FORBIDDEN, 'You are already logged in.');
     }
 
-    $username = htmlspecialchars(trim($data['username']));
-    $email = htmlspecialchars(trim($data['email']));
-    $password = trim($data['password']);
+    $username = htmlspecialchars(trim($data['username'] ?? ''));
+    $email = htmlspecialchars(trim($data['email'] ?? ''));
+    $password = trim($data['password'] ?? '');
 
-    if (empty($username) || empty($email) || empty($password)) {
+    if ($username === '' || $email === '' || $password === '') {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Username, email and password are required.');
     }
 
     if (!preg_match(RegexEnum::NAME->get_pattern(), $username)) {
-      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid username');
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid username.');
     }
 
     if (!preg_match(RegexEnum::EMAIL->get_pattern(), $email)) {
-      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid email');
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid email.');
     }
 
     if (!preg_match(RegexEnum::PASSWORD->get_pattern(), $password)) {
-      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid password');
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid password.');
     }
 
-    $req = $this->config->get_pdo()->prepare('SELECT * FROM users WHERE email = :email OR username = :username');
-    $req->execute(['email' => $email, 'username' => $username]);
-    $user = $req->fetch();
+    try {
+      $stmt = $this->config
+        ->get_pdo()
+        ->prepare('SELECT COUNT(*) FROM users WHERE email = :email OR username = :username');
+      $stmt->execute([
+        ':email' => $email,
+        ':username' => $username,
+      ]);
 
-    if ($user !== false) {
-      return create_response(ResponseStatusEnum::FORBIDDEN, 'Email or username already exists!');
+      $count = (int) $stmt->fetchColumn();
+
+      if ($count > 0) {
+        return create_response(ResponseStatusEnum::FORBIDDEN, 'Email or username already exists!');
+      }
+    } catch (PDOException $e) {
+      return create_response(
+        ResponseStatusEnum::SERVER_ERROR,
+        'An unexpected error occurred while checking existing users.'
+      );
     }
 
     $hash = password_hash($password, PASSWORD_DEFAULT);
-    $req = $this->config
-      ->get_pdo()
-      ->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
-    $result = $req->execute(['username' => $username, 'email' => $email, 'password' => $hash]);
 
-    if (!$result) {
-      return create_response(ResponseStatusEnum::SERVER_ERROR, 'An error occurred while registering the user.');
+    try {
+      $stmt = $this->config
+        ->get_pdo()
+        ->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
+      $stmt->execute([
+        ':username' => $username,
+        ':email' => $email,
+        ':password' => $hash,
+      ]);
+
+      if ($stmt->rowCount() === 0) {
+        return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to register the user.');
+      }
+    } catch (PDOException $e) {
+      return create_response(
+        ResponseStatusEnum::SERVER_ERROR,
+        'An unexpected error occurred while registering the user.'
+      );
     }
 
     redirect_to_page(FilePathEnum::LOGIN);

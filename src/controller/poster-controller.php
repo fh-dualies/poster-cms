@@ -3,8 +3,11 @@
 namespace controller;
 
 use Config;
-use ResponseStatusEnum;
 use PDOException;
+use ResponseStatusEnum;
+use RouteEnum;
+use function error_log;
+use function print_r;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';
@@ -25,41 +28,51 @@ class PosterController
   {
     check_auth_status();
 
-    $req = $this->config->get_pdo()->prepare('SELECT * FROM posters');
-    $req->execute();
-
-    return $req->fetchAll() ?: [];
+    try {
+      $stmt = $this->config->get_pdo()->prepare('SELECT * FROM posters');
+      $stmt->execute();
+      return $stmt->fetchAll() ?: [];
+    } catch (PDOException $e) {
+      return [];
+    }
   }
 
   public function get_by_id(int $id): array
   {
     check_auth_status();
 
+    if ($id <= 0) {
+      return [];
+    }
+
     $query = '
-        SELECT 
-            posters.id AS poster_id, 
-            posters.user_id, 
-            posters.author, 
-            posters.creation_date, 
-            posters.headline, 
-            posters.meta_data, 
-            sections.id AS section_id, 
-            sections.headline AS section_headline, 
-            sections.text AS section_text, 
-            medias.id AS media_id, 
-            medias.type AS media_type, 
-            medias.path AS media_path, 
-            medias.alt AS media_alt
-        FROM posters
-        LEFT JOIN sections ON sections.poster_id = posters.id
-        LEFT JOIN medias ON sections.media_id = medias.id
-        WHERE posters.id = :id
-    ';
+            SELECT 
+                posters.id AS poster_id,
+                posters.user_id,
+                posters.author,
+                posters.creation_date,
+                posters.headline,
+                posters.meta_data,
+                sections.id AS section_id,
+                sections.headline AS section_headline,
+                sections.text AS section_text,
+                medias.id AS media_id,
+                medias.type AS media_type,
+                medias.path AS media_path,
+                medias.alt AS media_alt
+            FROM posters
+            LEFT JOIN sections ON sections.poster_id = posters.id
+            LEFT JOIN medias ON sections.media_id = medias.id
+            WHERE posters.id = :id
+        ';
 
-    $req = $this->config->get_pdo()->prepare($query);
-    $req->execute(['id' => htmlspecialchars(trim($id))]);
-
-    $rows = $req->fetchAll();
+    try {
+      $stmt = $this->config->get_pdo()->prepare($query);
+      $stmt->execute([':id' => $id]);
+      $rows = $stmt->fetchAll();
+    } catch (PDOException $e) {
+      return [];
+    }
 
     if (!$rows) {
       return [];
@@ -94,91 +107,109 @@ class PosterController
     return $poster;
   }
 
-    public function create_poster(array $data): array
-    {
-        check_auth_status();
+  public function create_poster(array $data): array
+  {
+    check_auth_status();
 
-        $userId = $_SESSION['user']['id'];
+    $user_id = $_SESSION['user']['id'];
+    $author = trim(htmlspecialchars($data['poster-author'] ?? ''));
+    $creation_date = trim(htmlspecialchars($data['poster-date'] ?? ''));
+    $headline = trim(htmlspecialchars($data['headline'] ?? ''));
+    $meta_data = trim(htmlspecialchars($data['poster-footer'] ?? ''));
 
-        $author = htmlspecialchars(trim($data['poster-author'] ?? ''));
-        $creationDate = htmlspecialchars(trim($data['poster-date'] ?? ''));
-        $headline = htmlspecialchars(trim($data['headline'] ?? ''));
-        $metaData = htmlspecialchars(trim($data['poster-footer'] ?? ''));
-
-        // Validierung
-        if (empty($author) || empty($creationDate) || empty($headline)) {
-            return create_response(ResponseStatusEnum::BAD_REQUEST, 'Author, date and headline are required.');
-        }
-
-        try {
-            $pdo = $this->config->get_pdo();
-
-            $stmt = $pdo->prepare('
-      INSERT INTO posters (user_id, author, creation_date, headline, meta_data)
-      VALUES (:user_id, :author, :creation_date, :headline, :meta_data)
-    ');
-
-            $stmt->execute([
-                'user_id' => $userId,
-                'author' => $author,
-                'creation_date' => $creationDate,
-                'headline' => $headline,
-                'meta_data' => $metaData,
-            ]);
-
-            $posterId = $pdo->lastInsertId();
-
-            for ($i = 1; $i <= 3; $i++) {
-                $secHeadline = htmlspecialchars(trim($data["s{$i}headline"] ?? ''));
-                $secText = htmlspecialchars(trim($data["s{$i}text"] ?? ''));
-                $secImgId = isset($data["s{$i}img"]) && is_numeric($data["s{$i}img"]) ? (int)$data["s{$i}img"] : null;
-
-                if (!empty($secHeadline)) {
-                    $stmt = $pdo->prepare('
-                    INSERT INTO sections (poster_id, headline, text, media_id)
-                    VALUES (:poster_id, :headline, :text, :media_id)
-                ');
-                    $stmt->execute([
-                        'poster_id' => $posterId,
-                        'headline' => $secHeadline,
-                        'text' => $secText,
-                        'media_id' => $secImgId,
-                    ]);
-                }
-            }
-            $pdo->commit();
-        } catch (PDOException $e) {
-            return create_response(ResponseStatusEnum::SERVER_ERROR, 'An error occurred while creating the poster.');
-        }
-
-        return create_response(ResponseStatusEnum::SUCCESS, 'Poster created successfully.');
+    if ($user_id === '' || $author === '' || $creation_date === '' || $headline === '') {
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Author, date and headline are required.');
     }
+
+    $pdo = $this->config->get_pdo();
+
+    try {
+      $pdo->beginTransaction();
+
+      $insertPoster = '
+                INSERT INTO posters (user_id, author, creation_date, headline, meta_data)
+                VALUES (:user_id, :author, :creation_date, :headline, :meta_data)
+            ';
+
+      $stmt = $pdo->prepare($insertPoster);
+      $stmt->execute([
+        ':user_id' => $user_id,
+        ':author' => $author,
+        ':creation_date' => $creation_date,
+        ':headline' => $headline,
+        ':meta_data' => $meta_data,
+      ]);
+
+      if ($stmt->rowCount() === 0) {
+        $pdo->rollBack();
+
+        return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to create poster.');
+      }
+
+      $poster_id = (int) $pdo->lastInsertId();
+
+      $insertSection = '
+                INSERT INTO sections (poster_id, headline, text, media_id)
+                VALUES (:poster_id, :headline, :text, :media_id)
+            ';
+      $secStmt = $pdo->prepare($insertSection);
+
+      for ($i = 1; $i <= 3; $i++) {
+        $sec_headline = trim(htmlspecialchars($data["s{$i}headline"] ?? ''));
+        $sec_text = trim(htmlspecialchars($data["s{$i}text"] ?? ''));
+        $sec_img_id = isset($data["s{$i}img"]) && is_numeric($data["s{$i}img"]) ? (int) $data["s{$i}img"] : null;
+
+        if ($sec_headline !== '') {
+          $secStmt->execute([
+            ':poster_id' => $poster_id,
+            ':headline' => $sec_headline,
+            ':text' => $sec_text,
+            ':media_id' => $sec_img_id,
+          ]);
+        }
+      }
+
+      $pdo->commit();
+    } catch (PDOException $e) {
+      $pdo->rollBack();
+      return create_response(ResponseStatusEnum::SERVER_ERROR, 'An error occurred while creating the poster.');
+    }
+
+    // Invalidate cache
+    $_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()] = [];
+
+    return create_response(ResponseStatusEnum::SUCCESS, 'Poster created successfully.');
+  }
 
   public function delete_by_id(array $data): array
   {
     check_auth_status();
 
-    $posterId = htmlspecialchars(trim($data['poster_id'] ?? ''));
+    $poster_id = trim(htmlspecialchars($data['poster_id'] ?? ''));
 
-    if (!is_numeric($posterId) || $posterId <= 0) {
-            return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid poster ID.');
+    if (!is_numeric($poster_id) || (int) $poster_id <= 0) {
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid poster ID.');
     }
+
+    $poster_id = (int) $poster_id;
 
     try {
-            $pdo = $this->config->get_pdo();
-            $stmt = $pdo->prepare('DELETE FROM posters WHERE id = :id AND user_id = :user_id');
-            $stmt->execute([
-                'id' => $posterId,
-                'user_id' => $_SESSION['user']['id'],
-            ]);
+      $stmt = $this->config->get_pdo()->prepare('DELETE FROM posters WHERE id = :id AND user_id = :user_id');
+      $stmt->execute([
+        ':id' => $poster_id,
+        ':user_id' => $_SESSION['user']['id'],
+      ]);
 
-            if ($stmt->rowCount() === 0) {
-                return create_response(ResponseStatusEnum::BAD_REQUEST, 'Poster not found or access denied.');
-            }
+      if ($stmt->rowCount() === 0) {
+        return create_response(ResponseStatusEnum::BAD_REQUEST, 'Poster not found or access denied.');
+      }
     } catch (PDOException $e) {
-            return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to delete poster.');
+      return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to delete poster.');
     }
+
+    // Invalidate cache
+    $_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()] = [];
 
     return create_response(ResponseStatusEnum::SUCCESS, 'Poster deleted successfully.');
-    }
+  }
 }

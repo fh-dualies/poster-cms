@@ -29,7 +29,7 @@ enum RouteEnum
       self::POST_DELETE_ACCOUNT,
       self::POST_DELETE_POSTER,
       self::POST_CREATE_MEDIA,
-      self::POST_CREATE_POSTER
+      self::POST_CREATE_POSTER,
     ]);
   }
 

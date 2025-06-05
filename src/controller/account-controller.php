@@ -27,46 +27,71 @@ class AccountController
   {
     check_auth_status();
 
-    $username = htmlspecialchars(trim($data['username']));
-    $x_username = htmlspecialchars(trim($data['x_username']));
-    $truthsocial_username = htmlspecialchars(trim($data['truthsocial_username']));
+    $user_id = $_SESSION['user']['id'] ?? null;
+    $current_username = $_SESSION['user']['username'] ?? '';
 
-    if (empty($username)) {
+    if (!is_numeric($user_id) || (int) $user_id <= 0) {
+      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid user session.');
+    }
+
+    $username = htmlspecialchars(trim($data['username'] ?? ''));
+    $x_username = htmlspecialchars(trim($data['x_username'] ?? ''));
+    $truthsocial_username = htmlspecialchars(trim($data['truthsocial_username'] ?? ''));
+
+    if ($username === '') {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Username is required.');
     }
 
-    if (!empty($x_username) && !preg_match(RegexEnum::NAME->get_pattern(), $x_username)) {
+    if ($x_username !== '' && !preg_match(RegexEnum::NAME->get_pattern(), $x_username)) {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid X username.');
     }
 
-    if (!empty($truthsocial_username) && !preg_match(RegexEnum::NAME->get_pattern(), $truthsocial_username)) {
+    if ($truthsocial_username !== '' && !preg_match(RegexEnum::NAME->get_pattern(), $truthsocial_username)) {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Please enter a valid Truth Social username.');
     }
 
-    if ($username !== $_SESSION['user']['username']) {
-      $req = $this->config->get_pdo()->prepare('SELECT * FROM users WHERE username = :username');
-      $req->execute(['username' => $username]);
-      $user = $req->fetch();
+    if ($username !== $current_username) {
+      try {
+        $stmt = $this->config->get_pdo()->prepare('SELECT COUNT(*) FROM users WHERE username = :username');
+        $stmt->execute([':username' => $username]);
+        $count = (int) $stmt->fetchColumn();
 
-      if ($user) {
-        return create_response(ResponseStatusEnum::BAD_REQUEST, 'Username already exists.');
+        if ($count > 0) {
+          return create_response(ResponseStatusEnum::BAD_REQUEST, 'Username already exists.');
+        }
+      } catch (PDOException $e) {
+        return create_response(
+          ResponseStatusEnum::SERVER_ERROR,
+          'An unexpected error occurred while checking username availability.'
+        );
       }
     }
 
-    $req = $this->config
-      ->get_pdo()
-      ->prepare(
-        'UPDATE users SET username = :username, x = :x_username, truth_social = :truthsocial_username WHERE id = :id'
+    try {
+      $stmt = $this->config->get_pdo()->prepare(
+        'UPDATE users
+                 SET username = :username,
+                     x = :x_handle,
+                     truth_social = :truthsocial_handle
+                 WHERE id = :id'
       );
-    $result = $req->execute([
-      'username' => $username,
-      'x_username' => $x_username === '' ? null : $x_username,
-      'truthsocial_username' => $truthsocial_username === '' ? null : $truthsocial_username,
-      'id' => $_SESSION['user']['id'],
-    ]);
 
-    if (!$result) {
-      return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to update account.');
+      $params = [
+        ':username' => $username,
+        ':x_handle' => $x_username === '' ? null : $x_username,
+        ':truthsocial_handle' => $truthsocial_username === '' ? null : $truthsocial_username,
+        ':id' => $user_id,
+      ];
+
+      if (!$stmt->execute($params)) {
+        return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to execute update.');
+      }
+
+      if ($stmt->rowCount() === 0) {
+        return create_response(ResponseStatusEnum::SERVER_ERROR, 'No changes were made to the account.');
+      }
+    } catch (PDOException $e) {
+      return create_response(ResponseStatusEnum::SERVER_ERROR, 'An unexpected error occurred while updating account.');
     }
 
     $_SESSION['user']['username'] = $username;
@@ -80,20 +105,23 @@ class AccountController
   {
     check_auth_status();
 
-    if (!isset($_SESSION['user']['id'])) {
-      return create_response(ResponseStatusEnum::BAD_REQUEST, 'No user authenticated.');
-    }
+    $user_id = $_SESSION['user']['id'] ?? null;
 
-    $id = htmlspecialchars(trim($_SESSION['user']['id']));
-
-    if (!is_numeric($id) || $id <= 0) {
+    if (!is_numeric($user_id) || (int) $user_id <= 0) {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid account id provided.');
     }
 
     try {
-      $req = $this->config->get_pdo()->prepare('DELETE FROM users WHERE id = :id');
-      $req->bindParam(':id', $id, PDO::PARAM_INT);
-      $req->execute();
+      $stmt = $this->config->get_pdo()->prepare('DELETE FROM users WHERE id = :id');
+      $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
+
+      if (!$stmt->execute()) {
+        return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to execute delete.');
+      }
+
+      if ($stmt->rowCount() === 0) {
+        return create_response(ResponseStatusEnum::SERVER_ERROR, 'No account was deleted.');
+      }
     } catch (PDOException $e) {
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'An unexpected error occurred while deleting account.');
     }
