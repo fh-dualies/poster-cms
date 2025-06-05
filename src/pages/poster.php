@@ -22,6 +22,7 @@ if (
 }
 
 $poster = $_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()];
+$poster_id = $poster['id'] ?? null;
 ?>
 
 <html lang="en">
@@ -35,8 +36,8 @@ $poster = $_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()];
   <header>
     <h1><?php echo htmlspecialchars($poster['headline']); ?></h1>
     <div>
-      <a class="button" href="create.php">Edit</a>
-      <a class="button secondary" onclick="openPoster()">Print</a>
+        <a class="button" href="create.php?id=<?php echo urlencode($poster_id); ?>">Edit</a>
+        <a class="button secondary" onclick="openPoster()">Print</a>
     </div>
   </header>
 

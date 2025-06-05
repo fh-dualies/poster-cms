@@ -17,6 +17,8 @@ $formSections = [
     'name' => 'Section 3',
   ],
 ];
+
+$poster_id = isset($_GET['id']) ? (int) $_GET['id'] : null;
 ?>
 
 <html lang="en">
@@ -36,7 +38,10 @@ $formSections = [
   </header>
 
   <form method="POST" action="<?php echo FilePathEnum::get_sys_path('api/post.php'); ?>">
-    <div>
+      <?php if (isset($poster_id)): ?>
+          <input type="hidden" name="poster_id" value="<?php echo htmlspecialchars($poster_id); ?>">
+      <?php endif; ?>
+      <div>
       <label for="poster-author">Author Name:</label>
       <input
         type="text"
@@ -75,6 +80,7 @@ $formSections = [
       />
     </div>
     <button type="submit" name="create_poster">Save Poster</button>
+    <button type="submit" name="delete_poster" class="danger">Delete Poster</button>
   </form>
 </main>
 
