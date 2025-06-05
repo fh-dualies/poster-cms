@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../shared/util.php';
+require_once __DIR__ . '/../api/get.php';
 
 check_auth_status();
 
@@ -19,6 +20,17 @@ $formSections = [
 ];
 
 $poster_id = isset($_GET['id']) ? (int) $_GET['id'] : null;
+$poster = null;
+
+if ($poster_id !== null) {
+  register_data(RouteEnum::GET_POSTER_DETAIL, $poster_id);
+  $poster = $_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()] ?? null;
+
+  if (!$poster || !is_array($poster)) {
+    redirect_to_page(FilePathEnum::NOT_FOUND);
+    exit();
+  }
+}
 ?>
 
 <html lang="en">
@@ -42,29 +54,43 @@ $poster_id = isset($_GET['id']) ? (int) $_GET['id'] : null;
           <input type="hidden" name="poster_id" value="<?php echo htmlspecialchars($poster_id); ?>">
       <?php endif; ?>
       <div>
-      <label for="poster-author">Author Name:</label>
-      <input
-        type="text"
-        id="poster-author"
-        name="poster-author"
-        placeholder="Enter author name"
-      />
+        <label for="poster-author">Author Name:</label>
+        <input
+          type="text"
+          id="poster-author"
+          name="poster-author"
+          placeholder="Enter author name"
+          value="<?php echo htmlspecialchars($poster['author'] ?? ''); ?>"
+        />
     </div>
 
     <div>
       <label for="poster-date">Creation Date:</label>
-      <input type="date" id="poster-date" name="poster-date" />
+      <input
+        type="date"
+        id="poster-date"
+        name="poster-date"
+        value="<?php echo htmlspecialchars($poster['creation_date'] ?? ''); ?>"
+      />
     </div>
 
     <div>
       <label for="headline">Main Headline:</label>
-      <input type="text" id="headline" name="headline" />
+      <input
+        type="text"
+        id="headline"
+        name="headline"
+        value="<?php echo htmlspecialchars($poster['headline'] ?? ''); ?>"
+      />
     </div>
 
-      <?php foreach ($formSections as $section) {
+      <?php foreach ($formSections as $index => $section) {
+        $sectionData = $poster['sections'][$index] ?? null;
+
         include_with_prop(__DIR__ . '/../components/poster-section-form.php', [
           'prefix' => htmlspecialchars($section['prefix']),
           'name' => htmlspecialchars($section['name']),
+          'data' => $sectionData,
         ]);
       } ?>
 
@@ -77,6 +103,7 @@ $poster_id = isset($_GET['id']) ? (int) $_GET['id'] : null;
         id="poster-footer"
         name="poster-footer"
         placeholder="Enter additional meta-data"
+        value="<?php echo htmlspecialchars($poster['meta_data'] ?? ''); ?>"
       />
     </div>
     <button type="submit" name="create_poster">Save Poster</button>
