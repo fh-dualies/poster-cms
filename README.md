@@ -13,7 +13,7 @@
 
 ### TODO
 
-- [ ] empty states (lars)
+- [x] empty states (lars)
 
 #### Poster
 

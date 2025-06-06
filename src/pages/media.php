@@ -9,8 +9,7 @@ register_data(RouteEnum::GET_ALL_MEDIA);
 
 if (
   !isset($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()]) ||
-  !is_array($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()]) ||
-  empty($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()])
+  !is_array($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()])
 ) {
   redirect_to_page(FilePathEnum::NOT_FOUND);
   exit();
@@ -62,6 +61,10 @@ if (
 
   <section>
     <h2>All Media Items</h2>
+
+      <?php if (empty($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()])) {
+        require __DIR__ . '/../components/empty-state.php';
+      } ?>
 
     <div class="media-grid">
         <?php foreach ($_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()] as $item) {

@@ -39,6 +39,10 @@ if (
   <section>
     <h2>All posters</h2>
 
+      <?php if (empty($_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()])) {
+        require __DIR__ . '/components/empty-state.php';
+      } ?>
+
     <div class="poster-grid">
         <?php foreach ($_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()] as $section) {
           include_with_prop(__DIR__ . '/components/poster-item.php', [
