@@ -384,13 +384,11 @@ class PosterController
     }
 
     $poster_id = (int) $poster_id;
-    $user_id = $_SESSION['user']['id'] ?? null;
 
     try {
-      $stmt = $this->config->get_pdo()->prepare('DELETE FROM posters WHERE id = :id AND user_id = :user_id');
+      $stmt = $this->config->get_pdo()->prepare('DELETE FROM posters WHERE id = :id');
       $stmt->execute([
         ':id' => $poster_id,
-        ':user_id' => $user_id,
       ]);
 
       if ($stmt->rowCount() === 0) {
