@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS sections (
   headline VARCHAR(255) NOT NULL,
   text TEXT NOT NULL,
   media_id INTEGER,
+  section_index INTEGER,
   CONSTRAINT fk_poster FOREIGN KEY (poster_id) REFERENCES posters (id) ON DELETE CASCADE,
   CONSTRAINT fk_media FOREIGN KEY (media_id) REFERENCES medias (id) ON DELETE RESTRICT
 );

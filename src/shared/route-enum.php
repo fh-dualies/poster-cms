@@ -7,6 +7,7 @@ enum RouteEnum
   case POST_REGISTER;
   case POST_LOGOUT;
   case POST_UPDATE_ACCOUNT;
+  case POST_UPDATE_POSTER;
   case POST_DELETE_MEDIA;
   case POST_DELETE_ACCOUNT;
   case POST_DELETE_POSTER;
@@ -25,6 +26,7 @@ enum RouteEnum
       self::POST_REGISTER,
       self::POST_LOGOUT,
       self::POST_UPDATE_ACCOUNT,
+      self::POST_UPDATE_POSTER,
       self::POST_DELETE_MEDIA,
       self::POST_DELETE_ACCOUNT,
       self::POST_DELETE_POSTER,
@@ -46,6 +48,7 @@ enum RouteEnum
       self::POST_REGISTER => 'register',
       self::POST_LOGOUT => 'logout',
       self::POST_UPDATE_ACCOUNT => 'update_account',
+      self::POST_UPDATE_POSTER => 'update_poster',
       self::POST_DELETE_MEDIA => 'delete_media',
       self::POST_DELETE_ACCOUNT => 'delete_account',
       self::POST_DELETE_POSTER => 'delete_poster',

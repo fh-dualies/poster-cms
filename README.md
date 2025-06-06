@@ -18,11 +18,11 @@
 #### Poster
 
 - [x] poster overview
-- [ ] create poster
+- [x] create poster
 - [x] poster details
-- [ ] edit poster (tom)
-- [ ] delete poster (tom)
-- [x] print poster (dynamic "pdf") (lars)
+- [x] edit poster
+- [x] delete poster
+- [x] print poster (dynamic "pdf")
 
 #### Account
 

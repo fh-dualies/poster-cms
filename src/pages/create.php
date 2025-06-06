@@ -106,8 +106,12 @@ if ($poster_id !== null) {
         value="<?php echo htmlspecialchars($poster['meta_data'] ?? ''); ?>"
       />
     </div>
-    <button type="submit" name="create_poster">Save Poster</button>
-    <button type="submit" name="delete_poster" class="danger">Delete Poster</button>
+      <?php if ($poster_id): ?>
+        <button type="submit" name="update_poster">Update Poster</button>
+      <?php else: ?>
+        <button type="submit" name="create_poster">Create Poster</button>
+      <?php endif; ?>
+      <button type="submit" name="delete_poster" class="danger">Delete Poster</button>
   </form>
 </main>
 

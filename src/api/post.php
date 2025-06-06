@@ -144,6 +144,20 @@ function create_poster(): void
   redirect_to_page(FilePathEnum::HOME, $response, true);
 }
 
+function update_poster(): void
+{
+  global $poster_controller;
+
+  $response = $poster_controller->update_poster($_POST);
+
+  if ($response['is_error']) {
+    redirect_to_page(FilePathEnum::CREATE, $response);
+    return;
+  }
+
+  redirect_to_page(FilePathEnum::HOME, $response, true);
+}
+
 function delete_poster(): void
 {
   global $poster_controller;

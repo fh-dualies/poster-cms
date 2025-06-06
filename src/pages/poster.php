@@ -51,7 +51,7 @@ $poster_id = $poster['id'] ?? null;
         include_with_prop(__DIR__ . '/../components/poster-section.php', [
           'headline' => htmlspecialchars($section['headline']),
           'text' => htmlspecialchars($section['text']),
-          'image' => FilePathEnum::get_sys_path('static/') . $section['media']['path'] ?? null,
+          'image' => FilePathEnum::get_sys_path('static/') . ($section['media']['path'] ?? ''),
           'alt' => htmlspecialchars($section['media']['alt'] ?? ''),
         ]);
       } ?>
