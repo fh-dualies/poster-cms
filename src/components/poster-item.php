@@ -6,10 +6,10 @@ if (!isset($headline) || !isset($meta_data) || !isset($image) || !isset($link) |
 <article>
   <a href=<?php echo $link; ?>>
     <div class="thumbnail">
-      <img
-        src="<?php echo $image; ?>"
-        alt="<?php echo $meta_data; ?>">
-      />
+        <?php include_with_prop(__DIR__ . '/lazy-image.php', [
+          'src' => $image,
+          'alt' => $meta_data,
+        ]); ?>
     </div>
   </a>
   <div class="info">

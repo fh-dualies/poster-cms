@@ -9,9 +9,9 @@ if (!isset($headline) || !isset($text) || !isset($image) || !isset($alt)) {
     <p class="content">
         <?php echo $text; ?>
     </p>
-    <img
-      src="<?php echo $image; ?>"
-      alt="<?php echo $alt; ?>"
-    />
+      <?php include_with_prop(__DIR__ . '/lazy-image.php', [
+        'src' => $image,
+        'alt' => $alt,
+      ]); ?>
   </div>
 </section>

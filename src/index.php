@@ -48,7 +48,7 @@ if (
           include_with_prop(__DIR__ . '/components/poster-item.php', [
             'headline' => htmlspecialchars($section['headline']),
             'creation_date' => htmlspecialchars($section['creation_date']),
-            'image' => './static/images/placeholder.jpg',
+            'image' => './static/images/placeholder.jpg', // TODO: replace
             'link' => './pages/poster.php?id=' . htmlspecialchars($section['id']),
             'meta_data' => htmlspecialchars($section['meta_data']),
           ]);

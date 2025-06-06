@@ -5,10 +5,10 @@ if (!isset($id) || !isset($image) || !isset($alt) || !isset($name)) {
 
 <article>
   <div class="preview">
-    <img
-      src="<?php echo $image; ?>"
-      alt="<?php echo $alt; ?>"
-    />
+      <?php include_with_prop(__DIR__ . '/lazy-image.php', [
+        'src' => $image,
+        'alt' => $alt,
+      ]); ?>
   </div>
 
   <div class="info">
