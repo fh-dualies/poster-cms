@@ -30,11 +30,11 @@ $imgAlt = htmlspecialchars($data['media']['alt'] ?? '');
   <div>
     <label for="<?php echo $prefix; ?>img">Image (Optional):</label>
     <input type="file" id="<?php echo $prefix; ?>img" name="<?php echo $prefix; ?>img" />
-    <?php if (!empty($data['media']['path'])): ?>
-      <p>Current image: <?php echo htmlspecialchars(basename($data['media']['path'])); ?></p>
-      <img src="<?php echo FilePathEnum::get_sys_path('static/') . htmlspecialchars($data['media']['path']); ?>"
-           alt="<?php echo $imgAlt; ?>"
-           style="max-width: 200px; margin-top: 8px;" />
-    <?php endif; ?>
+      <?php if (!empty($data['media']['path'])): ?>
+        <p>Current image: <?php echo htmlspecialchars(basename($data['media']['path'])); ?></p>
+        <img src="<?php echo FilePathEnum::get_sys_path('static/') . htmlspecialchars($data['media']['path']); ?>"
+             alt="<?php echo $imgAlt; ?>"
+             style="max-width: 200px; margin-top: 8px;" />
+      <?php endif; ?>
   </div>
 </div>

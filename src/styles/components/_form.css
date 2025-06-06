@@ -26,6 +26,10 @@ select {
   margin-bottom: var(--spacing-lg);
 }
 
+textarea {
+  min-height: 8rem;
+}
+
 input:focus,
 textarea:focus,
 select:focus {

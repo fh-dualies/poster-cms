@@ -51,17 +51,17 @@ if ($poster_id !== null) {
 
   <form method="POST" action="<?php echo FilePathEnum::get_sys_path('api/post.php'); ?>">
       <?php if (isset($poster_id)): ?>
-          <input type="hidden" name="poster_id" value="<?php echo htmlspecialchars($poster_id); ?>">
+        <input type="hidden" name="poster_id" value="<?php echo htmlspecialchars($poster_id); ?>">
       <?php endif; ?>
-      <div>
-        <label for="poster-author">Author Name:</label>
-        <input
-          type="text"
-          id="poster-author"
-          name="poster-author"
-          placeholder="Enter author name"
-          value="<?php echo htmlspecialchars($poster['author'] ?? ''); ?>"
-        />
+    <div>
+      <label for="poster-author">Author Name:</label>
+      <input
+        type="text"
+        id="poster-author"
+        name="poster-author"
+        placeholder="Enter author name"
+        value="<?php echo htmlspecialchars($poster['author'] ?? ''); ?>"
+      />
     </div>
 
     <div>
@@ -106,12 +106,16 @@ if ($poster_id !== null) {
         value="<?php echo htmlspecialchars($poster['meta_data'] ?? ''); ?>"
       />
     </div>
-      <?php if ($poster_id): ?>
-        <button type="submit" name="update_poster">Update Poster</button>
-      <?php else: ?>
-        <button type="submit" name="create_poster">Create Poster</button>
-      <?php endif; ?>
-      <button type="submit" name="delete_poster" class="danger">Delete Poster</button>
+    <div class="separate-container">
+        <?php if ($poster_id): ?>
+          <button type="submit" name="update_poster">Update Poster</button>
+        <?php else: ?>
+          <button type="submit" name="create_poster">Create Poster</button>
+        <?php endif; ?>
+        <?php if ($poster_id): ?>
+          <button type="submit" name="delete_poster" class="danger">Delete Poster</button>
+        <?php endif; ?>
+    </div>
   </form>
 </main>
 
