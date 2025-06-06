@@ -113,7 +113,7 @@ if ($poster_id !== null) {
           <button type="submit" name="create_poster">Create Poster</button>
         <?php endif; ?>
         <?php if ($poster_id): ?>
-          <button type="submit" name="delete_poster" class="danger">Delete Poster</button>
+          <button id="delete-poster-btn" type="submit" name="delete_poster" class="danger">Delete Poster</button>
         <?php endif; ?>
     </div>
   </form>
@@ -122,3 +122,13 @@ if ($poster_id !== null) {
 <?php require __DIR__ . '/../components/nav/footer.php'; ?>
 </body>
 </html>
+
+<script>
+  document
+    .getElementById('delete-poster-btn')
+    .addEventListener('click', function(e) {
+      if (!confirm('Are you sure you want to delete this poster?')) {
+        e.preventDefault();
+      }
+    });
+</script>
