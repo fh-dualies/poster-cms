@@ -16,4 +16,4 @@
 - [ ] image lazy loading component
 - [ ] sorting of posters by title, date
 - [ ] drag and drop for posters
-- [ ] poster json api
+- [x] poster json api
