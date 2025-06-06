@@ -22,6 +22,22 @@ function check_auth_status(): void
   }
 }
 
+function check_user_agent(): void
+{
+  if (php_sapi_name() === 'cli') {
+    http_response_code(403);
+    exit();
+  }
+
+  $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+  $browserPattern = '#(Mozilla|Chrome|Safari|Firefox|Edge)#i';
+
+  if (!preg_match($browserPattern, $userAgent)) {
+    http_response_code(403);
+    exit();
+  }
+}
+
 function include_with_prop($fileName, $prop): void
 {
   extract($prop);

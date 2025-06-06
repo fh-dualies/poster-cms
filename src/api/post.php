@@ -18,6 +18,8 @@ require_once __DIR__ . '/../controller/account-controller.php';
 require_once __DIR__ . '/../controller/media-controller.php';
 require_once __DIR__ . '/../controller/poster-controller.php';
 
+check_user_agent();
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   redirect_to_page(FilePathEnum::NOT_FOUND);
   exit();

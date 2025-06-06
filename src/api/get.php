@@ -14,6 +14,8 @@ require_once __DIR__ . '/../lib/config.php';
 require_once __DIR__ . '/../controller/poster-controller.php';
 require_once __DIR__ . '/../controller/media-controller.php';
 
+check_user_agent();
+
 $config = new Config();
 $poster_controller = new PosterController($config);
 $media_controller = new MediaController($config);

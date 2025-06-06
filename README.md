@@ -13,24 +13,7 @@
 
 ### TODO
 
-- [x] empty states (lars)
-
-#### Poster
-
-- [x] poster overview
-- [x] create poster
-- [x] poster details
-- [x] edit poster
-- [x] delete poster
-- [x] print poster (dynamic "pdf")
-
-#### Account
-
-- [x] update account
-- [x] delete account
-
-#### Media
-
-- [x] media overview
-- [x] upload media
-- [x] delete media
+- [ ] image lazy loading component
+- [ ] sorting of posters by title, date
+- [ ] drag and drop for posters
+- [ ] poster json api
