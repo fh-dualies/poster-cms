@@ -52,3 +52,17 @@ small {
   color: var(--text-light);
   font-size: 0.75rem;
 }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.poster-sort {
+  display: flex;
+  gap: 0.5rem;
+}

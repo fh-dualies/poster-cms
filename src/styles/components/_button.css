@@ -55,3 +55,13 @@ input[type='submit']:disabled,
   cursor: not-allowed;
   pointer-events: none;
 }
+
+button.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+button.secondary.active {
+  background-color: var(--primary-color);
+  color: white;
+}
