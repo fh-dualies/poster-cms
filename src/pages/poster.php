@@ -63,8 +63,6 @@ $poster_id = $poster['id'] ?? null;
           <?php endforeach; ?>
       <?php endif; ?>
 
-
-
     <footer>
       <p>© 2025 FH Münster - Poster CMS</p>
     </footer>

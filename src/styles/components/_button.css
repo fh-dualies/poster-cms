@@ -24,7 +24,9 @@ input[type='submit']:hover,
 }
 
 button.secondary {
-  background-color: var(--text-light);
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 
 button.ghost,
@@ -64,4 +66,19 @@ button.active {
 button.secondary.active {
   background-color: var(--primary-color);
   color: white;
+}
+
+button.icon svg,
+.button.icon svg,
+input[type='submit'].icon svg {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+button.icon,
+.button.icon,
+input[type='submit'].icon {
+  padding: var(--spacing-sm);
+  gap: 0;
+  justify-content: center;
 }

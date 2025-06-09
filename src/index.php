@@ -39,100 +39,81 @@ if (
   <section>
     <div class="section-header">
       <h2>All posters</h2>
-      <div class="poster-sort">
-        <button id="sort-newest" class="button secondary active">Newest First</button>
-        <button id="sort-oldest" class="button secondary">Oldest First</button>
-      </div>
+
+        <?php if (!empty($_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()])): ?>
+          <div class="poster-sort">
+            <button id="sort-newest" class="button icon secondary active">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   class="lucide lucide-chevron-up-icon lucide-chevron-up">
+                <path d="m18 15-6-6-6 6" />
+              </svg>
+            </button>
+            <button id="sort-oldest" class="button icon secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   class="lucide lucide-chevron-down-icon lucide-chevron-down">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+          </div>
+        <?php endif; ?>
     </div>
 
       <?php if (empty($_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()])) {
         require __DIR__ . '/components/empty-state.php';
       } ?>
 
-      <div class="poster-grid" id="posterGrid">
-          <?php foreach ($_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()] as $section) {
-            $creationDate = htmlspecialchars($section['creation_date']); ?>
-              <div class="poster-item" draggable="true" data-date="<?php echo $creationDate; ?>">
-                  <?php include_with_prop(__DIR__ . '/components/poster-item.php', [
-                    'headline' => htmlspecialchars($section['headline']),
-                    'creation_date' => $creationDate,
-                    'image' => './static/images/placeholder.jpg', // TODO: replace
-                    'link' => './pages/poster.php?id=' . htmlspecialchars($section['id']),
-                    'meta_data' => htmlspecialchars($section['meta_data']),
-                  ]); ?>
-              </div>
-          <?php
-          } ?>
-      </div>
+    <div class="poster-grid" id="posterGrid">
+        <?php foreach ($_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()] as $section) {
+          $creationDate = htmlspecialchars($section['creation_date']); ?>
+          <div class="poster-item" data-date="<?php echo $creationDate; ?>">
+              <?php include_with_prop(__DIR__ . '/components/poster-item.php', [
+                'headline' => htmlspecialchars($section['headline']),
+                'creation_date' => $creationDate,
+                'image' => './static/images/placeholder.jpg', // TODO: replace
+                'link' => './pages/poster.php?id=' . htmlspecialchars($section['id']),
+                'meta_data' => htmlspecialchars($section['meta_data']),
+              ]); ?>
+          </div>
+            <?php
+        } ?>
+    </div>
   </section>
 </main>
 
 <?php require __DIR__ . '/components/nav/footer.php'; ?>
 
 <script>
-    const grid = document.getElementById('posterGrid');
-    const btnNewest = document.getElementById('sort-newest');
-    const btnOldest = document.getElementById('sort-oldest');
+  const grid = document.getElementById('posterGrid');
+  const btnNewest = document.getElementById('sort-newest');
+  const btnOldest = document.getElementById('sort-oldest');
 
-    function sortGrid(isOldestFirst) {
-        const items = Array.from(grid.children);
+  function sortGrid(isOldestFirst) {
+    const items = Array.from(grid.children);
 
-        items.sort((a, b) => {
-            const dateA = new Date(a.dataset.date);
-            const dateB = new Date(b.dataset.date);
-            return isOldestFirst ? dateA - dateB : dateB - dateA;
-        });
-
-        items.forEach(item => grid.appendChild(item));
-    }
-
-    btnNewest.addEventListener('click', () => {
-        sortGrid(false);
-        btnNewest.classList.add('active');
-        btnOldest.classList.remove('active');
+    items.sort((a, b) => {
+      const dateA = new Date(a.dataset.date);
+      const dateB = new Date(b.dataset.date);
+      return isOldestFirst ? dateA - dateB : dateB - dateA;
     });
 
-    btnOldest.addEventListener('click', () => {
-        sortGrid(true);
-        btnOldest.classList.add('active');
-        btnNewest.classList.remove('active');
-    });
+    items.forEach(item => grid.appendChild(item));
+  }
 
+  btnNewest.addEventListener('click', () => {
     sortGrid(false);
-</script>
-<script>
-    let draggedEl = null;
+    btnNewest.classList.add('active');
+    btnOldest.classList.remove('active');
+  });
 
-    document.querySelectorAll('.poster-item').forEach(item => {
-        item.addEventListener('dragstart', (e) => {
-            draggedEl = item;
-            item.style.opacity = '0.5';
-        });
+  btnOldest.addEventListener('click', () => {
+    sortGrid(true);
+    btnOldest.classList.add('active');
+    btnNewest.classList.remove('active');
+  });
 
-        item.addEventListener('dragend', () => {
-            draggedEl = null;
-            document.querySelectorAll('.poster-item').forEach(el => el.style.opacity = '1');
-        });
-
-        item.addEventListener('dragover', (e) => {
-            e.preventDefault();
-        });
-
-        item.addEventListener('drop', (e) => {
-            e.preventDefault();
-            if (draggedEl === item) return;
-
-            const container = document.getElementById('posterGrid');
-            const draggedIndex = [...container.children].indexOf(draggedEl);
-            const targetIndex = [...container.children].indexOf(item);
-
-            if (draggedIndex < targetIndex) {
-                container.insertBefore(draggedEl, item.nextSibling);
-            } else {
-                container.insertBefore(draggedEl, item);
-            }
-        });
-    });
+  sortGrid(false);
 </script>
 
 </body>

@@ -62,7 +62,22 @@ small {
   margin-bottom: 1rem;
 }
 
+.section-header h2 {
+  margin-bottom: 0;
+}
+
 .poster-sort {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-sort .button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.poster-sort .button:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
