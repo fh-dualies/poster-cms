@@ -4,7 +4,7 @@ if (!isset($src, $alt)) {
   throw new Exception('Missing required properties: src, alt');
 }
 
-$placeholder = FilePathEnum::get_sys_path('/static/images/loading.png');
+$placeholder = FilePathEnum::get_sys_path('/static/images/placeholder.png');
 
 $classes = ['lazy'];
 if (isset($class)) {

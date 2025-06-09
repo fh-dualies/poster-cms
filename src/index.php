@@ -71,7 +71,7 @@ if (
               <?php include_with_prop(__DIR__ . '/components/poster-item.php', [
                 'headline' => htmlspecialchars($section['headline']),
                 'creation_date' => $creationDate,
-                'image' => './static/images/placeholder.jpg', // TODO: replace
+                'image' => FilePathEnum::get_sys_path('static/') . $section['media']['path'] ?? null,
                 'link' => './pages/poster.php?id=' . htmlspecialchars($section['id']),
                 'meta_data' => htmlspecialchars($section['meta_data']),
               ]); ?>

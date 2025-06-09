@@ -45,14 +45,14 @@ INSERT INTO
 VALUES
   (
     'image',
-    'images/placeholder.jpg',
+    'images/placeholder.png',
     'Image 1',
     'Placeholder Image 1',
     1024
   ),
   (
     'image',
-    'images/placeholder.jpg',
+    'images/placeholder.png',
     'Image 2',
     'Placeholder Image 2',
     2048

@@ -3,6 +3,7 @@
 namespace controller;
 
 use Config;
+use PDO;
 use PDOException;
 use ResponseStatusEnum;
 use RouteEnum;
@@ -26,13 +27,56 @@ class PosterController
   {
     check_auth_status();
 
+    $pdo = $this->config->get_pdo();
+    $posterStmt = $pdo->prepare('SELECT id, user_id, author, creation_date, headline, meta_data FROM posters');
+    $mediaStmt = $pdo->prepare(
+      'SELECT m.id AS media_id, m.type AS media_type, m.path AS media_path, m.alt AS media_alt
+     FROM sections s
+     JOIN medias m ON s.media_id = m.id
+     WHERE s.poster_id = :id AND s.media_id IS NOT NULL
+     ORDER BY s.section_index
+     LIMIT 1'
+    );
+
     try {
-      $stmt = $this->config->get_pdo()->prepare('SELECT * FROM posters');
-      $stmt->execute();
-      return $stmt->fetchAll() ?: [];
+      $posterStmt->execute();
+      $rows = $posterStmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     } catch (PDOException $e) {
       return [];
     }
+
+    $posters = [];
+
+    foreach ($rows as $row) {
+      $media = null;
+
+      try {
+        $mediaStmt->execute([':id' => $row['id']]);
+
+        if ($mr = $mediaStmt->fetch(PDO::FETCH_ASSOC)) {
+          $media = [
+            'id' => $mr['media_id'],
+            'type' => $mr['media_type'],
+            'path' => $mr['media_path'],
+            'alt' => $mr['media_alt'],
+          ];
+        }
+      } catch (PDOException $e) {
+        return [];
+      }
+
+      $posters[] = [
+        'id' => $row['id'],
+        'user_id' => $row['user_id'],
+        'author' => $row['author'],
+        'creation_date' => $row['creation_date'],
+        'headline' => $row['headline'],
+        'meta_data' => $row['meta_data'],
+        'media' => $media,
+      ];
+    }
+
+    return $posters;
   }
 
   public function get_by_id(int $id): array
@@ -120,12 +164,15 @@ class PosterController
     if (!$user_id) {
       $missingFields[] = 'User ID';
     }
+
     if ($author === '') {
       $missingFields[] = 'Author';
     }
+
     if ($creation_date === '') {
       $missingFields[] = 'Date';
     }
+
     if ($headline === '') {
       $missingFields[] = 'Headline';
     }
@@ -188,6 +235,7 @@ class PosterController
         }
 
         $media_id = null;
+
         if ($sec_img_path !== '') {
           $path = htmlspecialchars($sec_img_path);
           $name = basename($path);
@@ -250,12 +298,15 @@ class PosterController
     if (!$poster_id) {
       $missingFields[] = 'Poster ID';
     }
+
     if ($author === '') {
       $missingFields[] = 'Author';
     }
+
     if ($creation_date === '') {
       $missingFields[] = 'Date';
     }
+
     if ($headline === '') {
       $missingFields[] = 'Headline';
     }
