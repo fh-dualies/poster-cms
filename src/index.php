@@ -52,7 +52,7 @@ if (
       <div class="poster-grid" id="posterGrid">
           <?php foreach ($_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()] as $section) {
             $creationDate = htmlspecialchars($section['creation_date']); ?>
-              <div class="poster-item" data-date="<?php echo $creationDate; ?>">
+              <div class="poster-item" draggable="true" data-date="<?php echo $creationDate; ?>">
                   <?php include_with_prop(__DIR__ . '/components/poster-item.php', [
                     'headline' => htmlspecialchars($section['headline']),
                     'creation_date' => $creationDate,
@@ -99,6 +99,40 @@ if (
     });
 
     sortGrid(false);
+</script>
+<script>
+    let draggedEl = null;
+
+    document.querySelectorAll('.poster-item').forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+            draggedEl = item;
+            item.style.opacity = '0.5';
+        });
+
+        item.addEventListener('dragend', () => {
+            draggedEl = null;
+            document.querySelectorAll('.poster-item').forEach(el => el.style.opacity = '1');
+        });
+
+        item.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        item.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (draggedEl === item) return;
+
+            const container = document.getElementById('posterGrid');
+            const draggedIndex = [...container.children].indexOf(draggedEl);
+            const targetIndex = [...container.children].indexOf(item);
+
+            if (draggedIndex < targetIndex) {
+                container.insertBefore(draggedEl, item.nextSibling);
+            } else {
+                container.insertBefore(draggedEl, item);
+            }
+        });
+    });
 </script>
 
 </body>

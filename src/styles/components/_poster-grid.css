@@ -50,3 +50,11 @@
 .poster-grid time {
   font-size: 0.75rem;
 }
+
+.poster-section[draggable='true'] {
+  cursor: grab;
+}
+
+.poster-section.drag-over {
+  outline: 2px dashed var(--primary-color);
+}
