@@ -115,8 +115,24 @@ class PosterController
     $headline = trim(htmlspecialchars($data['headline'] ?? ''));
     $meta_data = trim(htmlspecialchars($data['poster-footer'] ?? ''));
 
-    if (!$user_id || $author === '' || $creation_date === '' || $headline === '') {
-      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Author, date and headline are required.');
+    $missingFields = [];
+
+    if (!$user_id) {
+      $missingFields[] = 'User ID';
+    }
+    if ($author === '') {
+      $missingFields[] = 'Author';
+    }
+    if ($creation_date === '') {
+      $missingFields[] = 'Date';
+    }
+    if ($headline === '') {
+      $missingFields[] = 'Headline';
+    }
+
+    if (!empty($missingFields)) {
+      $message = 'Missing required fields: ' . implode(', ', $missingFields) . '.';
+      return create_response(ResponseStatusEnum::BAD_REQUEST, $message);
     }
 
     $pdo = $this->config->get_pdo();
@@ -229,8 +245,24 @@ class PosterController
     $headline = trim(htmlspecialchars($data['headline'] ?? ''));
     $meta_data = trim(htmlspecialchars($data['poster-footer'] ?? ''));
 
-    if ($poster_id <= 0 || !$user_id || $author === '' || $creation_date === '' || $headline === '') {
-      return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid input or missing fields.');
+    $missingFields = [];
+
+    if (!$poster_id) {
+      $missingFields[] = 'Poster ID';
+    }
+    if ($author === '') {
+      $missingFields[] = 'Author';
+    }
+    if ($creation_date === '') {
+      $missingFields[] = 'Date';
+    }
+    if ($headline === '') {
+      $missingFields[] = 'Headline';
+    }
+
+    if (!empty($missingFields)) {
+      $message = 'Missing required fields: ' . implode(', ', $missingFields) . '.';
+      return create_response(ResponseStatusEnum::BAD_REQUEST, $message);
     }
 
     $pdo = $this->config->get_pdo();

@@ -46,15 +46,24 @@ $poster_id = $poster['id'] ?? null;
       <p>Created by: <?php echo htmlspecialchars($poster['author']); ?></p>
       <time><?php echo htmlspecialchars($poster['creation_date']); ?></time>
     </div>
+      <?php if (!empty($poster['sections']) && is_array($poster['sections'])): ?>
+          <?php foreach ($poster['sections'] as $section): ?>
+              <?php
+              $headline = htmlspecialchars($section['headline'] ?? '');
+              $text = htmlspecialchars($section['text'] ?? '');
+              $imagePath = FilePathEnum::get_sys_path('static/') . ($section['media']['path'] ?? '');
+              $altText = htmlspecialchars($section['media']['alt'] ?? '');
+              ?>
+              <?php include_with_prop(__DIR__ . '/../components/poster-section.php', [
+                'headline' => $headline,
+                'text' => $text,
+                'image' => $imagePath,
+                'alt' => $altText,
+              ]); ?>
+          <?php endforeach; ?>
+      <?php endif; ?>
 
-      <?php foreach ($poster['sections'] as $section) {
-        include_with_prop(__DIR__ . '/../components/poster-section.php', [
-          'headline' => htmlspecialchars($section['headline']),
-          'text' => htmlspecialchars($section['text']),
-          'image' => FilePathEnum::get_sys_path('static/') . ($section['media']['path'] ?? ''),
-          'alt' => htmlspecialchars($section['media']['alt'] ?? ''),
-        ]);
-      } ?>
+
 
     <footer>
       <p>© 2025 FH Münster - Poster CMS</p>
