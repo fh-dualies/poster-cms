@@ -57,15 +57,14 @@ check_auth_status();
 </main>
 
 <?php require __DIR__ . '/../components/nav/footer.php'; ?>
+
+<script src="../shared/js/confirm.js"></script>
+<script>
+  makeConfirmable({
+    selector: '#delete-account-btn',
+    message: 'Are you sure you want to delete your account?',
+  });
+</script>
+
 </body>
 </html>
-
-<script>
-  document
-    .getElementById('delete-account-btn')
-    .addEventListener('click', function(e) {
-      if (!confirm('Are you sure you want to delete your account?')) {
-        e.preventDefault();
-      }
-    });
-</script>

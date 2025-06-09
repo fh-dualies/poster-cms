@@ -120,15 +120,14 @@ if ($poster_id !== null) {
 </main>
 
 <?php require __DIR__ . '/../components/nav/footer.php'; ?>
+
+<script src="../shared/js/confirm.js"></script>
+<script>
+  makeConfirmable({
+    selector: '#delete-poster-btn',
+    message: 'Are you sure you want to delete this poster?',
+  });
+</script>
+
 </body>
 </html>
-
-<script>
-  document
-    .getElementById('delete-poster-btn')
-    .addEventListener('click', function(e) {
-      if (!confirm('Are you sure you want to delete this poster?')) {
-        e.preventDefault();
-      }
-    });
-</script>

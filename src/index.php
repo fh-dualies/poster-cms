@@ -95,6 +95,7 @@ if (
     items.sort((a, b) => {
       const dateA = new Date(a.dataset.date);
       const dateB = new Date(b.dataset.date);
+
       return isOldestFirst ? dateA - dateB : dateB - dateA;
     });
 
@@ -103,12 +104,14 @@ if (
 
   btnNewest.addEventListener('click', () => {
     sortGrid(false);
+
     btnNewest.classList.add('active');
     btnOldest.classList.remove('active');
   });
 
   btnOldest.addEventListener('click', () => {
     sortGrid(true);
+
     btnOldest.classList.add('active');
     btnNewest.classList.remove('active');
   });

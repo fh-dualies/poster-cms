@@ -70,7 +70,6 @@ $poster_id = $poster['id'] ?? null;
 </main>
 
 <?php require __DIR__ . '/../components/nav/footer.php'; ?>
-</body>
 
 <script>
   const posterId = <?php echo json_encode(intval($_GET['id'])); ?>;
@@ -93,4 +92,6 @@ $poster_id = $poster['id'] ?? null;
     window.open(`${urlBase}?id=${posterId}`, '_blank');
   }
 </script>
+
+</body>
 </html>

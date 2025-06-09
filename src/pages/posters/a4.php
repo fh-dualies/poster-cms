@@ -49,5 +49,13 @@ $poster = $_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()];
 
   <footer class="page-footer"><?php echo htmlspecialchars($poster['meta_data']); ?></footer>
 </main>
+
+<script src="../../shared/js/draggable.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new DraggableGrid('.content-area', '.content-item');
+  });
+</script>
+
 </body>
 </html>

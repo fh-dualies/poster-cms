@@ -80,8 +80,6 @@ if (
 </main>
 
 <?php require __DIR__ . '/../components/nav/footer.php'; ?>
-</body>
-</html>
 
 <script>
   const fileInput = document.getElementById('fileInput');
@@ -98,3 +96,6 @@ if (
     }
   });
 </script>
+
+</body>
+</html>
