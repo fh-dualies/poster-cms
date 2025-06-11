@@ -115,7 +115,7 @@ function handle_post_request(): void
 {
   global $handlers;
 
-  error_log(print_r($_POST, true), 3, __DIR__ . '/../my-debug.log');
+  error_log(print_r($_POST, true), 3, __DIR__ . '/../debug.log');
 
   foreach ($handlers as $action => $callback) {
     if (isset($_POST[$action])) {

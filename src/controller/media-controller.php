@@ -17,20 +17,14 @@ require_once __DIR__ . '/../lib/config.php';
 
 class MediaController
 {
-  private Config $config;
-
-  public function __construct(Config $config)
-  {
-    $this->config = $config;
-  }
-
   public function get_all(): array
   {
     check_auth_status();
 
     try {
-      $stmt = $this->config->get_pdo()->prepare('SELECT * FROM medias');
+      $stmt = Config::get_pdo()->prepare('SELECT * FROM medias');
       $stmt->execute();
+
       return $stmt->fetchAll() ?: [];
     } catch (PDOException $e) {
       return [];
@@ -52,7 +46,7 @@ class MediaController
     }
 
     try {
-      $stmt = $this->config->get_pdo()->prepare('DELETE FROM medias WHERE id = :id');
+      $stmt = Config::get_pdo()->prepare('DELETE FROM medias WHERE id = :id');
       $stmt->bindParam(':id', $media_id, PDO::PARAM_INT);
       $stmt->execute();
 
@@ -84,7 +78,7 @@ class MediaController
     }
 
     try {
-      self::save_media_file($file, $this->config->get_pdo());
+      self::save_media_file($file);
 
       return create_response(ResponseStatusEnum::SUCCESS, 'Media saved.');
     } catch (InvalidArgumentException $e) {
@@ -94,11 +88,11 @@ class MediaController
     }
   }
 
-  public static function save_media_file(array $file, PDO $pdo): int
+  public static function save_media_file(array $file): int
   {
     $fileInfo = self::validate_and_store_file($file);
 
-    $stmt = $pdo->prepare(
+    $stmt = Config::get_pdo()->prepare(
       'INSERT INTO medias (name, alt, path, size, type)
          VALUES (:name, :alt, :path, :size, :type)
          RETURNING id'

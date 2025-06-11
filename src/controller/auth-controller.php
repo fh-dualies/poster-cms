@@ -16,13 +16,6 @@ require_once __DIR__ . '/../lib/config.php';
 
 class AuthController
 {
-  private Config $config;
-
-  public function __construct(Config $config)
-  {
-    $this->config = $config;
-  }
-
   public function login(array $data): array
   {
     if (isset($_SESSION['user'])) {
@@ -41,7 +34,7 @@ class AuthController
     }
 
     try {
-      $stmt = $this->config->get_pdo()->prepare('SELECT * FROM users WHERE email = :email');
+      $stmt = Config::get_pdo()->prepare('SELECT * FROM users WHERE email = :email');
       $stmt->execute([':email' => $email]);
       $user = $stmt->fetch();
     } catch (PDOException $e) {
@@ -52,7 +45,14 @@ class AuthController
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Email or password invalid!');
     }
 
-    $_SESSION['user'] = $user;
+    $_SESSION['user'] = [
+      'id' => $user['id'],
+      'username' => $user['username'],
+      'email' => $user['email'],
+      'x' => $user['x'],
+      'truth_social' => $user['truth_social'],
+    ];
+
     redirect_to_page(FilePathEnum::HOME);
 
     return create_response(ResponseStatusEnum::SUCCESS, 'Login successful!');
@@ -85,9 +85,7 @@ class AuthController
     }
 
     try {
-      $stmt = $this->config
-        ->get_pdo()
-        ->prepare('SELECT COUNT(*) FROM users WHERE email = :email OR username = :username');
+      $stmt = Config::get_pdo()->prepare('SELECT COUNT(*) FROM users WHERE email = :email OR username = :username');
       $stmt->execute([
         ':email' => $email,
         ':username' => $username,
@@ -108,9 +106,9 @@ class AuthController
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
     try {
-      $stmt = $this->config
-        ->get_pdo()
-        ->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
+      $stmt = Config::get_pdo()->prepare(
+        'INSERT INTO users (username, email, password) VALUES (:username, :email, :password)'
+      );
       $stmt->execute([
         ':username' => $username,
         ':email' => $email,

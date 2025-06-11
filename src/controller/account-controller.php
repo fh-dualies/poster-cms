@@ -16,13 +16,6 @@ require_once __DIR__ . '/../lib/config.php';
 
 class AccountController
 {
-  private Config $config;
-
-  public function __construct(Config $config)
-  {
-    $this->config = $config;
-  }
-
   public function update_account(array $data): array
   {
     check_auth_status();
@@ -52,7 +45,7 @@ class AccountController
 
     if ($username !== $current_username) {
       try {
-        $stmt = $this->config->get_pdo()->prepare('SELECT COUNT(*) FROM users WHERE username = :username');
+        $stmt = Config::get_pdo()->prepare('SELECT COUNT(*) FROM users WHERE username = :username');
         $stmt->execute([':username' => $username]);
         $count = (int) $stmt->fetchColumn();
 
@@ -68,7 +61,7 @@ class AccountController
     }
 
     try {
-      $stmt = $this->config->get_pdo()->prepare(
+      $stmt = Config::get_pdo()->prepare(
         'UPDATE users
                  SET username = :username,
                      x = :x_handle,
@@ -112,7 +105,7 @@ class AccountController
     }
 
     try {
-      $stmt = $this->config->get_pdo()->prepare('DELETE FROM users WHERE id = :id');
+      $stmt = Config::get_pdo()->prepare('DELETE FROM users WHERE id = :id');
       $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
 
       if (!$stmt->execute()) {

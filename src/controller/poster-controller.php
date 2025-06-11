@@ -17,18 +17,12 @@ require_once __DIR__ . '/../lib/config.php';
 
 class PosterController
 {
-  private Config $config;
-
-  public function __construct(Config $config)
-  {
-    $this->config = $config;
-  }
-
   public function get_all(): array
   {
     check_auth_status();
 
-    $pdo = $this->config->get_pdo();
+    $pdo = Config::get_pdo();
+
     $posterStmt = $pdo->prepare('SELECT id, user_id, author, creation_date, headline, meta_data FROM posters');
     $mediaStmt = $pdo->prepare(
       'SELECT m.id AS media_id, m.type AS media_type, m.path AS media_path, m.alt AS media_alt
@@ -110,7 +104,7 @@ class PosterController
         ';
 
     try {
-      $stmt = $this->config->get_pdo()->prepare($query);
+      $stmt = Config::get_pdo()->prepare($query);
       $stmt->execute([':id' => $id]);
       $rows = $stmt->fetchAll();
     } catch (PDOException $e) {
@@ -185,7 +179,7 @@ class PosterController
       );
     }
 
-    $pdo = $this->config->get_pdo();
+    $pdo = Config::get_pdo();
 
     try {
       $pdo->beginTransaction();
@@ -222,7 +216,7 @@ class PosterController
 
         if (is_array($sec_file) && $sec_file['error'] === UPLOAD_ERR_OK) {
           try {
-            $media_id = MediaController::save_media_file($sec_file, $this->config->get_pdo());
+            $media_id = MediaController::save_media_file($sec_file);
           } catch (InvalidArgumentException $e) {
             $pdo->rollBack();
             return create_response(ResponseStatusEnum::BAD_REQUEST, $e->getMessage());
@@ -286,7 +280,7 @@ class PosterController
       );
     }
 
-    $pdo = $this->config->get_pdo();
+    $pdo = Config::get_pdo();
 
     try {
       $pdo->beginTransaction();
@@ -344,7 +338,7 @@ class PosterController
 
         if (is_array($sec_file) && $sec_file['error'] === UPLOAD_ERR_OK) {
           try {
-            $media_id = MediaController::save_media_file($sec_file, $this->config->get_pdo());
+            $media_id = MediaController::save_media_file($sec_file);
           } catch (InvalidArgumentException $e) {
             $pdo->rollBack();
             return create_response(ResponseStatusEnum::BAD_REQUEST, $e->getMessage());
@@ -400,7 +394,7 @@ class PosterController
     $poster_id = (int) $poster_id;
 
     try {
-      $stmt = $this->config->get_pdo()->prepare('DELETE FROM posters WHERE id = :id');
+      $stmt = Config::get_pdo()->prepare('DELETE FROM posters WHERE id = :id');
       $stmt->execute([
         ':id' => $poster_id,
       ]);

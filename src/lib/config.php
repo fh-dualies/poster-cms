@@ -2,19 +2,17 @@
 
 class Config
 {
-  protected string $db_host;
-  protected string $db_port;
-  protected string $db_user;
-  protected string $db_pass;
-  protected string $db_name;
-
-  public function __construct()
+  public static function get_pdo(): PDO
   {
-    $this->db_host = getenv('DB_HOST') ?: 'localhost';
-    $this->db_port = getenv('DB_PORT') ?: '5432';
-    $this->db_user = getenv('DB_USER') ?: 'admin';
-    $this->db_pass = getenv('DB_PASS') ?: 'admin';
-    $this->db_name = getenv('DB_NAME') ?: 'www';
+    $db_host = getenv('DB_HOST') ?: 'localhost';
+    $db_port = getenv('DB_PORT') ?: '5432';
+    $db_user = getenv('DB_USER') ?: 'admin';
+    $db_pass = getenv('DB_PASS') ?: 'admin';
+    $db_name = getenv('DB_NAME') ?: 'www';
+
+    $dsn = "pgsql:host={$db_host};port={$db_port};dbname={$db_name}";
+
+    return new PDO($dsn, $db_user, $db_pass);
   }
 
   public static function get_allowed_file_types(): array
@@ -35,12 +33,5 @@ class Config
   public static function get_cache_ttl(): int
   {
     return 120; // seconds
-  }
-
-  public function get_pdo(): PDO
-  {
-    $dsn = "pgsql:host=$this->db_host;port=$this->db_port;dbname=$this->db_name";
-
-    return new PDO($dsn, $this->db_user, $this->db_pass);
   }
 }

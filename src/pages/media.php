@@ -54,7 +54,7 @@ if (
         <button id="uploadButton" type="submit" name="create_media" disabled>Upload</button>
 
         <p id="fileName" class="file-name"></p>
-        <p>Supported formats: jpg, png, gif, webp</p>
+        <p>Supported formats: jpg, png, gif, svg, webp</p>
       </div>
     </form>
   </section>

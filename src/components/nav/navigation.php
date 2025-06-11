@@ -24,8 +24,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <form class="unset <?php if (isset($_SESSION['user'])) {
       echo 'hidden';
     } ?>" method="POST" action="<?php echo FilePathEnum::get_sys_path('api/post.php'); ?>">
-      <button type="submit" name="redirect" value="<?php echo FilePathEnum::LOGIN->get_path(); ?>" class="ghost">Login
-      </button>
+      <a href="<?php echo FilePathEnum::get_sys_path('pages/login.php'); ?>" class="button secondary ghost">Login</a>
     </form>
     <form class="unset <?php if (!isset($_SESSION['user'])) {
       echo 'hidden';

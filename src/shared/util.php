@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/response-status-enum.php';
 require_once __DIR__ . '/file-path-enum.php';
+require_once __DIR__ . '/../lib/config.php';
 
 function check_auth_status(): void
 {
@@ -16,7 +17,30 @@ function check_auth_status(): void
 
   $user = $_SESSION['user'];
 
-  if (!isset($user['id']) || !isset($user['username']) || !isset($user['email'])) {
+  if (!isset($user['id'], $user['username'], $user['email'])) {
+    redirect_to_page(FilePathEnum::LOGIN);
+    exit();
+  }
+
+  $cacheKey = 'auth_valid_' . $user['id'];
+  $cached = $_SESSION[$cacheKey] ?? null;
+
+  if ($cached && time() - $cached['timestamp'] < Config::get_cache_ttl()) {
+    return;
+  }
+
+  try {
+    $stmt = Config::get_pdo()->prepare('SELECT COUNT(*) FROM users WHERE id = :id');
+    $stmt->execute([':id' => $user['id']]);
+    $count = (int) $stmt->fetchColumn();
+
+    if ($count === 0) {
+      redirect_to_page(FilePathEnum::LOGIN);
+      exit();
+    }
+
+    $_SESSION[$cacheKey] = ['timestamp' => time()];
+  } catch (Exception $e) {
     redirect_to_page(FilePathEnum::LOGIN);
     exit();
   }
