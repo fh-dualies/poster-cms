@@ -32,6 +32,11 @@ class Config
     return __DIR__ . '/../static/_uploads/';
   }
 
+  public static function get_cache_ttl(): int
+  {
+    return 120; // seconds
+  }
+
   public function get_pdo(): PDO
   {
     $dsn = "pgsql:host=$this->db_host;port=$this->db_port;dbname=$this->db_name";

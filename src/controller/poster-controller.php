@@ -276,9 +276,6 @@ class PosterController
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'An error occurred while creating the poster.');
     }
 
-    // Invalidate cache
-    $_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()] = [];
-
     return create_response(ResponseStatusEnum::SUCCESS, 'Poster created successfully.');
   }
 
@@ -450,9 +447,6 @@ class PosterController
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'An error occurred while updating the poster.');
     }
 
-    // Invalidate cache
-    $_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()] = [];
-
     return create_response(ResponseStatusEnum::SUCCESS, 'Poster updated successfully.');
   }
 
@@ -480,9 +474,6 @@ class PosterController
     } catch (PDOException $e) {
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to delete poster.');
     }
-
-    // Invalidate cache
-    $_SESSION[RouteEnum::GET_ALL_POSTERS->get_cache_key()] = [];
 
     return create_response(ResponseStatusEnum::SUCCESS, 'Poster deleted successfully.');
   }

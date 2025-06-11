@@ -69,9 +69,6 @@ class MediaController
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'An unexpected error occurred while deleting media.');
     }
 
-    // Invalidate cache
-    $_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()] = [];
-
     return create_response(ResponseStatusEnum::SUCCESS, 'Media deleted successfully.');
   }
 
@@ -138,9 +135,6 @@ class MediaController
     } catch (PDOException $e) {
       return create_response(ResponseStatusEnum::SERVER_ERROR, 'An error occurred while saving the media.');
     }
-
-    // Invalidate cache
-    $_SESSION[RouteEnum::GET_ALL_MEDIA->get_cache_key()] = [];
 
     return create_response(ResponseStatusEnum::SUCCESS, 'Media saved.');
   }

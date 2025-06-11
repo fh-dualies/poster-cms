@@ -20,11 +20,6 @@ require_once __DIR__ . '/../controller/poster-controller.php';
 
 check_user_agent();
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  redirect_to_page(FilePathEnum::NOT_FOUND);
-  exit();
-}
-
 $config = new Config();
 $auth_controller = new AuthController($config);
 $account_controller = new AccountController($config);
@@ -56,10 +51,14 @@ $handlers = [
   },
   'create_media' => function ($param) use ($media_controller) {
     $response = $media_controller->create_media($_FILES);
+
+    invalidate_cache([RouteEnum::GET_ALL_MEDIA]);
     redirect_to_page(FilePathEnum::MEDIA, $response, true);
   },
   'delete_media' => function ($param) use ($media_controller) {
     $response = $media_controller->delete_by_id($param);
+
+    invalidate_cache([RouteEnum::GET_ALL_MEDIA]);
     redirect_to_page(FilePathEnum::MEDIA, $response, true);
   },
   'delete_account' => function ($param) use ($account_controller, $auth_controller) {
@@ -75,6 +74,8 @@ $handlers = [
   'create_poster' => function ($param) use ($poster_controller) {
     $response = $poster_controller->create_poster($param);
 
+    invalidate_cache([RouteEnum::GET_ALL_POSTERS, RouteEnum::GET_POSTER_DETAIL]);
+
     if ($response['is_error']) {
       redirect_to_page(FilePathEnum::CREATE, $response);
     } else {
@@ -83,10 +84,14 @@ $handlers = [
   },
   'update_poster' => function ($param) use ($poster_controller) {
     $response = $poster_controller->update_poster($param);
+
+    invalidate_cache([RouteEnum::GET_ALL_POSTERS, RouteEnum::GET_POSTER_DETAIL]);
     redirect_to_page(FilePathEnum::HOME, $response, true);
   },
   'delete_poster' => function ($param) use ($poster_controller) {
     $response = $poster_controller->delete_by_id($param);
+
+    invalidate_cache([RouteEnum::GET_ALL_POSTERS, RouteEnum::GET_POSTER_DETAIL]);
     redirect_to_page(FilePathEnum::HOME, $response, true);
   },
   'logout' => function ($param) use ($auth_controller) {
@@ -94,6 +99,17 @@ $handlers = [
     redirect_to_page(FilePathEnum::LOGIN);
   },
 ];
+
+function invalidate_cache(array $routes): void
+{
+  foreach ($routes as $route) {
+    $key = $route->get_cache_key();
+
+    if (isset($_SESSION[$key])) {
+      unset($_SESSION[$key]);
+    }
+  }
+}
 
 function handle_post_request(): void
 {

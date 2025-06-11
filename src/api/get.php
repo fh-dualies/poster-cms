@@ -44,9 +44,17 @@ function register_data(RouteEnum $route, mixed $param = null): void
   }
 
   $cache_key = $route->get_cache_key();
+  $timestamp_key = $cache_key . '_ts';
 
-  if ($param === null && !empty($_SESSION[$cache_key])) {
-    return;
+  if ($param === null) {
+    if (
+      isset($_SESSION[$cache_key], $_SESSION[$timestamp_key]) &&
+      time() - $_SESSION[$timestamp_key] < Config::get_cache_ttl()
+    ) {
+      return;
+    }
+
+    unset($_SESSION[$cache_key], $_SESSION[$timestamp_key]);
   }
 
   try {
@@ -58,6 +66,7 @@ function register_data(RouteEnum $route, mixed $param = null): void
     }
 
     $_SESSION[$cache_key] = $result;
+    $_SESSION[$timestamp_key] = time();
   } catch (PDOException | Exception $e) {
     redirect_to_page(FilePathEnum::NOT_FOUND);
     log_error($e);
