@@ -72,9 +72,9 @@ $handlers = [
     }
   },
   'create_poster' => function ($param) use ($poster_controller) {
-    $response = $poster_controller->create_poster($param);
+    $response = $poster_controller->create_poster($param, $_FILES);
 
-    invalidate_cache([RouteEnum::GET_ALL_POSTERS, RouteEnum::GET_POSTER_DETAIL]);
+    invalidate_cache([RouteEnum::GET_ALL_POSTERS, RouteEnum::GET_POSTER_DETAIL, RouteEnum::GET_ALL_MEDIA]);
 
     if ($response['is_error']) {
       redirect_to_page(FilePathEnum::CREATE, $response);
@@ -83,9 +83,9 @@ $handlers = [
     }
   },
   'update_poster' => function ($param) use ($poster_controller) {
-    $response = $poster_controller->update_poster($param);
+    $response = $poster_controller->update_poster($param, $_FILES);
 
-    invalidate_cache([RouteEnum::GET_ALL_POSTERS, RouteEnum::GET_POSTER_DETAIL]);
+    invalidate_cache([RouteEnum::GET_ALL_POSTERS, RouteEnum::GET_POSTER_DETAIL, RouteEnum::GET_ALL_MEDIA]);
     redirect_to_page(FilePathEnum::HOME, $response, true);
   },
   'delete_poster' => function ($param) use ($poster_controller) {

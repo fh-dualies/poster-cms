@@ -3,9 +3,11 @@
 namespace controller;
 
 use Config;
+use InvalidArgumentException;
 use PDO;
 use PDOException;
 use ResponseStatusEnum;
+use RuntimeException;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';
@@ -77,12 +79,55 @@ class MediaController
 
     $file = $data['file'] ?? null;
 
-    if (!$file || !isset($file['name'], $file['tmp_name'], $file['type'], $file['error'])) {
+    if (!$file) {
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'File is required.');
     }
 
+    try {
+      self::save_media_file($file, $this->config->get_pdo());
+
+      return create_response(ResponseStatusEnum::SUCCESS, 'Media saved.');
+    } catch (InvalidArgumentException $e) {
+      return create_response(ResponseStatusEnum::BAD_REQUEST, $e->getMessage());
+    } catch (RuntimeException | PDOException $e) {
+      return create_response(ResponseStatusEnum::SERVER_ERROR, $e->getMessage());
+    }
+  }
+
+  public static function save_media_file(array $file, PDO $pdo): int
+  {
+    $fileInfo = self::validate_and_store_file($file);
+
+    $stmt = $pdo->prepare(
+      'INSERT INTO medias (name, alt, path, size, type)
+         VALUES (:name, :alt, :path, :size, :type)
+         RETURNING id'
+    );
+    $stmt->execute([
+      ':name' => $fileInfo['name'],
+      ':alt' => $fileInfo['name'] . ' (uploaded)',
+      ':path' => $fileInfo['path'],
+      ':size' => $fileInfo['size'],
+      ':type' => $fileInfo['type'],
+    ]);
+
+    $newId = $stmt->fetchColumn();
+
+    if (!$newId) {
+      throw new RuntimeException('Failed to save media.');
+    }
+
+    return (int) $newId;
+  }
+
+  private static function validate_and_store_file(array $file): array
+  {
+    if (!isset($file['name'], $file['tmp_name'], $file['type'], $file['error'])) {
+      throw new InvalidArgumentException('File data is incomplete.');
+    }
+
     if ($file['error'] !== UPLOAD_ERR_OK) {
-      return create_response(ResponseStatusEnum::BAD_REQUEST, 'File upload error.');
+      throw new InvalidArgumentException('File upload error.');
     }
 
     $file_name = htmlspecialchars(trim($file['name']));
@@ -91,50 +136,32 @@ class MediaController
     $file_type = $file['type'];
 
     if (!in_array($file_type, Config::get_allowed_file_types(), true)) {
-      return create_response(
-        ResponseStatusEnum::BAD_REQUEST,
-        'Invalid file type. Only JPEG, PNG, GIF, and WEBP are allowed.'
-      );
+      throw new InvalidArgumentException('Invalid file type. Only JPEG, PNG, GIF, SVG, and WEBP are allowed.');
     }
 
     if ($file_size > Config::get_max_file_size()) {
-      return create_response(ResponseStatusEnum::BAD_REQUEST, 'File size exceeds the maximum limit of 5MB.');
+      throw new InvalidArgumentException('File size exceeds the maximum limit of 5MB.');
     }
 
     $upload_dir = Config::get_upload_directory();
 
     if (!is_dir($upload_dir) && !mkdir($upload_dir, 0755, true)) {
-      return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to create upload directory.');
+      throw new RuntimeException('Failed to create upload directory.');
     }
 
     $absolute_path = $upload_dir . uniqid('', true) . '-' . basename($file_name);
 
     if (!move_uploaded_file($file_tmp, $absolute_path)) {
-      return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to move uploaded file.');
+      throw new RuntimeException('Failed to move uploaded file.');
     }
 
     $relative_path = substr($absolute_path, strpos($absolute_path, '_uploads'));
 
-    try {
-      $stmt = $this->config->get_pdo()->prepare(
-        'INSERT INTO medias (name, alt, path, size, type)
-                 VALUES (:name, :alt, :path, :size, :type)'
-      );
-      $stmt->execute([
-        ':name' => $file_name,
-        ':alt' => $file_name . ' (uploaded)',
-        ':path' => $relative_path,
-        ':size' => $file_size,
-        ':type' => $file_type,
-      ]);
-
-      if ($stmt->rowCount() === 0) {
-        return create_response(ResponseStatusEnum::SERVER_ERROR, 'Failed to save media.');
-      }
-    } catch (PDOException $e) {
-      return create_response(ResponseStatusEnum::SERVER_ERROR, 'An error occurred while saving the media.');
-    }
-
-    return create_response(ResponseStatusEnum::SUCCESS, 'Media saved.');
+    return [
+      'name' => $file_name,
+      'path' => $relative_path,
+      'size' => $file_size,
+      'type' => $file_type,
+    ];
   }
 }

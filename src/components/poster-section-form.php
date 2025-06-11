@@ -29,7 +29,11 @@ $imgAlt = htmlspecialchars($data['media']['alt'] ?? '');
 
   <div>
     <label for="<?php echo $prefix; ?>img">Image (Optional):</label>
-    <input type="file" id="<?php echo $prefix; ?>img" name="<?php echo $prefix; ?>img" />
+
+    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo Config::get_max_file_size(); ?>" />
+    <input id="<?php echo $prefix; ?>img" name="<?php echo $prefix; ?>img" type="file" accept="image/*" />
+
+
       <?php if (!empty($data['media']['path'])): ?>
         <p>Current image: <?php echo htmlspecialchars(basename($data['media']['path'])); ?></p>
         <img src="<?php echo FilePathEnum::get_sys_path('static/') . htmlspecialchars($data['media']['path']); ?>"

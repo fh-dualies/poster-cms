@@ -49,7 +49,7 @@ if ($poster_id !== null) {
     <h1>Poster Designer</h1>
   </header>
 
-  <form method="POST" action="<?php echo FilePathEnum::get_sys_path('api/post.php'); ?>">
+  <form method="POST" enctype="multipart/form-data" action="<?php echo FilePathEnum::get_sys_path('api/post.php'); ?>">
       <?php if (isset($poster_id)): ?>
         <input type="hidden" name="poster_id" value="<?php echo htmlspecialchars($poster_id); ?>">
       <?php endif; ?>

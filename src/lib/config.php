@@ -19,7 +19,7 @@ class Config
 
   public static function get_allowed_file_types(): array
   {
-    return ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    return ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
   }
 
   public static function get_max_file_size(): int
