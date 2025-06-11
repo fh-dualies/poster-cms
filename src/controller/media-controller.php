@@ -6,7 +6,6 @@ use Config;
 use PDO;
 use PDOException;
 use ResponseStatusEnum;
-use RouteEnum;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';

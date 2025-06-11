@@ -6,7 +6,6 @@ use Config;
 use PDO;
 use PDOException;
 use ResponseStatusEnum;
-use RouteEnum;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';
@@ -369,15 +368,15 @@ class PosterController
       $insert_section_stmt = $pdo->prepare($insert_section_sql);
 
       $update_section_sql = '
-                UPDATE sections
-                SET
-                    headline = :headline,
-                    text     = :text,
-                    media_id = :media_id
-                WHERE
-                    poster_id     = :poster_id
-                    AND section_index = :section_index
-            ';
+            UPDATE sections
+            SET
+                headline = :headline,
+                text     = :text,
+                media_id = COALESCE(:media_id, media_id)
+            WHERE
+                poster_id     = :poster_id
+                AND section_index = :section_index
+        ';
       $update_section_stmt = $pdo->prepare($update_section_sql);
 
       for ($i = 1; $i <= 3; $i++) {
