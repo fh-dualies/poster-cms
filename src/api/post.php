@@ -26,23 +26,89 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $config = new Config();
-
-$poster_controller = new PosterController($config);
 $auth_controller = new AuthController($config);
 $account_controller = new AccountController($config);
 $media_controller = new MediaController($config);
+$poster_controller = new PosterController($config);
 
-handle_post_request();
+$handlers = [
+  'login' => function ($param) use ($auth_controller) {
+    $response = $auth_controller->login($param);
+
+    if (!$response['is_error']) {
+      redirect_to_page(FilePathEnum::HOME, $response);
+    } else {
+      redirect_to_page(FilePathEnum::LOGIN, $response);
+    }
+  },
+  'register' => function ($param) use ($auth_controller) {
+    $response = $auth_controller->register($param);
+
+    if (!$response['is_error']) {
+      redirect_to_page(FilePathEnum::LOGIN, $response);
+    } else {
+      redirect_to_page(FilePathEnum::REGISTER, $response);
+    }
+  },
+  'update_account' => function ($param) use ($account_controller) {
+    $response = $account_controller->update_account($param);
+    redirect_to_page(FilePathEnum::ACCOUNT, $response, true);
+  },
+  'create_media' => function ($param) use ($media_controller) {
+    $response = $media_controller->create_media($_FILES);
+    redirect_to_page(FilePathEnum::MEDIA, $response, true);
+  },
+  'delete_media' => function ($param) use ($media_controller) {
+    $response = $media_controller->delete_by_id($param);
+    redirect_to_page(FilePathEnum::MEDIA, $response, true);
+  },
+  'delete_account' => function ($param) use ($account_controller, $auth_controller) {
+    $response = $account_controller->delete_account();
+
+    if ($response['is_error']) {
+      redirect_to_page(FilePathEnum::ACCOUNT, $response);
+    } else {
+      $auth_controller->logout();
+      redirect_to_page(FilePathEnum::LOGIN, $response);
+    }
+  },
+  'create_poster' => function ($param) use ($poster_controller) {
+    $response = $poster_controller->create_poster($param);
+
+    if ($response['is_error']) {
+      redirect_to_page(FilePathEnum::CREATE, $response);
+    } else {
+      redirect_to_page(FilePathEnum::HOME, $response, true);
+    }
+  },
+  'update_poster' => function ($param) use ($poster_controller) {
+    $response = $poster_controller->update_poster($param);
+    redirect_to_page(FilePathEnum::HOME, $response, true);
+  },
+  'delete_poster' => function ($param) use ($poster_controller) {
+    $response = $poster_controller->delete_by_id($param);
+    redirect_to_page(FilePathEnum::HOME, $response, true);
+  },
+  'logout' => function ($param) use ($auth_controller) {
+    $auth_controller->logout();
+    redirect_to_page(FilePathEnum::LOGIN);
+  },
+];
 
 function handle_post_request(): void
 {
-  $routes = RouteEnum::get_post_routes();
+  global $handlers;
 
   error_log(print_r($_POST, true), 3, __DIR__ . '/../my-debug.log');
 
-  foreach ($routes as $route) {
-    if (isset($_POST[$route])) {
-      execute_function($route, $_POST[$route]);
+  foreach ($handlers as $action => $callback) {
+    if (isset($_POST[$action])) {
+      try {
+        $callback($_POST);
+      } catch (Throwable $e) {
+        log_error($e);
+      }
+
       return;
     }
   }
@@ -50,121 +116,4 @@ function handle_post_request(): void
   redirect_to_page(FilePathEnum::NOT_FOUND);
 }
 
-function execute_function(string $action, $param): void
-{
-  try {
-    $action($param);
-  } catch (Throwable $e) {
-    log_error($e);
-  }
-}
-
-function redirect(string $path): void
-{
-  header("Location: $path");
-  exit();
-}
-
-function login(): void
-{
-  global $auth_controller;
-
-  $response = $auth_controller->login($_POST);
-
-  if (!$response['is_error']) {
-    redirect_to_page(FilePathEnum::HOME, $response);
-    return;
-  }
-
-  redirect_to_page(FilePathEnum::LOGIN, $response);
-}
-
-function register(): void
-{
-  global $auth_controller;
-
-  $response = $auth_controller->register($_POST);
-
-  if (!$response['is_error']) {
-    redirect_to_page(FilePathEnum::LOGIN, $response);
-    return;
-  }
-
-  redirect_to_page(FilePathEnum::REGISTER, $response);
-}
-
-function update_account(): void
-{
-  global $account_controller;
-
-  $response = $account_controller->update_account($_POST);
-  redirect_to_page(FilePathEnum::ACCOUNT, $response, true);
-}
-
-function create_media(): void
-{
-  global $media_controller;
-
-  $response = $media_controller->create_media($_FILES);
-  redirect_to_page(FilePathEnum::MEDIA, $response, true);
-}
-
-function delete_media(): void
-{
-  global $media_controller;
-
-  $response = $media_controller->delete_by_id($_POST);
-  redirect_to_page(FilePathEnum::MEDIA, $response, true);
-}
-
-function delete_account(): void
-{
-  global $account_controller, $auth_controller;
-
-  $response = $account_controller->delete_account();
-
-  if ($response['is_error']) {
-    redirect_to_page(FilePathEnum::ACCOUNT, $response);
-    return;
-  }
-
-  $auth_controller->logout();
-  redirect_to_page(FilePathEnum::LOGIN, $response);
-}
-
-function create_poster(): void
-{
-  global $poster_controller;
-
-  $response = $poster_controller->create_poster($_POST);
-
-  if ($response['is_error']) {
-    redirect_to_page(FilePathEnum::CREATE, $response);
-    return;
-  }
-
-  redirect_to_page(FilePathEnum::HOME, $response, true);
-}
-
-function update_poster(): void
-{
-  global $poster_controller;
-
-  $response = $poster_controller->update_poster($_POST);
-  redirect_to_page(FilePathEnum::HOME, $response, true);
-}
-
-function delete_poster(): void
-{
-  global $poster_controller;
-
-  $response = $poster_controller->delete_by_id($_POST);
-  redirect_to_page(FilePathEnum::HOME, $response, true);
-}
-
-function logout(): void
-{
-  global $auth_controller;
-
-  $auth_controller->logout();
-}
+handle_post_request();
