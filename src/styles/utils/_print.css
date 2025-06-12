@@ -12,6 +12,11 @@
   }
 
   body {
-    background-color: white;
+    background: none !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  #print-btn {
+    display: none;
   }
 }

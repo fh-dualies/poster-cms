@@ -7,9 +7,6 @@ use FilePathEnum;
 use PDOException;
 use RegexEnum;
 use ResponseStatusEnum;
-use function error_log;
-use function print_r;
-use function session_destroy;
 
 require_once __DIR__ . '/../shared/file-path-enum.php';
 require_once __DIR__ . '/../shared/regex-enum.php';

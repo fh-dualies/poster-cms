@@ -6,7 +6,7 @@ if (!isset($headline) || !isset($text) || !isset($image) || !isset($alt)) {
 <section>
   <h3><?php echo $headline; ?></h3>
   <div class="content">
-    <p class="content">
+    <p>
         <?php echo $text; ?>
     </p>
       <?php include_with_prop(__DIR__ . '/lazy-image.php', [
