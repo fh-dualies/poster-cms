@@ -7,9 +7,11 @@ if (!isset($src, $alt)) {
 $placeholder = FilePathEnum::get_sys_path('/static/images/placeholder.png');
 
 $classes = ['lazy'];
+
 if (isset($class)) {
   $classes[] = $class;
 }
+
 $imgClass = implode(' ', $classes);
 ?>
 
@@ -21,12 +23,14 @@ $imgClass = implode(' ', $classes);
 />
 
 <script>
-  (function() {
+  (() => {
     const lazyImages = document.querySelectorAll('img.lazy');
 
     function loadImage(img) {
-      img.src = img.dataset.src;
-      img.classList.remove('lazy');
+      setTimeout(() => {
+        img.src = img.dataset.src;
+        img.classList.remove('lazy');
+      }, 1000);
     }
 
     if ('IntersectionObserver' in window) {
