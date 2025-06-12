@@ -14,11 +14,8 @@ require_once __DIR__ . '/../lib/config.php';
 require_once __DIR__ . '/../controller/poster-controller.php';
 require_once __DIR__ . '/../controller/media-controller.php';
 
-check_user_agent();
-
-$config = new Config();
-$media_controller = new MediaController($config);
-$poster_controller = new PosterController($config);
+$media_controller = new MediaController();
+$poster_controller = new PosterController();
 
 $handlers = [
   'get_all_posters' => function ($param) use ($poster_controller) {

@@ -18,13 +18,10 @@ require_once __DIR__ . '/../controller/account-controller.php';
 require_once __DIR__ . '/../controller/media-controller.php';
 require_once __DIR__ . '/../controller/poster-controller.php';
 
-check_user_agent();
-
-$config = new Config();
-$auth_controller = new AuthController($config);
-$account_controller = new AccountController($config);
-$media_controller = new MediaController($config);
-$poster_controller = new PosterController($config);
+$auth_controller = new AuthController();
+$account_controller = new AccountController();
+$media_controller = new MediaController();
+$poster_controller = new PosterController();
 
 $handlers = [
   'login' => function ($param) use ($auth_controller) {
@@ -47,21 +44,21 @@ $handlers = [
   },
   'update_account' => function ($param) use ($account_controller) {
     $response = $account_controller->update_account($param);
-    redirect_to_page(FilePathEnum::ACCOUNT, $response, true);
+    redirect_to_page(FilePathEnum::ACCOUNT, $response);
   },
-  'create_media' => function ($param) use ($media_controller) {
+  'create_media' => function () use ($media_controller) {
     $response = $media_controller->create_media($_FILES);
 
     invalidate_cache([RouteEnum::GET_ALL_MEDIA]);
-    redirect_to_page(FilePathEnum::MEDIA, $response, true);
+    redirect_to_page(FilePathEnum::MEDIA, $response);
   },
   'delete_media' => function ($param) use ($media_controller) {
     $response = $media_controller->delete_by_id($param);
 
     invalidate_cache([RouteEnum::GET_ALL_MEDIA]);
-    redirect_to_page(FilePathEnum::MEDIA, $response, true);
+    redirect_to_page(FilePathEnum::MEDIA, $response);
   },
-  'delete_account' => function ($param) use ($account_controller, $auth_controller) {
+  'delete_account' => function () use ($account_controller, $auth_controller) {
     $response = $account_controller->delete_account();
 
     if ($response['is_error']) {
@@ -79,22 +76,22 @@ $handlers = [
     if ($response['is_error']) {
       redirect_to_page(FilePathEnum::CREATE, $response);
     } else {
-      redirect_to_page(FilePathEnum::HOME, $response, true);
+      redirect_to_page(FilePathEnum::HOME, $response);
     }
   },
   'update_poster' => function ($param) use ($poster_controller) {
     $response = $poster_controller->update_poster($param, $_FILES);
 
     invalidate_cache([RouteEnum::GET_ALL_POSTERS, RouteEnum::GET_POSTER_DETAIL, RouteEnum::GET_ALL_MEDIA]);
-    redirect_to_page(FilePathEnum::HOME, $response, true);
+    redirect_to_page(FilePathEnum::HOME, $response);
   },
   'delete_poster' => function ($param) use ($poster_controller) {
     $response = $poster_controller->delete_by_id($param);
 
     invalidate_cache([RouteEnum::GET_ALL_POSTERS, RouteEnum::GET_POSTER_DETAIL]);
-    redirect_to_page(FilePathEnum::HOME, $response, true);
+    redirect_to_page(FilePathEnum::HOME, $response);
   },
-  'logout' => function ($param) use ($auth_controller) {
+  'logout' => function () use ($auth_controller) {
     $auth_controller->logout();
     redirect_to_page(FilePathEnum::LOGIN);
   },

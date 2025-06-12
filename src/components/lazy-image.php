@@ -33,19 +33,20 @@ $imgClass = implode(' ', $classes);
       }, 1000);
     }
 
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            loadImage(entry.target);
-            obs.unobserve(entry.target);
-          }
-        });
-      });
-
-      lazyImages.forEach(img => observer.observe(img));
-    } else {
+    if (!('IntersectionObserver' in window)) {
       lazyImages.forEach(loadImage);
+      return;
     }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadImage(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    });
+
+    lazyImages.forEach(img => observer.observe(img));
   })();
 </script>
