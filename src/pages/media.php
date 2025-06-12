@@ -47,7 +47,7 @@ if (
         <p>or</p>
 
         <label class="button ghost">
-          <input id="fileInput" name="file" type="file" accept="image/*" />
+          <input id="fileInput" name="file" type="file" accept="image/*" required />
           <span>Browse Files</span>
         </label>
 

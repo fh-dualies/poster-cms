@@ -25,14 +25,14 @@ check_auth_status();
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" value="<?php echo htmlspecialchars(
         $_SESSION['user']['username']
-      ); ?>" />
+      ); ?>" required />
     </div>
 
     <div>
       <label for="email">Email:</label>
       <input disabled type="email" id="email" name="email" value="<?php echo htmlspecialchars(
         $_SESSION['user']['email']
-      ); ?>" />
+      ); ?>" required />
     </div>
 
     <div>

@@ -50,6 +50,8 @@ $poster = $_SESSION[RouteEnum::GET_POSTER_DETAIL->get_cache_key()];
   <footer class="page-footer"><?php echo htmlspecialchars($poster['meta_data']); ?></footer>
 </main>
 
+<a href="javascript:window.print()" id="print-btn" class="button">Print</a>
+
 <script src="../../shared/js/draggable.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {

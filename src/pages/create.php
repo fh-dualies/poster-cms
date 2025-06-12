@@ -61,6 +61,7 @@ if ($poster_id !== null) {
         name="poster-author"
         placeholder="Enter author name"
         value="<?php echo htmlspecialchars($poster['author'] ?? ''); ?>"
+        required
       />
     </div>
 
@@ -71,6 +72,7 @@ if ($poster_id !== null) {
         id="poster-date"
         name="poster-date"
         value="<?php echo htmlspecialchars($poster['creation_date'] ?? ''); ?>"
+        required
       />
     </div>
 
@@ -81,6 +83,7 @@ if ($poster_id !== null) {
         id="headline"
         name="headline"
         value="<?php echo htmlspecialchars($poster['headline'] ?? ''); ?>"
+        required
       />
     </div>
 

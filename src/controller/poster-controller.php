@@ -391,8 +391,6 @@ class PosterController
       return create_response(ResponseStatusEnum::BAD_REQUEST, 'Invalid poster ID.');
     }
 
-    $poster_id = (int) $poster_id;
-
     try {
       $stmt = Config::get_pdo()->prepare('DELETE FROM posters WHERE id = :id');
       $stmt->execute([

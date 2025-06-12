@@ -16,12 +16,12 @@ require_once __DIR__ . '/../shared/util.php'; ?>
 
       <div>
         <label for="username">Name:</label>
-        <input type="text" id="username" name="username" placeholder="john doe" />
+        <input type="text" id="username" name="username" placeholder="john doe" required />
       </div>
 
       <div>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="example@mydomain.com" />
+        <input type="email" id="email" name="email" placeholder="example@mydomain.com" required />
       </div>
 
       <div>
@@ -31,6 +31,7 @@ require_once __DIR__ . '/../shared/util.php'; ?>
           id="password"
           name="password"
           placeholder="***********"
+          required
         />
       </div>
 

@@ -15,6 +15,11 @@ class Config
     return new PDO($dsn, $db_user, $db_pass);
   }
 
+  public static function get_base_path(): string
+  {
+    return '/ss25-www1/';
+  }
+
   public static function get_allowed_file_types(): array
   {
     return ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];

@@ -27,10 +27,8 @@ $imgClass = implode(' ', $classes);
     const lazyImages = document.querySelectorAll('img.lazy');
 
     function loadImage(img) {
-      setTimeout(() => {
-        img.src = img.dataset.src;
-        img.classList.remove('lazy');
-      }, 1000);
+      img.src = img.dataset.src;
+      img.classList.remove('lazy');
     }
 
     if (!('IntersectionObserver' in window)) {

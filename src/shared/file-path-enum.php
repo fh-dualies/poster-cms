@@ -2,8 +2,6 @@
 
 enum FilePathEnum
 {
-  private const BASE_PATH = '/ss25-www1/';
-
   case HOME;
   case ACCOUNT;
   case POSTER;
@@ -33,6 +31,6 @@ enum FilePathEnum
 
   public static function get_sys_path(string $path = ''): string
   {
-    return self::BASE_PATH . $path;
+    return Config::get_base_path() . $path;
   }
 }
